@@ -35,6 +35,9 @@
 		D70B9AFB193F328200D6FA0B /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D70B9AEB193F328200D6FA0B /* TPCircularBuffer.c */; };
 		D70B9AFC193F328200D6FA0B /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = D70B9AEE193F328200D6FA0B /* CHANGELOG */; };
 		D70B9AFD193F328200D6FA0B /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = D70B9AEF193F328200D6FA0B /* VERSION */; };
+		D70B9AFF193F32F500D6FA0B /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */; };
+		D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B00193F331A00D6FA0B /* Security.framework */; };
+		D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B02193F332700D6FA0B /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +96,9 @@
 		D70B9AEC193F328200D6FA0B /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		D70B9AEE193F328200D6FA0B /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		D70B9AEF193F328200D6FA0B /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
+		D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
+		D70B9B00193F331A00D6FA0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D70B9B02193F332700D6FA0B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */,
+				D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */,
+				D70B9AFF193F32F500D6FA0B /* DropboxSDK.framework in Frameworks */,
 				D70B9A9E193F298400D6FA0B /* CoreGraphics.framework in Frameworks */,
 				D70B9AA0193F298400D6FA0B /* UIKit.framework in Frameworks */,
 				D70B9A9C193F298400D6FA0B /* Foundation.framework in Frameworks */,
@@ -142,6 +151,9 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D70B9B02193F332700D6FA0B /* QuartzCore.framework */,
+				D70B9B00193F331A00D6FA0B /* Security.framework */,
+				D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */,
 				D70B9A9B193F298400D6FA0B /* Foundation.framework */,
 				D70B9A9D193F298400D6FA0B /* CoreGraphics.framework */,
 				D70B9A9F193F298400D6FA0B /* UIKit.framework */,
@@ -473,6 +485,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudElectronicsTest/VaavudElectronicsTest-Prefix.pch";
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
@@ -486,6 +502,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudElectronicsTest/VaavudElectronicsTest-Prefix.pch";
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
