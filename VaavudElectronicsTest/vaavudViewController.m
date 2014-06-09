@@ -8,13 +8,22 @@
 
 #import "vaavudViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
+#import "SoundProcessingAlgo.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 @interface vaavudViewController () <DBRestClientDelegate, EZMicrophoneDelegate, EZOutputDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *recordingTextField;
 @property (weak, nonatomic) IBOutlet UILabel *microphoneTextField;
 @property (weak, nonatomic) IBOutlet UILabel *outputTextField;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UISwitch *recordingSwitch;
 @property (nonatomic, strong) DBRestClient *restClient;
 @property (nonatomic, assign) BOOL isRecording;
+@property (nonatomic, strong) NSMutableArray *intArray;
+@property (nonatomic, strong) SoundProcessingAlgo *soundProcessor;
 @end
 
 @implementation vaavudViewController
@@ -22,10 +31,16 @@
 @synthesize recorder;
 @synthesize microphone;
 @synthesize isRecording;
+@synthesize recordingSwitch;
+@synthesize activityIndicator;
+@synthesize soundProcessor;
 
 double theta;
 double theta_increment;
 double amplitude;
+
+int *intArray;
+float *arrayLeft;
 
 
 - (void)viewDidLoad
@@ -39,6 +54,7 @@ double amplitude;
     // Create an instance of the microphone and tell it to use this view controller instance as the delegate
     self.microphone = [EZMicrophone microphoneWithDelegate:self];
     
+    self.soundProcessor = [[SoundProcessingAlgo alloc] init];
     
     /*
      Customizing the audio plot's look
@@ -52,7 +68,7 @@ double amplitude;
     // Fill
     self.audioPlot.shouldFill      = NO;
     // Mirror
-    self.audioPlot.shouldMirror    = YES;
+    self.audioPlot.shouldMirror    = NO;
     
     /*
      Start the microphone
@@ -68,6 +84,9 @@ double amplitude;
 //    self.playButton.hidden = YES;
     
     
+    activityIndicator.hidesWhenStopped = true;
+    [activityIndicator stopAnimating];
+    
     
     /*
      Log out where the file is being written to within the app's documents directory
@@ -76,7 +95,7 @@ double amplitude;
     
     // output variables
     
-    double frequency = 10000;
+    double frequency = 14700;
     double samplerate = 44100;
     theta_increment = 2.0 * M_PI * frequency / samplerate;
     amplitude = 1;
@@ -86,6 +105,22 @@ double amplitude;
     // Assign a delegate to the shared instance of the output to provide the output audio data
     [EZOutput sharedOutput].outputDataSource = self;
     
+    size_t bytesPerSample = sizeof (AudioUnitSampleType);
+    AudioStreamBasicDescription stereoStreamFormat = {0};
+    
+    NSLog(@"bytes per sample: %zu", bytesPerSample);
+    
+    stereoStreamFormat.mFormatID          = kAudioFormatLinearPCM;
+//    stereoStreamFormat.mFormatFlags       = kAudioFormatFlagsAudioUnitCanonical;
+    stereoStreamFormat.mFormatFlags       = kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
+    stereoStreamFormat.mBytesPerPacket    = bytesPerSample;
+    stereoStreamFormat.mBytesPerFrame     = bytesPerSample;
+    stereoStreamFormat.mFramesPerPacket   = 1;
+    stereoStreamFormat.mBitsPerChannel    = 8 * bytesPerSample;
+    stereoStreamFormat.mChannelsPerFrame  = 2;           // 2 indicates stereo
+    stereoStreamFormat.mSampleRate        = 44100;
+    
+    [[EZOutput sharedOutput] setAudioStreamBasicDescription:stereoStreamFormat];
     
 }
 - (IBAction)toggleMicrophone:(id)sender {
@@ -111,11 +146,36 @@ double amplitude;
 withNumberOfChannels:(UInt32)numberOfChannels {
     // Getting audio data as an array of float buffer arrays. What does that mean? Because the audio is coming in as a stereo signal the data is split into a left and right channel. So buffer[0] corresponds to the float* data for the left channel while buffer[1] corresponds to the float* data for the right channel.
     
+    if (intArray == NULL) {
+        arrayLeft = buffer[0];
+        
+        intArray = malloc(sizeof(int) * bufferSize); /* allocate memory for 50 int's */
+        if (!intArray) { /* If data == 0 after the call to malloc, allocation failed for some reason */
+            perror("Error allocating memory");
+            abort();
+        }
+        /* at this point, we know that data points to a valid block of memory.
+         Remember, however, that this memory is not initialized in any way -- it contains garbage.
+         Let's start by clearing it. */
+        memset(intArray, 0, sizeof(int)*bufferSize);
+        /* now our array contains all zeroes. */
+    }
+
+    
+    for(int i = 0; i < bufferSize; ++i) {
+        intArray[i] = (int) (arrayLeft[i]*1000);
+    }
+    
+    [self.soundProcessor newSoundData:intArray bufferLength:bufferSize];
+    
+    
     // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
     dispatch_async(dispatch_get_main_queue(),^{
         // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
         [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
     });
+    
+    
 }
 
 
@@ -130,7 +190,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         [self.recorder appendDataFromBufferList:bufferList
                                  withBufferSize:bufferSize];
     }
-    
 }
 
 - (IBAction)toggleRecording:(id)sender {
@@ -188,9 +247,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
  shouldFillAudioBufferList:(AudioBufferList *)audioBufferList
         withNumberOfFrames:(UInt32)frames
 {
-//    for (int i = 0; i < audioBufferList->mNumberBuffers; i++) {
-//        audioBufferList->mBuffers[i]
-//    }
     
     
     // This is a mono tone generator so we only need the first buffer
@@ -204,7 +260,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 	for (UInt32 frame = 0; frame < frames; frame++)
 	{
 		bufferLeft[frame] = sin(theta) * amplitude;
-        bufferRight[frame] = cos(theta) * amplitude;
+        bufferRight[frame] = -sin(theta) * amplitude;
         
 		theta += theta_increment;
 		if (theta > 2.0 * M_PI)
@@ -212,48 +268,19 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 			theta -= 2.0 * M_PI;
 		}
 	}
-
-}
-
-
-/**
- DROPBOX
- */
-- (IBAction)didPressLink {
-    if (![[DBSession sharedSession] isLinked]) {
-        [[DBSession sharedSession] linkFromController:self];
-    }
-}
-
-- (IBAction)uploadFile {
-    // Write a file to the local documents directory
-    NSString *text = @"Hello world.";
-    NSString *filename = @"working-draft.txt";
-    NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *localPath = [localDir stringByAppendingPathComponent:filename];
-    [text writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
-    // Upload file to Dropbox
-    NSString *destDir = @"/";
-    [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:localPath];
-    NSLog(@"%@", localPath);
-}
+//    NSLog(@"left: %f", bufferLeft[frame]);
 
 
-- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
-              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
-    NSLog(@"File uploaded successfully to path: %@", metadata.path);
 }
 
-- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-    NSLog(@"File upload failed with error: %@", error);
-}
 
 - (IBAction)uploadAudioFile {
     // Upload file to Dropbox
     
     if (self.isRecording) {
         [self toggleRecording: NULL];
+        [recordingSwitch setOn: false];
     }
     
     NSDateFormatter *formatter;
@@ -261,7 +288,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     formatter = [[NSDateFormatter alloc] init];
 //    [formatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
-    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd'_'HH'-'mm'-'ss"];
     
     dateString = [formatter stringFromDate:[NSDate date]];
     
@@ -270,6 +297,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     NSString *filename = [dateString stringByAppendingString: @"_mic.wav"];
     NSString *destDir = @"/";
     [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:[[self testFilePathURL] path]];
+    
+    [activityIndicator startAnimating];
     
 }
 
@@ -288,6 +317,29 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",
                                    [self applicationDocumentsDirectory],
                                    kAudioFilePath]];
+}
+
+
+/**
+ DROPBOX
+ */
+- (IBAction)didPressLink {
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
+    }
+}
+
+
+- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
+              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+    [activityIndicator stopAnimating];
+    
+    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+}
+
+- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
+    NSLog(@"File upload failed with error: %@", error);
+    self.recordingTextField.text = @"File upload Error!";
 }
 
 @end

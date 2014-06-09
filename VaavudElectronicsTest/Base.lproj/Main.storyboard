@@ -17,23 +17,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C06-Xb-LgR">
-                                <rect key="frame" x="50" y="437" width="46" height="30"/>
+                                <rect key="frame" x="50" y="437" width="91" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Link">
+                                <state key="normal" title="Link dropbox">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressLink" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tni-B5-O5d"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9og-nK-V7r">
-                                <rect key="frame" x="50" y="376" width="106" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Upload TextFile">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="uploadFile" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RcC-bj-dZu"/>
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zOd-NL-Lfo">
@@ -91,13 +81,19 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ldP-e9-Tc8">
+                                <rect key="frame" x="174" y="412" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="ldP-e9-Tc8" id="FVT-Bl-KA6"/>
                         <outlet property="audioPlot" destination="yR4-jl-k2e" id="cfk-0S-NmO"/>
                         <outlet property="microphoneTextField" destination="Ld7-g4-aPq" id="L1c-Tp-SVs"/>
                         <outlet property="outputTextField" destination="rLz-QI-cv5" id="jiz-sT-EIL"/>
+                        <outlet property="recordingSwitch" destination="zOd-NL-Lfo" id="uXt-53-3Qt"/>
                         <outlet property="recordingTextField" destination="32r-1j-V7M" id="xyz-wn-DAt"/>
                     </connections>
                 </viewController>

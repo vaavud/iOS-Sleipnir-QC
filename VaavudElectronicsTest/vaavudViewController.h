@@ -12,6 +12,7 @@
 
 // By default this will record a file to the application's documents directory (within the application's sandbox)
 #define kAudioFilePath @"EZAudioTest.m4a"
+//#define kAudioFilePath @"EZAudioTest.wav"
 
 @interface vaavudViewController : UIViewController
 

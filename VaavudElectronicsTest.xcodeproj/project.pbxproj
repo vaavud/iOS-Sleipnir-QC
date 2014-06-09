@@ -38,6 +38,7 @@
 		D70B9AFF193F32F500D6FA0B /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */; };
 		D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B00193F331A00D6FA0B /* Security.framework */; };
 		D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B02193F332700D6FA0B /* QuartzCore.framework */; };
+		D70B9B1119463B1500D6FA0B /* SoundProcessingAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,9 @@
 		D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		D70B9B00193F331A00D6FA0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D70B9B02193F332700D6FA0B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D70B9B0619448EB000D6FA0B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundProcessingAlgo.h; sourceTree = "<group>"; };
+		D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundProcessingAlgo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,7 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D70B9B0619448EB000D6FA0B /* AudioUnit.framework */,
 				D70B9B02193F332700D6FA0B /* QuartzCore.framework */,
 				D70B9B00193F331A00D6FA0B /* Security.framework */,
 				D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */,
@@ -172,6 +177,8 @@
 				D70B9AB1193F298400D6FA0B /* vaavudViewController.m */,
 				D70B9AB3193F298400D6FA0B /* Images.xcassets */,
 				D70B9AA2193F298400D6FA0B /* Supporting Files */,
+				D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */,
+				D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */,
 			);
 			path = VaavudElectronicsTest;
 			sourceTree = "<group>";
@@ -348,6 +355,7 @@
 			files = (
 				D70B9AF6193F328200D6FA0B /* EZAudioPlotGLKViewController.m in Sources */,
 				D70B9AF8193F328200D6FA0B /* EZOutput.m in Sources */,
+				D70B9B1119463B1500D6FA0B /* SoundProcessingAlgo.m in Sources */,
 				D70B9AF4193F328200D6FA0B /* EZAudioPlot.m in Sources */,
 				D70B9AFB193F328200D6FA0B /* TPCircularBuffer.c in Sources */,
 				D70B9AA8193F298400D6FA0B /* main.m in Sources */,
