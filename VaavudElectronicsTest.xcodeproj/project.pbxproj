@@ -39,6 +39,7 @@
 		D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B00193F331A00D6FA0B /* Security.framework */; };
 		D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B02193F332700D6FA0B /* QuartzCore.framework */; };
 		D70B9B1119463B1500D6FA0B /* SoundProcessingAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */; };
+		D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		D70B9B0619448EB000D6FA0B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundProcessingAlgo.h; sourceTree = "<group>"; };
 		D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundProcessingAlgo.m; sourceTree = "<group>"; };
+		D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionDetectionAlgo.h; sourceTree = "<group>"; };
+		D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionDetectionAlgo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +173,8 @@
 		D70B9AA1193F298400D6FA0B /* VaavudElectronicsTest */ = {
 			isa = PBXGroup;
 			children = (
+				D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */,
+				D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */,
 				D70B9AAA193F298400D6FA0B /* vaavudAppDelegate.h */,
 				D70B9AAB193F298400D6FA0B /* vaavudAppDelegate.m */,
 				D70B9AAD193F298400D6FA0B /* Main.storyboard */,
@@ -363,6 +368,7 @@
 				D70B9AF0193F328200D6FA0B /* AEFloatConverter.m in Sources */,
 				D70B9AB2193F298400D6FA0B /* vaavudViewController.m in Sources */,
 				D70B9AF5193F328200D6FA0B /* EZAudioPlotGL.m in Sources */,
+				D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */,
 				D70B9AF2193F328200D6FA0B /* EZAudioFile.m in Sources */,
 				D70B9AAC193F298400D6FA0B /* vaavudAppDelegate.m in Sources */,
 				D70B9AFA193F328200D6FA0B /* EZRecorder.m in Sources */,
@@ -581,6 +587,7 @@
 				D70B9ACC193F298400D6FA0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D70B9ACD193F298400D6FA0B /* Build configuration list for PBXNativeTarget "VaavudElectronicsTestTests" */ = {
 			isa = XCConfigurationList;
@@ -589,6 +596,7 @@
 				D70B9ACF193F298400D6FA0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

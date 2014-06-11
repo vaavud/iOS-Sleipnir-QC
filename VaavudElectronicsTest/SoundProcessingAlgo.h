@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DirectionDetectionAlgo.h"
 
 @interface SoundProcessingAlgo : NSObject
 
 - (void) newSoundData:(int *)data bufferLength:(UInt32) bufferLength;
+- (id)initWithDirDelegate:(id<DirectionRecieverDelegate>)delegate;
+
 
 @end

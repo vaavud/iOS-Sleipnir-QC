@@ -54,7 +54,7 @@ float *arrayLeft;
     // Create an instance of the microphone and tell it to use this view controller instance as the delegate
     self.microphone = [EZMicrophone microphoneWithDelegate:self];
     
-    self.soundProcessor = [[SoundProcessingAlgo alloc] init];
+    self.soundProcessor = [[SoundProcessingAlgo alloc] initWithDirDelegate:self];
     
     /*
      Customizing the audio plot's look
@@ -340,6 +340,18 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
     NSLog(@"File upload failed with error: %@", error);
     self.recordingTextField.text = @"File upload Error!";
+}
+
+/**
+ UI
+ */
+
+- (void) newSpeed: (NSNumber*) speed {
+    NSLog(@"speed: %@", speed);
+}
+
+- (void) newAngularVelocities: (NSArray*) angularVelocities {
+    NSLog(@"angularVelocities: %@", angularVelocities);
 }
 
 @end

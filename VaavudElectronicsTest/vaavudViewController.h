@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 // Import EZAudio header
 #import "EZAudio.h"
+#import "DirectionDetectionAlgo.h"
 
 // By default this will record a file to the application's documents directory (within the application's sandbox)
 #define kAudioFilePath @"EZAudioTest.m4a"
 //#define kAudioFilePath @"EZAudioTest.wav"
 
-@interface vaavudViewController : UIViewController
+@interface vaavudViewController : UIViewController <DirectionRecieverDelegate>
 
 /**
  Use a OpenGL based plot to visualize the data coming in
