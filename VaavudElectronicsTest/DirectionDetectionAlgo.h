@@ -11,7 +11,7 @@
 @protocol DirectionRecieverDelegate
 
 - (void) newSpeed: (NSNumber*) speed;
-- (void) newAngularVelocities: (NSArray*) angularVelocities;
+- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length;
 
 @end
 

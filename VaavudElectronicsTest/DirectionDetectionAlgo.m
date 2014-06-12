@@ -7,10 +7,8 @@
 //
 
 #import "DirectionDetectionAlgo.h"
+#import "vaavudViewController.h"
 
-#define SAMPLE_BUFFER 90
-#define TICKS_PR_REV 10
-#define updateInterval 0.1 // 10 times a second
 
 @interface DirectionDetectionAlgo() {
     
@@ -21,7 +19,9 @@
     
     unsigned long totalSampleCount[TICKS_PR_REV];
     int mvgSampleCountSum[TICKS_PR_REV];
-    int sampleCountBuffer[TICKS_PR_REV][SAMPLE_BUFFER];
+    int sampleCountBuffer[TICKS_PR_REV][SAMPLE_BUFFER_SIZE];
+    
+    float mvgRelativeSpeed[TICKS_PR_REV];
     double nextRefreshTime;
     
 }
@@ -77,7 +77,7 @@
     if (tickCounter == TICKS_PR_REV-1) {
         tickCounter = 0;
         
-        if (tickBufferCounter == SAMPLE_BUFFER-1) {
+        if (tickBufferCounter == SAMPLE_BUFFER_SIZE-1) {
             tickBufferCounter = 0;
             [self updateUI];
         } else {
@@ -97,11 +97,11 @@
 }
 
 - (void) updateNextRefreshTime {
-    if (nextRefreshTime - updateInterval < CACurrentMediaTime()) {
-        nextRefreshTime = CACurrentMediaTime() + updateInterval;
+    if (nextRefreshTime - UPDATE_INTERVAL < CACurrentMediaTime()) {
+        nextRefreshTime = CACurrentMediaTime() + UPDATE_INTERVAL;
     }
     else {
-        nextRefreshTime += updateInterval;
+        nextRefreshTime += UPDATE_INTERVAL;
     }
 }
 
@@ -113,6 +113,27 @@
 
 - (void) updateUI {
     [self.dirDelegate newSpeed: [[NSNumber alloc] initWithUnsignedLong:totalTickCounter]];
+    
+    int totalMvgSampleCount = 0;
+    
+    for (int i = 0; i < TICKS_PR_REV; i++) {
+        totalMvgSampleCount += mvgSampleCountSum[i];
+    }
+    
+    float avgMvgSampleCount = totalMvgSampleCount / ((float) TICKS_PR_REV);
+    
+    for (int i = 0; i < TICKS_PR_REV; i++) {
+        float mvgRelativeTimeUse = mvgSampleCountSum[i] / avgMvgSampleCount;
+        
+        mvgRelativeSpeed[i] = mvgRelativeTimeUse * 1; // Should implement adjustment function depending on tick distance
+    }
+    
+    // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
+    dispatch_async(dispatch_get_main_queue(),^{
+        [self.dirDelegate newAngularVelocities: mvgRelativeSpeed andLength:TICKS_PR_REV];
+    });
+    
+    
 }
 
 

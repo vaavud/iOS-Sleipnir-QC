@@ -24,6 +24,10 @@
 @property (nonatomic, assign) BOOL isRecording;
 @property (nonatomic, strong) NSMutableArray *intArray;
 @property (nonatomic, strong) SoundProcessingAlgo *soundProcessor;
+@property (strong, nonatomic) UIView *progressBarsView;
+
+- (void) createRelativeSpeedView;
+
 @end
 
 @implementation vaavudViewController
@@ -73,15 +77,17 @@ float *arrayLeft;
     /*
      Start the microphone
      */
-    [self.microphone startFetchingAudio];
-    self.microphoneTextField.text = @"Microphone On";
-    self.recordingTextField.text = @"Not Recording";
-    self.outputTextField.text = @"Output off";
+    //[self.microphone startFetchingAudio];
+    self.microphoneTextField.text = @"Microphone";
+    self.recordingTextField.text = @"Recording";
+    self.outputTextField.text = @"Output";
     
     //  self.playingTextField.text = @"Not Playing";
     
     // Hide the play button
 //    self.playButton.hidden = YES;
+    
+    [self createRelativeSpeedView];
     
     
     activityIndicator.hidesWhenStopped = true;
@@ -99,7 +105,6 @@ float *arrayLeft;
     double samplerate = 44100;
     theta_increment = 2.0 * M_PI * frequency / samplerate;
     amplitude = 1;
-    
     
     
     // Assign a delegate to the shared instance of the output to provide the output audio data
@@ -122,16 +127,38 @@ float *arrayLeft;
     
     [[EZOutput sharedOutput] setAudioStreamBasicDescription:stereoStreamFormat];
     
+    
+    
 }
+
+- (void) createRelativeSpeedView {
+    
+    
+    self.progressBarsView = [[UIView alloc] initWithFrame:CGRectMake(0, 150, 320, 260)];
+    
+    [self.view addSubview: self.progressBarsView];
+    //self.progressBars = [NSMutableArray arrayWithCapacity:TICKS_PR_REV];
+    
+    CGRect  viewRect = CGRectMake(85, 0, 150, 2);
+    
+    for (int i = 0; i < TICKS_PR_REV; i++) {
+        viewRect.origin.y = i*20;
+        UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:viewRect];
+        [self.progressBarsView addSubview:progressView];
+        
+        progressView.progress = 0.5;
+    }
+}
+
+
+
 - (IBAction)toggleMicrophone:(id)sender {
     
     if( ![sender isOn] ){
         [self.microphone stopFetchingAudio];
-        self.microphoneTextField.text = @"Microphone Off";
     }
     else {
         [self.microphone startFetchingAudio];
-        self.microphoneTextField.text = @"Microphone On";
     }
     
 }
@@ -214,7 +241,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     {
         [self.recorder closeAudioFile];
     }
-    self.recordingTextField.text = self.isRecording ? @"Recording" : @"Not Recording";
+    //self.recordingTextField.text = self.isRecording ? @"Recording" : @"Not Recording";
 
 }
 
@@ -226,8 +253,10 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     } else {
         [[EZOutput sharedOutput] stopPlayback];
     }
+
+
     
-    self.outputTextField.text = [sender isOn] ? @"Output on" : @"Output Off";
+    //self.outputTextField.text = [sender isOn] ? @"Output on" : @"Output Off";
     
 }
 
@@ -273,6 +302,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
 
 }
+
 
 
 - (IBAction)uploadAudioFile {
@@ -350,8 +380,17 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     NSLog(@"speed: %@", speed);
 }
 
-- (void) newAngularVelocities: (NSArray*) angularVelocities {
-    NSLog(@"angularVelocities: %@", angularVelocities);
+- (void) newAngularVelocities: (float*) angularVelocities andLength:(int)length{
+    
+    NSArray *pview = [self.progressBarsView subviews];
+    for (int i = 0; i < length; i++) {
+        ((UIProgressView *)[pview objectAtIndex:i]).progress = angularVelocities[i]/2;
+    }
 }
+
+-(NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 
 @end

@@ -19,10 +19,6 @@
     int lastValue;
     unsigned long counter;
     unsigned long lastTick;
-
-   
-    
-    
 }
 
 - (BOOL) detectTick;
@@ -33,15 +29,13 @@
 
 @implementation SoundProcessingAlgo
 
-
-
 enum detectionState { SeekingHigh, SeekingLow, SeekingTripLow};
 enum detectionState dState = SeekingHigh;
 
 
-int thresholdHigh = 210;
-int thresholdLow = 30;
-int thresholdPass = -90;
+int thresholdHigh = 3000;
+int thresholdLow = 300;
+int thresholdPass = 0;
 
 
 #pragma mark - Initialization
@@ -73,7 +67,7 @@ int thresholdPass = -90;
     for (int i = 0; i < bufferLength; i++) {
         
         int bufferIndex = counter%3;
-        
+        int bufferIndexLast = (counter-1)%3;
         
         // Moving Avg subtract
         mvgAvgSum -= mvgAvg[bufferIndex];
@@ -82,7 +76,7 @@ int thresholdPass = -90;
         
         
         // Moving Diff Update buffer value
-        mvgDiff[bufferIndex] = abs( data[i]- mvgAvg[bufferIndex]); // ! need to use old mvgAvgValue so place before mvgAvg update
+        mvgDiff[bufferIndex] = abs( data[i]- mvgAvg[bufferIndexLast]); // ! need to use old mvgAvgValue so place before mvgAvg update
         // Moving avg Update buffer value
         mvgAvg[bufferIndex] = data[i];
         
@@ -91,6 +85,15 @@ int thresholdPass = -90;
         mvgAvgSum += mvgAvg[bufferIndex];
         mvgDiffSum += mvgDiff[bufferIndex];
         
+        
+        if (counter < 10) {
+            NSLog(@"counter: %lu, bufferIndex: %d, data[i]: %d", counter, bufferIndex, data[i]);
+            NSLog(@"mvgAvg: %d, %d, %d", mvgAvg[0], mvgAvg[1], mvgAvg[2]);
+            NSLog(@"mvgDiff: %d, %d, %d", mvgDiff[0], mvgDiff[1], mvgDiff[2]);
+            NSLog(@"mvgAvgSum: %d", mvgAvgSum);
+            NSLog(@"mvgDiffSum: %d", mvgDiffSum);
+            
+        }
         
         
         if ([self detectTick]) {
@@ -101,6 +104,7 @@ int thresholdPass = -90;
         }
         
         counter++;
+        
         
     }
     
