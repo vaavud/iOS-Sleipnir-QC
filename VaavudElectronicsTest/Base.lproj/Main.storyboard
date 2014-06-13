@@ -86,13 +86,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtg-bJ-xrq">
-                                <rect key="frame" x="20" y="139" width="24" height="21"/>
+                                <rect key="frame" x="20" y="139" width="71" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aj5-3U-Gpf">
-                                <rect key="frame" x="276" y="139" width="24" height="21"/>
+                                <rect key="frame" x="239" y="139" width="61" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Angular Vel. (Hz):" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1O-0Z-fn9">
+                                <rect key="frame" x="0.0" y="445" width="130" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKd-Zj-VBB">
+                                <rect key="frame" x="226" y="445" width="74" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -102,7 +115,10 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="ldP-e9-Tc8" id="FVT-Bl-KA6"/>
+                        <outlet property="angularVelocityTextField" destination="hKd-Zj-VBB" id="iUX-BO-sch"/>
                         <outlet property="audioPlot" destination="yR4-jl-k2e" id="cfk-0S-NmO"/>
+                        <outlet property="graphLowerTextField" destination="jtg-bJ-xrq" id="Mhq-1b-nRi"/>
+                        <outlet property="graphUpperTextField" destination="aj5-3U-Gpf" id="09T-0B-3dg"/>
                         <outlet property="microphoneTextField" destination="Ld7-g4-aPq" id="L1c-Tp-SVs"/>
                         <outlet property="outputTextField" destination="rLz-QI-cv5" id="jiz-sT-EIL"/>
                         <outlet property="recordingSwitch" destination="zOd-NL-Lfo" id="uXt-53-3Qt"/>

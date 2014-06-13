@@ -13,27 +13,24 @@
 @interface DirectionDetectionAlgo() {
     
     unsigned long totalTickCounter;
-    
     unsigned int tickCounter;
     unsigned int tickBufferCounter;
+    unsigned int lastTickBufferCounter;
+    unsigned int startCounter;
     
     unsigned long totalSampleCount[TICKS_PR_REV];
     int mvgSampleCountSum[TICKS_PR_REV];
     int sampleCountBuffer[TICKS_PR_REV][SAMPLE_BUFFER_SIZE];
-    
     float mvgRelativeSpeed[TICKS_PR_REV];
     double nextRefreshTime;
-    
     BOOL startLocated;
     int lastSample;
-    
-    // compensation[TICKS_PR_REV];
-    
 }
 
 @property (weak, nonatomic) id<DirectionRecieverDelegate> dirDelegate;
 - (void) printStatus;
 - (void) updateNextRefreshTime;
+- (void) resetDirection;
 
 @end
 
@@ -55,40 +52,46 @@ float compensation[TICKS_PR_REV] = {1.036139713,1.050774403,1.055187509,1.062085
 - (id) initWithDirDelegate:(id<DirectionRecieverDelegate>)delegate {
     
     self = [super init];
-    
     self.dirDelegate = delegate;
-    
     nextRefreshTime = CACurrentMediaTime();
-    
     startLocated = false;
-    
     return self;
 }
 
 
 - (void) locateStart:(int)samples{
-    if (samples > 1.48 * lastSample && samples < 1.6 * lastSample) {
-        startLocated = true;
+    if (samples > 1.4 * lastSample && samples < 1.7 * lastSample) {
+        NSLog(@"StartLocated: Ratio: %f, StartCounter: %d", samples / ((float) lastSample), startCounter);
+        
+        
+        if (startCounter == 2* TICKS_PR_REV) {
+            startLocated = true;
+        }
+        
+        if (startCounter % TICKS_PR_REV != 0) {
+            startCounter = 0;
+        }
+        
     }
     else {
         lastSample = samples;
     }
     
+    startCounter++;
     
 }
 
 - (void) newTick:(int)samples {
     
-    
-    if ( samples > 13200 ) { // less than 1/3 Hz
-        startLocated = false;
+    // recalibrate if pattern is wrong
+    if (samples > 882000) {
+        [self resetDirection];
+        NSLog(@"reset: Samplet over 882000");
     }
-    
     if (!startLocated) {
         [self locateStart:samples];
         return;
     }
-    
     totalTickCounter++;
     
     // Moving Avg subtract
@@ -104,9 +107,27 @@ float compensation[TICKS_PR_REV] = {1.036139713,1.050774403,1.055187509,1.062085
     totalSampleCount[tickCounter] += samples;
     
     
+    lastTickBufferCounter = tickBufferCounter;
+    
     
     if (tickCounter == TICKS_PR_REV-1) {
         tickCounter = 0;
+        
+        // check if directionReset is needed every rotation
+        
+        if (samples < 1.2 * lastSample || samples > 2.0 * lastSample) {
+            NSLog(@"Out of ratio: %f", samples / ((float) lastSample));
+            [self resetDirection];
+            return;
+        }
+        
+        // update results
+        if (CACurrentMediaTime() > nextRefreshTime) {
+            [self updateUI];
+            [self updateNextRefreshTime];
+        }
+        
+        
         
         if (tickBufferCounter == SAMPLE_BUFFER_SIZE-1) {
             tickBufferCounter = 0;
@@ -118,12 +139,7 @@ float compensation[TICKS_PR_REV] = {1.036139713,1.050774403,1.055187509,1.062085
         tickCounter++;
     }
     
-    
-    if (CACurrentMediaTime() > nextRefreshTime) {
-        [self updateUI];
-        [self updateNextRefreshTime];
-    }
-    
+    lastSample = samples;
     
 }
 
@@ -137,13 +153,45 @@ float compensation[TICKS_PR_REV] = {1.036139713,1.050774403,1.055187509,1.062085
 }
 
 
+- (void) resetDirection {
+    
+    NSLog(@"reset");
+    startLocated = false;
+    lastSample = 0;
+    
+    
+    tickCounter = 0;
+    tickBufferCounter = 0;
+    
+    // unsigned long totalSampleCount[TICKS_PR_REV];
+    // int mvgSampleCountSum[TICKS_PR_REV];
+    // float mvgRelativeSpeed[TICKS_PR_REV]; does not need clearing!
+    for (int i = 0; i < TICKS_PR_REV; i++) {
+        totalSampleCount[i] = 0;
+        mvgSampleCountSum[i] = 0;
+    }
+    
+    //int sampleCountBuffer[TICKS_PR_REV][SAMPLE_BUFFER_SIZE];
+    
+    for (int outer = 0; outer < TICKS_PR_REV; outer++) {
+        for (int inner = 0; inner < SAMPLE_BUFFER_SIZE; inner++) {
+            sampleCountBuffer[outer][inner] = 0;
+        }
+    }
+    
+    // double nextRefreshTime; does not need reset
+    
+
+}
+
+
+
 - (void) printStatus {
     NSLog(@"BufferRotation");
     
 }
 
 - (void) updateUI {
-    [self.dirDelegate newSpeed: [[NSNumber alloc] initWithUnsignedLong:totalTickCounter]];
     
     int totalMvgSampleCount = 0;
     
@@ -159,11 +207,21 @@ float compensation[TICKS_PR_REV] = {1.036139713,1.050774403,1.055187509,1.062085
         mvgRelativeSpeed[i] = mvgRelativeTimeUse * compensation[i];
     }
     
+    
+    int samplesPrLastRotation =0;
+    
+    for (int i = 0; i < TICKS_PR_REV; i++) {
+        samplesPrLastRotation += sampleCountBuffer[i][lastTickBufferCounter];
+    }
+    
+    float windSpeed = 44100 / ((float)samplesPrLastRotation);
+    
+    
     // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
     dispatch_async(dispatch_get_main_queue(),^{
         [self.dirDelegate newAngularVelocities: mvgRelativeSpeed andLength:TICKS_PR_REV];
+        [self.dirDelegate newSpeed: [NSNumber numberWithFloat:windSpeed]];
     });
-    
     
 }
 

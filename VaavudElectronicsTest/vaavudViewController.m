@@ -18,8 +18,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *recordingTextField;
 @property (weak, nonatomic) IBOutlet UILabel *microphoneTextField;
 @property (weak, nonatomic) IBOutlet UILabel *outputTextField;
+@property (weak, nonatomic) IBOutlet UILabel *angularVelocityTextField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UISwitch *recordingSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *graphLowerTextField;
+@property (weak, nonatomic) IBOutlet UILabel *graphUpperTextField;
 @property (nonatomic, strong) DBRestClient *restClient;
 @property (nonatomic, assign) BOOL isRecording;
 @property (nonatomic, strong) NSMutableArray *intArray;
@@ -81,6 +84,7 @@ float *arrayLeft;
     self.microphoneTextField.text = @"Microphone";
     self.recordingTextField.text = @"Recording";
     self.outputTextField.text = @"Output";
+    self.angularVelocityTextField.text = @"-";
     
     //  self.playingTextField.text = @"Not Playing";
     
@@ -378,13 +382,39 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
 - (void) newSpeed: (NSNumber*) speed {
     NSLog(@"speed: %@", speed);
+    self.angularVelocityTextField.text = [self formatValue:speed.doubleValue];
 }
 
 - (void) newAngularVelocities: (float*) angularVelocities andLength:(int)length{
     
+    float min = 1;
+    float max = 1;
+    
+    
+    for (int i = 0; i < length; i++) {
+        
+        if (angularVelocities[i] < min) {
+            min = angularVelocities[i];
+        }
+        
+        if (angularVelocities[i] > max) {
+            max = angularVelocities[i];
+        }
+        
+    }
+    
+    float maxDiff = MAX(1-min, max-1);
+    //float diff = max - min;
+    
+    float scalingFactor = 0.5 / maxDiff;
+    
+    self.graphLowerTextField.text = [NSString stringWithFormat: @"%.3f", (1-maxDiff/2.0)];
+    self.graphUpperTextField.text = [NSString stringWithFormat: @"%.3f", (1+maxDiff/2.0)];
+    
+    
     NSArray *pview = [self.progressBarsView subviews];
     for (int i = 0; i < length; i++) {
-        float velocityMaping = (angularVelocities[i]-1)*5+0.5;
+        float velocityMaping = (angularVelocities[i]-1)*scalingFactor+0.5;
         
         ((UIProgressView *)[pview objectAtIndex:i]).progress = velocityMaping;
     }
@@ -394,5 +424,13 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     return UIInterfaceOrientationMaskAll;
 }
 
+- (NSString*) formatValue:(double) value {
+    if (value > 100.0) {
+        return [NSString stringWithFormat: @"%.0f", value];
+    }
+    else {
+        return [NSString stringWithFormat: @"%.1f", value];
+    }
+}
 
 @end

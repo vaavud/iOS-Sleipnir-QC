@@ -15,7 +15,7 @@
 #define kAudioFilePath @"EZAudioTest.m4a"
 //#define kAudioFilePath @"EZAudioTest.wav"
 
-#define SAMPLE_BUFFER_SIZE 30
+#define SAMPLE_BUFFER_SIZE 60
 #define TICKS_PR_REV 10
 #define UPDATE_INTERVAL 0.1 // 10 times a second
 

@@ -86,14 +86,14 @@ int thresholdPass = -900;
         mvgDiffSum += mvgDiff[bufferIndex];
         
         
-        if (counter < 10) {
-            NSLog(@"counter: %lu, bufferIndex: %d, data[i]: %d", counter, bufferIndex, data[i]);
-            NSLog(@"mvgAvg: %d, %d, %d", mvgAvg[0], mvgAvg[1], mvgAvg[2]);
-            NSLog(@"mvgDiff: %d, %d, %d", mvgDiff[0], mvgDiff[1], mvgDiff[2]);
-            NSLog(@"mvgAvgSum: %d", mvgAvgSum);
-            NSLog(@"mvgDiffSum: %d", mvgDiffSum);
-            
-        }
+//        if (counter < 10) {
+//            NSLog(@"counter: %lu, bufferIndex: %d, data[i]: %d", counter, bufferIndex, data[i]);
+//            NSLog(@"mvgAvg: %d, %d, %d", mvgAvg[0], mvgAvg[1], mvgAvg[2]);
+//            NSLog(@"mvgDiff: %d, %d, %d", mvgDiff[0], mvgDiff[1], mvgDiff[2]);
+//            NSLog(@"mvgAvgSum: %d", mvgAvgSum);
+//            NSLog(@"mvgDiffSum: %d", mvgDiffSum);
+//            
+//        }
         
         
         if ([self detectTick]) {
