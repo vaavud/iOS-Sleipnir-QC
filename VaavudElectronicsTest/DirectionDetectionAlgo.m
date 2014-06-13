@@ -24,6 +24,11 @@
     float mvgRelativeSpeed[TICKS_PR_REV];
     double nextRefreshTime;
     
+    BOOL startLocated;
+    int lastSample;
+    
+    // compensation[TICKS_PR_REV];
+    
 }
 
 @property (weak, nonatomic) id<DirectionRecieverDelegate> dirDelegate;
@@ -36,6 +41,9 @@
 
 
 @implementation DirectionDetectionAlgo
+
+
+float compensation[TICKS_PR_REV] = {1.036139713,1.050774403,1.055187509,1.062085179,1.062860154,1.066879081,1.068977472,1.067596821,1.059609302,0.666717504};
 
 
 
@@ -52,11 +60,34 @@
     
     nextRefreshTime = CACurrentMediaTime();
     
+    startLocated = false;
+    
     return self;
 }
 
 
+- (void) locateStart:(int)samples{
+    if (samples > 1.48 * lastSample && samples < 1.6 * lastSample) {
+        startLocated = true;
+    }
+    else {
+        lastSample = samples;
+    }
+    
+    
+}
+
 - (void) newTick:(int)samples {
+    
+    
+    if ( samples > 13200 ) { // less than 1/3 Hz
+        startLocated = false;
+    }
+    
+    if (!startLocated) {
+        [self locateStart:samples];
+        return;
+    }
     
     totalTickCounter++;
     
@@ -125,7 +156,7 @@
     for (int i = 0; i < TICKS_PR_REV; i++) {
         float mvgRelativeTimeUse = mvgSampleCountSum[i] / avgMvgSampleCount;
         
-        mvgRelativeSpeed[i] = mvgRelativeTimeUse * 1; // Should implement adjustment function depending on tick distance
+        mvgRelativeSpeed[i] = mvgRelativeTimeUse * compensation[i];
     }
     
     // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.

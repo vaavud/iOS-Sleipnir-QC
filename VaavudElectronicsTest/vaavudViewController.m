@@ -134,12 +134,12 @@ float *arrayLeft;
 - (void) createRelativeSpeedView {
     
     
-    self.progressBarsView = [[UIView alloc] initWithFrame:CGRectMake(0, 150, 320, 260)];
+    self.progressBarsView = [[UIView alloc] initWithFrame:CGRectMake(0, 180, 320, 260)];
     
     [self.view addSubview: self.progressBarsView];
     //self.progressBars = [NSMutableArray arrayWithCapacity:TICKS_PR_REV];
     
-    CGRect  viewRect = CGRectMake(85, 0, 150, 2);
+    CGRect  viewRect = CGRectMake(20, 0, 280, 2);
     
     for (int i = 0; i < TICKS_PR_REV; i++) {
         viewRect.origin.y = i*20;
@@ -384,7 +384,9 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     NSArray *pview = [self.progressBarsView subviews];
     for (int i = 0; i < length; i++) {
-        ((UIProgressView *)[pview objectAtIndex:i]).progress = angularVelocities[i]/2;
+        float velocityMaping = (angularVelocities[i]-1)*5+0.5;
+        
+        ((UIProgressView *)[pview objectAtIndex:i]).progress = velocityMaping;
     }
 }
 

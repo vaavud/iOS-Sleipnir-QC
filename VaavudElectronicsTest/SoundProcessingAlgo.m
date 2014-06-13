@@ -35,7 +35,7 @@ enum detectionState dState = SeekingHigh;
 
 int thresholdHigh = 3000;
 int thresholdLow = 300;
-int thresholdPass = 0;
+int thresholdPass = -900;
 
 
 #pragma mark - Initialization
