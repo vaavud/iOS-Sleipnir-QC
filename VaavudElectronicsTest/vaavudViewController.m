@@ -9,16 +9,20 @@
 #import "vaavudViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
 #import "SoundProcessingAlgo.h"
+#import <CoreLocation/CoreLocation.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-@interface vaavudViewController () <DBRestClientDelegate, EZMicrophoneDelegate, EZOutputDataSource>
+@interface vaavudViewController () <DBRestClientDelegate, EZMicrophoneDelegate, EZOutputDataSource, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *recordingTextField;
 @property (weak, nonatomic) IBOutlet UILabel *microphoneTextField;
 @property (weak, nonatomic) IBOutlet UILabel *outputTextField;
 @property (weak, nonatomic) IBOutlet UILabel *angularVelocityTextField;
+@property (weak, nonatomic) IBOutlet UILabel *windAngleLocalTextField;
+@property (weak, nonatomic) IBOutlet UILabel *windAngleCompassTextField;
+@property (weak, nonatomic) IBOutlet UILabel *windAngleHeadingTextField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UISwitch *recordingSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *graphLowerTextField;
@@ -28,6 +32,8 @@
 @property (nonatomic, strong) NSMutableArray *intArray;
 @property (nonatomic, strong) SoundProcessingAlgo *soundProcessor;
 @property (strong, nonatomic) UIView *progressBarsView;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+
 
 - (void) createRelativeSpeedView;
 
@@ -48,6 +54,7 @@ double amplitude;
 
 int *intArray;
 float *arrayLeft;
+float compassHeading;
 
 
 - (void)viewDidLoad
@@ -85,6 +92,9 @@ float *arrayLeft;
     self.recordingTextField.text = @"Recording";
     self.outputTextField.text = @"Output";
     self.angularVelocityTextField.text = @"-";
+    self.windAngleLocalTextField.text = @"-";
+    self.windAngleCompassTextField.text = @"-";
+    self.windAngleHeadingTextField.text = @"-";
     
     //  self.playingTextField.text = @"Not Playing";
     
@@ -131,6 +141,17 @@ float *arrayLeft;
     
     [[EZOutput sharedOutput] setAudioStreamBasicDescription:stereoStreamFormat];
     
+    
+    if ([CLLocationManager headingAvailable])
+    {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.headingFilter = 1;
+        [self.locationManager startUpdatingHeading];
+    } else
+    {
+        NSLog(@"No heading avaliable!!!");
+    }
     
     
 }
@@ -380,8 +401,12 @@ withNumberOfChannels:(UInt32)numberOfChannels {
  UI
  */
 
+- (void) newWindAngleLocal:(float) angle {
+    self.windAngleLocalTextField.text = [NSString stringWithFormat:@"%.0fº", angle];
+    self.windAngleHeadingTextField.text = [NSString stringWithFormat:@"%.0fº",  fmodf(compassHeading+angle, 360.0f)];
+}
+
 - (void) newSpeed: (NSNumber*) speed {
-    NSLog(@"speed: %@", speed);
     self.angularVelocityTextField.text = [self formatValue:speed.doubleValue];
 }
 
@@ -408,8 +433,8 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     
     float scalingFactor = 0.5 / maxDiff;
     
-    self.graphLowerTextField.text = [NSString stringWithFormat: @"%.3f", (1-maxDiff/2.0)];
-    self.graphUpperTextField.text = [NSString stringWithFormat: @"%.3f", (1+maxDiff/2.0)];
+    self.graphLowerTextField.text = [NSString stringWithFormat: @"%.3f", (1-maxDiff)];
+    self.graphUpperTextField.text = [NSString stringWithFormat: @"%.3f", (1+maxDiff)];
     
     
     NSArray *pview = [self.progressBarsView subviews];
@@ -431,6 +456,28 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     else {
         return [NSString stringWithFormat: @"%.1f", value];
     }
+}
+
+
+/*** 
+HEADING
+ */
+
+ - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+ {
+     compassHeading = newHeading.trueHeading;
+     self.windAngleCompassTextField.text = [NSString stringWithFormat: @"%.0fº", newHeading.trueHeading];
+     
+     //[self.vaavudCoreController newHeading: [NSNumber numberWithDouble: newHeading.trueHeading]];
+     
+     NSLog(@"heading accuracy: %f", newHeading.headingAccuracy);
+ }
+ 
+
+
+
+-(void) viewDidDisappear:(BOOL)animated {
+    [self.locationManager stopUpdatingHeading];
 }
 
 @end

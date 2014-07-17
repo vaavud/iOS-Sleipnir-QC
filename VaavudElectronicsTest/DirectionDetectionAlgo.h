@@ -12,6 +12,7 @@
 
 - (void) newSpeed: (NSNumber*) speed;
 - (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length;
+- (void) newWindAngleLocal:(float) angle;
 
 @end
 
