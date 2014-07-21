@@ -10,6 +10,7 @@
 // Import EZAudio header
 #import "EZAudio.h"
 #import "DirectionDetectionAlgo.h"
+#import "vaavudUIViewController.h"
 
 // By default this will record a file to the application's documents directory (within the application's sandbox)
 #define kAudioFilePath @"EZAudioTest.m4a"
@@ -20,7 +21,7 @@
 #define UPDATE_INTERVAL 0.1 // 10 times a second
 
 
-@interface vaavudViewController : UIViewController <DirectionRecieverDelegate>
+@interface vaavudViewController : vaavudUIViewController <DirectionRecieverDelegate>
 
 /**
  Use a OpenGL based plot to visualize the data coming in
@@ -36,6 +37,5 @@
  The recorder component
  */
 @property (nonatomic,strong) EZRecorder *recorder;
-
 
 @end
