@@ -44,6 +44,7 @@
 		D73E991A1977AAE30011D516 /* vaavudModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E99191977AAE30011D516 /* vaavudModelController.m */; };
 		D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991C197D0E230011D516 /* vaavudUIViewController.m */; };
 		D73E9920197D13BA0011D516 /* vaavudCleanInterfaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */; };
+		D73E9924197D34570011D516 /* VaavudElectronic.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9923197D34570011D516 /* VaavudElectronic.m */; };
 		D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,9 @@
 		D73E991C197D0E230011D516 /* vaavudUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudUIViewController.m; sourceTree = "<group>"; };
 		D73E991E197D13BA0011D516 /* vaavudCleanInterfaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudCleanInterfaceViewController.h; sourceTree = "<group>"; };
 		D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudCleanInterfaceViewController.m; sourceTree = "<group>"; };
+		D73E9922197D34570011D516 /* VaavudElectronic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronic.h; sourceTree = "<group>"; };
+		D73E9923197D34570011D516 /* VaavudElectronic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudElectronic.m; sourceTree = "<group>"; };
+		D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronicWindDelegate.h; sourceTree = "<group>"; };
 		D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionDetectionAlgo.h; sourceTree = "<group>"; };
 		D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionDetectionAlgo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,6 +193,7 @@
 		D70B9AA1193F298400D6FA0B /* VaavudElectronicsTest */ = {
 			isa = PBXGroup;
 			children = (
+				D73E9921197D33180011D516 /* VaavudElectronic */,
 				D73E99151977A7490011D516 /* vaavudRootViewController.h */,
 				D73E99161977A7490011D516 /* vaavudRootViewController.m */,
 				D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */,
@@ -280,6 +285,16 @@
 				D70B9AEF193F328200D6FA0B /* VERSION */,
 			);
 			path = VERSION;
+			sourceTree = "<group>";
+		};
+		D73E9921197D33180011D516 /* VaavudElectronic */ = {
+			isa = PBXGroup;
+			children = (
+				D73E9922197D34570011D516 /* VaavudElectronic.h */,
+				D73E9923197D34570011D516 /* VaavudElectronic.m */,
+				D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */,
+			);
+			name = VaavudElectronic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,6 +420,7 @@
 				D70B9AF7193F328200D6FA0B /* EZMicrophone.m in Sources */,
 				D70B9AF9193F328200D6FA0B /* EZPlot.m in Sources */,
 				D73E99171977A7490011D516 /* vaavudRootViewController.m in Sources */,
+				D73E9924197D34570011D516 /* VaavudElectronic.m in Sources */,
 				D73E991A1977AAE30011D516 /* vaavudModelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
