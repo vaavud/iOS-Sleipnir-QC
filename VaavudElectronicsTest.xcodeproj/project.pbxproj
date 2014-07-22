@@ -45,6 +45,8 @@
 		D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991C197D0E230011D516 /* vaavudUIViewController.m */; };
 		D73E9920197D13BA0011D516 /* vaavudCleanInterfaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */; };
 		D73E9924197D34570011D516 /* VaavudElectronic.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9923197D34570011D516 /* VaavudElectronic.m */; };
+		D73E9928197D3F3C0011D516 /* soundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9927197D3F3C0011D516 /* soundManager.m */; };
+		D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */; };
 		D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +124,10 @@
 		D73E9922197D34570011D516 /* VaavudElectronic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronic.h; sourceTree = "<group>"; };
 		D73E9923197D34570011D516 /* VaavudElectronic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudElectronic.m; sourceTree = "<group>"; };
 		D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronicWindDelegate.h; sourceTree = "<group>"; };
+		D73E9926197D3F3C0011D516 /* soundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundManager.h; sourceTree = "<group>"; };
+		D73E9927197D3F3C0011D516 /* soundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = soundManager.m; sourceTree = "<group>"; };
+		D73E992A197E4E300011D516 /* vaavudRawSignalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudRawSignalViewController.h; sourceTree = "<group>"; };
+		D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudRawSignalViewController.m; sourceTree = "<group>"; };
 		D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionDetectionAlgo.h; sourceTree = "<group>"; };
 		D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionDetectionAlgo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,11 +199,10 @@
 		D70B9AA1193F298400D6FA0B /* VaavudElectronicsTest */ = {
 			isa = PBXGroup;
 			children = (
+				D73E9929197D8AA80011D516 /* UI */,
 				D73E9921197D33180011D516 /* VaavudElectronic */,
 				D73E99151977A7490011D516 /* vaavudRootViewController.h */,
 				D73E99161977A7490011D516 /* vaavudRootViewController.m */,
-				D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */,
-				D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */,
 				D70B9AAA193F298400D6FA0B /* vaavudAppDelegate.h */,
 				D70B9AAB193F298400D6FA0B /* vaavudAppDelegate.m */,
 				D70B9AAD193F298400D6FA0B /* Main.storyboard */,
@@ -205,14 +210,8 @@
 				D70B9AB1193F298400D6FA0B /* vaavudViewController.m */,
 				D70B9AB3193F298400D6FA0B /* Images.xcassets */,
 				D70B9AA2193F298400D6FA0B /* Supporting Files */,
-				D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */,
-				D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */,
 				D73E99181977AAE30011D516 /* vaavudModelController.h */,
 				D73E99191977AAE30011D516 /* vaavudModelController.m */,
-				D73E991B197D0E230011D516 /* vaavudUIViewController.h */,
-				D73E991C197D0E230011D516 /* vaavudUIViewController.m */,
-				D73E991E197D13BA0011D516 /* vaavudCleanInterfaceViewController.h */,
-				D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */,
 			);
 			path = VaavudElectronicsTest;
 			sourceTree = "<group>";
@@ -290,11 +289,30 @@
 		D73E9921197D33180011D516 /* VaavudElectronic */ = {
 			isa = PBXGroup;
 			children = (
+				D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */,
+				D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */,
+				D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */,
+				D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */,
 				D73E9922197D34570011D516 /* VaavudElectronic.h */,
 				D73E9923197D34570011D516 /* VaavudElectronic.m */,
 				D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */,
+				D73E9926197D3F3C0011D516 /* soundManager.h */,
+				D73E9927197D3F3C0011D516 /* soundManager.m */,
 			);
 			name = VaavudElectronic;
+			sourceTree = "<group>";
+		};
+		D73E9929197D8AA80011D516 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D73E991B197D0E230011D516 /* vaavudUIViewController.h */,
+				D73E991C197D0E230011D516 /* vaavudUIViewController.m */,
+				D73E991E197D13BA0011D516 /* vaavudCleanInterfaceViewController.h */,
+				D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */,
+				D73E992A197E4E300011D516 /* vaavudRawSignalViewController.h */,
+				D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -400,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */,
 				D73E9920197D13BA0011D516 /* vaavudCleanInterfaceViewController.m in Sources */,
 				D70B9AF6193F328200D6FA0B /* EZAudioPlotGLKViewController.m in Sources */,
 				D70B9AF8193F328200D6FA0B /* EZOutput.m in Sources */,
@@ -417,6 +436,7 @@
 				D70B9AFA193F328200D6FA0B /* EZRecorder.m in Sources */,
 				D70B9AF1193F328200D6FA0B /* EZAudio.m in Sources */,
 				D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */,
+				D73E9928197D3F3C0011D516 /* soundManager.m in Sources */,
 				D70B9AF7193F328200D6FA0B /* EZMicrophone.m in Sources */,
 				D70B9AF9193F328200D6FA0B /* EZPlot.m in Sources */,
 				D73E99171977A7490011D516 /* vaavudRootViewController.m in Sources */,

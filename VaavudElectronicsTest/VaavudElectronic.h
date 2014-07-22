@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "VaavudElectronicWindDelegate.h"
+#import "EZAudio.h"
 
-
-@interface VaavudElectronic : NSObject
+@interface VaavudElectronic : NSObject <VaavudElectronicWindDelegate>
 
 
 + (VaavudElectronic *) sharedVaavudElec;
@@ -29,6 +29,6 @@
 - (void) stop;
 
 
-
+- (void) setAudioPlot:(EZAudioPlotGL *) audioPlot;
 
 @end

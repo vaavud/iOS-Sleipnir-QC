@@ -8,7 +8,11 @@
 
 #import "vaavudCleanInterfaceViewController.h"
 
-@interface vaavudCleanInterfaceViewController ()
+@interface vaavudCleanInterfaceViewController () <VaavudElectronicWindDelegate>
+@property (strong, nonatomic) VaavudElectronic *vaavudElectronics;
+
+@property (weak, nonatomic) IBOutlet UILabel *rotationSpeedTextField;
+@property (weak, nonatomic) IBOutlet UILabel *windAngleTextField;
 
 @end
 
@@ -18,6 +22,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.vaavudElectronics = [VaavudElectronic sharedVaavudElec];
+    [self.vaavudElectronics addListener:self];
     // Do any additional setup after loading the view.
 }
 
@@ -27,15 +33,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void) newSpeed: (NSNumber*) speed{
+    [self.rotationSpeedTextField setText:[NSString stringWithFormat:@"%.1f", speed.floatValue]];
+    NSLog(@"awesome speed: %.2f", speed.floatValue);
 }
-*/
+- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
+    
+}
+
+- (void) newWindAngleLocal:(float) angle {
+    [self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", angle]];
+}
+
 
 @end

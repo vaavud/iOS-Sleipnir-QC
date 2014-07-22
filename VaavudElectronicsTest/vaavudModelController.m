@@ -9,6 +9,9 @@
 #import "vaavudModelController.h"
 #import "vaavudViewController.h"
 #import "vaavudUIViewController.h"
+#import "VaavudElectronic.h"
+
+
 /*
  A controller object that manages a simple model -- a collection of month names.
  
@@ -19,6 +22,9 @@
  */
 
 @interface vaavudModelController()
+@property (strong, nonatomic) VaavudElectronic *vaavudElectronic;
+
+
 @end
 
 @implementation vaavudModelController
@@ -31,11 +37,16 @@ enum Screens : NSUInteger {
 };
 
 
-//- (id)init
-//{
-//    self = [super init];
-//    return self;
-//}
+- (id)init
+{
+    self = [super init];
+    
+    //self.vaavudElectronic = [[VaavudElectronic alloc] init];
+    self.vaavudElectronic = [VaavudElectronic sharedVaavudElec];
+    [self.vaavudElectronic start];
+    
+    return self;
+}
 
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard
 {
@@ -49,19 +60,21 @@ enum Screens : NSUInteger {
     switch (index) {
         case ScreenAll: {
             // Create a new view controller and pass suitable data.
-            viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
+            //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewControllerCleanInterface"];
             [viewController setScreenIndex: index];
             break;
         }
         case ScreenClean: {
             // Create a new view controller and pass suitable data.
-            viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewControllerCleanInterface"];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudRawSignalViewController"];
             [viewController setScreenIndex: index];
             break;
         }
         case ScreenAll2: {
             // Create a new view controller and pass suitable data.
-            viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
+            //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewControllerCleanInterface"];
             [viewController setScreenIndex: index];
         }
             

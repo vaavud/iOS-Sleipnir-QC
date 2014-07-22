@@ -83,4 +83,10 @@
     return UIPageViewControllerSpineLocationMin;
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
+
 @end

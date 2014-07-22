@@ -233,15 +233,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="rotationSpeedTextField" destination="cz6-Ja-Iiw" id="ima-Dm-EIF"/>
+                        <outlet property="windAngleTextField" destination="aF8-YM-zHh" id="xe1-zk-hgp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iVv-Bi-PpE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1068" y="156"/>
         </scene>
-        <!--View Controller-->
+        <!--Vaavud Raw Signal View Controller-->
         <scene sceneID="Ynd-HK-0DA">
             <objects>
-                <viewController id="2xn-YD-YXa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="vaavudRawSignalViewController" id="2xn-YD-YXa" customClass="vaavudRawSignalViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rb1-sD-PZG"/>
                         <viewControllerLayoutGuide type="bottom" id="UeA-8l-Jyj"/>
@@ -249,8 +253,18 @@
                     <view key="view" contentMode="scaleToFill" id="j1R-xh-ZtD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ8-Pu-Vhu" customClass="EZAudioPlotGL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="audioPlot" destination="MQ8-Pu-Vhu" id="7CL-kj-iLJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kia-8e-KtG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
