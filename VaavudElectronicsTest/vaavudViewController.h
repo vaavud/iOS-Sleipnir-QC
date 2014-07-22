@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 // Import EZAudio header
 #import "EZAudio.h"
-#import "DirectionDetectionAlgo.h"
+#import "VaavudElectronicWindDelegate.h"
 #import "vaavudUIViewController.h"
 
 // By default this will record a file to the application's documents directory (within the application's sandbox)
@@ -21,7 +21,7 @@
 #define UPDATE_INTERVAL 0.1 // 10 times a second
 
 
-@interface vaavudViewController : vaavudUIViewController <DirectionRecieverDelegate>
+@interface vaavudViewController : vaavudUIViewController <VaavudElectronicWindDelegate>
 
 /**
  Use a OpenGL based plot to visualize the data coming in

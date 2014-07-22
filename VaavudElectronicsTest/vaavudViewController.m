@@ -410,6 +410,10 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     self.angularVelocityTextField.text = [self formatValue:speed.doubleValue];
 }
 
+- (void) newAngularVelocities:(NSArray *)angularVelocities {
+    
+}
+
 - (void) newAngularVelocities: (float*) angularVelocities andLength:(int)length{
     
     float min = 1;

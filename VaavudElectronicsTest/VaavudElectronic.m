@@ -81,6 +81,12 @@ static VaavudElectronic *sharedInstance = nil;
     }
 }
 
+- (void) newAngularVelocities: (NSArray*) angularVelocities {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        [delegate newAngularVelocities:angularVelocities];
+    }
+}
+
 - (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
     for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
         [delegate newAngularVelocities: angularVelocities andLength: length];

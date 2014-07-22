@@ -7,9 +7,7 @@
 //
 
 #import "SoundProcessingAlgo.h"
-
-#include "DirectionDetectionAlgo.h"
-
+#import "DirectionDetectionAlgo.h"
 
 @interface SoundProcessingAlgo() {
     int mvgAvg[3];
@@ -46,7 +44,7 @@ int thresholdPass = -900;
     return nil;
 }
 
-- (id)initWithDirDelegate:(id<DirectionRecieverDelegate>)delegate {
+- (id)initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate {
     
     self = [super init];
     

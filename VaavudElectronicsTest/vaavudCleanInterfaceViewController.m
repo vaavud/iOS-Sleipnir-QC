@@ -42,6 +42,10 @@
     
 }
 
+- (void) newAngularVelocities: (NSArray*) angularVelocities {
+    
+}
+
 - (void) newWindAngleLocal:(float) angle {
     [self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", angle]];
 }

@@ -255,7 +255,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ8-Pu-Vhu" customClass="EZAudioPlotGL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOh-ol-Nge" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="284" width="320" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -264,29 +269,12 @@
                     </view>
                     <connections>
                         <outlet property="audioPlot" destination="MQ8-Pu-Vhu" id="7CL-kj-iLJ"/>
+                        <outlet property="graphHostingView" destination="FOh-ol-Nge" id="YzH-FX-phE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kia-8e-KtG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1431" y="156"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="wXv-rZ-5vB">
-            <objects>
-                <viewController id="TX0-Xj-tUV" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="OiG-dJ-G6q"/>
-                        <viewControllerLayoutGuide type="bottom" id="emP-6q-GJu"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Gsh-57-q9v">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y9U-pt-0VB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1805" y="156"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

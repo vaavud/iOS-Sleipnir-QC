@@ -7,7 +7,9 @@
 //
 
 #import "vaavudUIViewController.h"
+#import "CorePlot-CocoaTouch.h"
 
-@interface vaavudRawSignalViewController : vaavudUIViewController
+
+@interface vaavudRawSignalViewController : vaavudUIViewController <CPTPlotDataSource>
 
 @end

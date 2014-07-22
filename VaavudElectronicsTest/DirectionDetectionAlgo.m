@@ -28,7 +28,8 @@
     int tickAngle[TICKS_PR_REV+2]; // add one point in ether end
 }
 
-@property (weak, nonatomic) id<DirectionRecieverDelegate> dirDelegate;
+@property (strong, nonatomic) id<VaavudElectronicWindDelegate> dirDelegate;
+
 - (void) printStatus;
 - (void) updateNextRefreshTime;
 - (void) resetDirection;
@@ -49,7 +50,7 @@ float compensation[TICKS_PR_REV] = {1.039799138,1.045523707,1.046944848,1.060272
     return [self initWithDirDelegate:NULL];
 }
 
-- (id) initWithDirDelegate:(id<DirectionRecieverDelegate>)delegate {
+- (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate {
     
     
     self = [super init];
@@ -285,6 +286,15 @@ float compensation[TICKS_PR_REV] = {1.039799138,1.045523707,1.046944848,1.060272
     // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
     dispatch_async(dispatch_get_main_queue(),^{
         [self.dirDelegate newWindAngleLocal:[self correctAngle:xout]];
+        
+        // wrap mvgRelativeSpeed in Array
+        NSMutableArray *angularVelocities = [[NSMutableArray alloc] initWithCapacity:TICKS_PR_REV];
+        
+        for (int i = 0; i < TICKS_PR_REV; i++) {
+            [angularVelocities addObject: [NSNumber numberWithFloat: mvgRelativeSpeed[i]]];
+        }
+        
+        [self.dirDelegate newAngularVelocities: angularVelocities];
         [self.dirDelegate newAngularVelocities: mvgRelativeSpeed andLength:TICKS_PR_REV];
         [self.dirDelegate newSpeed: [NSNumber numberWithFloat:windSpeed]];
     });

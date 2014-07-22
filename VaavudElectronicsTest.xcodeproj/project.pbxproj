@@ -312,9 +312,9 @@
 			isa = PBXGroup;
 			children = (
 				D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */,
+				D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */,
 				D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */,
 				D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */,
-				D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */,
 				D73E9922197D34570011D516 /* VaavudElectronic.h */,
 				D73E9923197D34570011D516 /* VaavudElectronic.m */,
 				D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */,
