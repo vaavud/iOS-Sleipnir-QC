@@ -47,6 +47,8 @@
 		D73E9924197D34570011D516 /* VaavudElectronic.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9923197D34570011D516 /* VaavudElectronic.m */; };
 		D73E9928197D3F3C0011D516 /* soundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9927197D3F3C0011D516 /* soundManager.m */; };
 		D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */; };
+		D73E993F197E5B830011D516 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */; };
+		D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E9940197E5DAB0011D516 /* Accelerate.framework */; };
 		D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = D70B9A97193F298400D6FA0B;
 			remoteInfo = VaavudElectronicsTest;
+		};
+		D73E993B197E5B2C0011D516 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		D73E993D197E5B380011D516 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -128,6 +144,8 @@
 		D73E9927197D3F3C0011D516 /* soundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = soundManager.m; sourceTree = "<group>"; };
 		D73E992A197E4E300011D516 /* vaavudRawSignalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudRawSignalViewController.h; sourceTree = "<group>"; };
 		D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudRawSignalViewController.m; sourceTree = "<group>"; };
+		D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
+		D73E9940197E5DAB0011D516 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionDetectionAlgo.h; sourceTree = "<group>"; };
 		D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionDetectionAlgo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +155,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */,
+				D73E993F197E5B830011D516 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				D73E98CD1976754B0011D516 /* CoreLocation.framework in Frameworks */,
 				D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */,
 				D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */,
@@ -163,6 +183,7 @@
 		D70B9A8F193F298400D6FA0B = {
 			isa = PBXGroup;
 			children = (
+				D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */,
 				D70B9AA1193F298400D6FA0B /* VaavudElectronicsTest */,
 				D70B9AC0193F298400D6FA0B /* VaavudElectronicsTestTests */,
 				D70B9A9A193F298400D6FA0B /* Frameworks */,
@@ -183,6 +204,7 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D73E9940197E5DAB0011D516 /* Accelerate.framework */,
 				D73E98CC1976754B0011D516 /* CoreLocation.framework */,
 				D70B9B0619448EB000D6FA0B /* AudioUnit.framework */,
 				D70B9B02193F332700D6FA0B /* QuartzCore.framework */,
@@ -315,6 +337,14 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		D73E9936197E5B2C0011D516 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -329,6 +359,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D73E993E197E5B380011D516 /* PBXTargetDependency */,
 			);
 			name = VaavudElectronicsTest;
 			productName = VaavudElectronicsTest;
@@ -382,6 +413,12 @@
 			mainGroup = D70B9A8F193F298400D6FA0B;
 			productRefGroup = D70B9A99193F298400D6FA0B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D73E9936197E5B2C0011D516 /* Products */;
+					ProjectRef = D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D70B9A97193F298400D6FA0B /* VaavudElectronicsTest */,
@@ -389,6 +426,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = D73E993B197E5B2C0011D516 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D70B9A96193F298400D6FA0B /* Resources */ = {
@@ -460,6 +507,11 @@
 			isa = PBXTargetDependency;
 			target = D70B9A97193F298400D6FA0B /* VaavudElectronicsTest */;
 			targetProxy = D70B9ABE193F298400D6FA0B /* PBXContainerItemProxy */;
+		};
+		D73E993E197E5B380011D516 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = D73E993D197E5B380011D516 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -574,7 +626,13 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudElectronicsTest/VaavudElectronicsTest-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../core-plot/framework/**",
+				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -594,7 +652,13 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudElectronicsTest/VaavudElectronicsTest-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../core-plot/framework/**",
+				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
