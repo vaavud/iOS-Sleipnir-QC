@@ -47,7 +47,7 @@ float *arrayLeft;
     return nil;
 }
 
-- (id)initWithDirDelegate:(id<DirectionRecieverDelegate>)delegate {
+- (id)initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate {
     
     self = [super init];
     
