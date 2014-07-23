@@ -13,7 +13,7 @@
 @interface SoundManager() <EZMicrophoneDelegate, EZOutputDataSource>
 
 @property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;
-@property (nonatomic, assign) BOOL isRecording;
+@property (nonatomic, assign) BOOL recordingActive;
 @property (nonatomic, strong) NSMutableArray *intArray;
 
 
@@ -60,7 +60,7 @@ float *arrayLeft;
     /*
      Log out where the file is being written to within the app's documents directory
      */
-    NSLog(@"File written to application sandbox's documents directory: %@",[self testFilePathURL]);
+    NSLog(@"File written to application sandbox's documents directory: %@",[self recordingFilePathURL]);
     
     // output variables
     
@@ -105,6 +105,36 @@ float *arrayLeft;
     }
     
 }
+
+
+// Starts the internal soundfile recorder
+- (void) startRecording {
+    // Create the recorder
+    self.recorder = [EZRecorder recorderWithDestinationURL:[self recordingFilePathURL]
+                                              sourceFormat:self.microphone.audioStreamBasicDescription
+                                       destinationFileType:EZRecorderFileTypeWAV];
+    
+    self.recordingActive = YES;
+}
+
+// Ends the internal soundfile recorder
+- (void) endRecording {
+    self.recordingActive = NO;
+    [self.recorder closeAudioFile];
+    self.recorder = nil;
+    
+}
+
+// returns true if recording is active
+- (BOOL) isRecording {
+    return self.recordingActive;
+}
+
+// returns the local path of the recording
+- (NSURL*) recordingPath {
+    return [self recordingFilePathURL];
+}
+
 
 
 
@@ -172,7 +202,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 withNumberOfChannels:(UInt32)numberOfChannels {
     
     // Getting audio data as a buffer list that can be directly fed into the EZRecorder. This is happening on the audio thread - any UI updating needs a GCD main queue block. This will keep appending data to the tail of the audio file.
-    if( self.isRecording ){
+    if( self.recordingActive ){
         [self.recorder appendDataFromBufferList:bufferList
                                  withBufferSize:bufferSize];
     }
@@ -193,7 +223,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         /*
          Create the recorder
          */
-        self.recorder = [EZRecorder recorderWithDestinationURL:[self testFilePathURL]
+        self.recorder = [EZRecorder recorderWithDestinationURL:[self recordingFilePathURL]
                                                   sourceFormat:self.microphone.audioStreamBasicDescription
                                            destinationFileType:EZRecorderFileTypeWAV];
     }
@@ -262,7 +292,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     return basePath;
 }
 
--(NSURL*)testFilePathURL {
+-(NSURL*)recordingFilePathURL {
     return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",
                                    [self applicationDocumentsDirectory],
                                    kAudioFilePath]];
