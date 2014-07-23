@@ -91,7 +91,7 @@ float compensation[TICKS_PR_REV] = {1.039799138,1.045523707,1.046944848,1.060272
 
 - (void) locateStart:(int)samples{
     if (samples > 1.4 * lastSample && samples < 1.7 * lastSample) {
-        NSLog(@"StartLocated: Ratio: %f, StartCounter: %d", samples / ((float) lastSample), startCounter);
+        //NSLog(@"StartLocated: Ratio: %f, StartCounter: %d", samples / ((float) lastSample), startCounter);
         
         
         if (startCounter == 2* TICKS_PR_REV) {

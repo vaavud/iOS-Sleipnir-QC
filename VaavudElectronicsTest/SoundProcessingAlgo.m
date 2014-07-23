@@ -17,23 +17,15 @@
     int lastValue;
     unsigned long counter;
     unsigned long lastTick;
+    short mvgState;
+    short diffState;
 }
-
-- (BOOL) detectTick;
 
 @property (strong, nonatomic) DirectionDetectionAlgo *dirDetectionAlgo;
 
 @end
 
 @implementation SoundProcessingAlgo
-
-enum detectionState { SeekingHigh, SeekingLow, SeekingTripLow};
-enum detectionState dState = SeekingHigh;
-
-
-int thresholdHigh = 3000;
-int thresholdLow = 300;
-int thresholdPass = -900;
 
 
 #pragma mark - Initialization
@@ -84,7 +76,7 @@ int thresholdPass = -900;
         mvgDiffSum += mvgDiff[bufferIndex];
         
         
-//        if (counter < 10) {
+//        if (counter > 80000 && counter < 80010 ) {
 //            NSLog(@"counter: %lu, bufferIndex: %d, data[i]: %d", counter, bufferIndex, data[i]);
 //            NSLog(@"mvgAvg: %d, %d, %d", mvgAvg[0], mvgAvg[1], mvgAvg[2]);
 //            NSLog(@"mvgDiff: %d, %d, %d", mvgDiff[0], mvgDiff[1], mvgDiff[2]);
@@ -94,10 +86,11 @@ int thresholdPass = -900;
 //        }
         
         
-        if ([self detectTick]) {
+        if ([self detectTick: (int) (counter - lastTick)]) {
             [self.dirDetectionAlgo newTick: (int) (counter - lastTick)];
             
-//            NSLog(@"Tick %lu", counter - lastTick);
+            NSLog(@"Tick %lu", counter - lastTick);
+            
             lastTick = counter;
         }
         
@@ -113,23 +106,51 @@ int thresholdPass = -900;
 }
 
 
-- (BOOL) detectTick {
+- (BOOL) detectTick:(int) sampleSinceTick {
     
-    switch (dState) {
-        case SeekingHigh:
-            if (mvgDiffSum > thresholdHigh) {
-                dState = SeekingLow;
+    // NOTE ALL COMPARISON VALUES IS TIMED BY 3
+    switch (mvgState) {
+        case 0:
+            if (sampleSinceTick < 100) {
+                if (mvgAvgSum < -1200) {
+                    mvgState = 1;
+                    diffState = 1;
+                    return true;
+                }
+            } else {
+                mvgState = -1;
             }
             break;
-        case SeekingLow:
-            if (mvgDiffSum < thresholdLow) {
-                dState = SeekingTripLow;
+        case 1:
+            if (sampleSinceTick < 70) {
+                if (mvgAvgSum > 1200) {
+                    mvgState = 0;
+                }
+            } else {
+                mvgState = -1;
             }
             break;
-        case SeekingTripLow:
-            if (mvgAvgSum < thresholdPass) {
-                dState = SeekingHigh;
-                return true;
+        default:
+            break;
+    }
+    
+    
+    switch (diffState) {
+        case 0:
+            if (mvgDiffSum > 300) {
+                mvgState = 1;
+                diffState = 1;
+                return  true;
+            }
+            break;
+        case 1:
+            if (mvgDiffSum > 2100) {
+                diffState = 2;
+            }
+            break;
+        case 2:
+            if (mvgDiffSum < 90 && mvgAvgSum < 0) {
+                diffState = 0;
             }
         default:
             break;

@@ -9,8 +9,8 @@
 #import "UploadViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-#define RECORDING_TIME 2.0
-#define PROGRESS_BAR_STEPS 40
+#define RECORDING_TIME 10.0
+#define PROGRESS_BAR_STEPS 20
 
 @interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
