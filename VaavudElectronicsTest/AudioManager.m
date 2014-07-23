@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Vaavud. All rights reserved.
 //
 
-#import "SoundManager.h"
+#import "AudioManager.h"
 #import "SoundProcessingAlgo.h"
 
 
-@interface SoundManager() <EZMicrophoneDelegate, EZOutputDataSource>
+@interface AudioManager() <EZMicrophoneDelegate, EZOutputDataSource>
 
 @property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;
 @property (nonatomic, assign) BOOL recordingActive;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation SoundManager
+@implementation AudioManager
 
 double theta;
 double theta_increment;

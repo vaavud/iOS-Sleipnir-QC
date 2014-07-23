@@ -7,13 +7,13 @@
 //
 
 #import "VaavudElectronic.h"
-#import "SoundManager.h"
+#import "AudioManager.h"
 
 
 @interface VaavudElectronic()
 
 @property (strong, atomic) NSMutableArray *VaaElecWindDelegates;
-@property (strong, nonatomic) SoundManager *soundManager;
+@property (strong, nonatomic) AudioManager *soundManager;
 
 @end
 
@@ -38,7 +38,7 @@ static VaavudElectronic *sharedInstance = nil;
 
 - (void) initSingleton {
     self.VaaElecWindDelegates = [[NSMutableArray alloc] initWithCapacity:2];
-    self.soundManager = [[SoundManager alloc] initWithDirDelegate:self];
+    self.soundManager = [[AudioManager alloc] initWithDirDelegate:self];
 }
 
 + (id) allocWithZone:(NSZone *)zone {

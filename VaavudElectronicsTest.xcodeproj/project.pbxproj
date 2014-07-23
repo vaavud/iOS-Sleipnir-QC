@@ -46,7 +46,7 @@
 		D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991C197D0E230011D516 /* vaavudUIViewController.m */; };
 		D73E9920197D13BA0011D516 /* vaavudCleanInterfaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */; };
 		D73E9924197D34570011D516 /* VaavudElectronic.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9923197D34570011D516 /* VaavudElectronic.m */; };
-		D73E9928197D3F3C0011D516 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9927197D3F3C0011D516 /* SoundManager.m */; };
+		D73E9928197D3F3C0011D516 /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9927197D3F3C0011D516 /* AudioManager.m */; };
 		D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */; };
 		D73E993F197E5B830011D516 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */; };
 		D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E9940197E5DAB0011D516 /* Accelerate.framework */; };
@@ -143,8 +143,8 @@
 		D73E9922197D34570011D516 /* VaavudElectronic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronic.h; sourceTree = "<group>"; };
 		D73E9923197D34570011D516 /* VaavudElectronic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudElectronic.m; sourceTree = "<group>"; };
 		D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronicWindDelegate.h; sourceTree = "<group>"; };
-		D73E9926197D3F3C0011D516 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
-		D73E9927197D3F3C0011D516 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
+		D73E9926197D3F3C0011D516 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
+		D73E9927197D3F3C0011D516 /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
 		D73E992A197E4E300011D516 /* vaavudRawSignalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudRawSignalViewController.h; sourceTree = "<group>"; };
 		D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudRawSignalViewController.m; sourceTree = "<group>"; };
 		D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 				D73E9922197D34570011D516 /* VaavudElectronic.h */,
 				D73E9923197D34570011D516 /* VaavudElectronic.m */,
 				D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */,
-				D73E9926197D3F3C0011D516 /* SoundManager.h */,
-				D73E9927197D3F3C0011D516 /* SoundManager.m */,
+				D73E9926197D3F3C0011D516 /* AudioManager.h */,
+				D73E9927197D3F3C0011D516 /* AudioManager.m */,
 			);
 			name = VaavudElectronic;
 			sourceTree = "<group>";
@@ -489,7 +489,7 @@
 				D70B9AFA193F328200D6FA0B /* EZRecorder.m in Sources */,
 				D70B9AF1193F328200D6FA0B /* EZAudio.m in Sources */,
 				D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */,
-				D73E9928197D3F3C0011D516 /* SoundManager.m in Sources */,
+				D73E9928197D3F3C0011D516 /* AudioManager.m in Sources */,
 				D70B9AF7193F328200D6FA0B /* EZMicrophone.m in Sources */,
 				D70B9AF9193F328200D6FA0B /* EZPlot.m in Sources */,
 				D73E99171977A7490011D516 /* vaavudRootViewController.m in Sources */,

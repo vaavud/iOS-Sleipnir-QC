@@ -21,7 +21,7 @@
 #define UPDATE_INTERVAL 0.1 // 10 times a second
 
 
-@interface SoundManager : NSObject
+@interface AudioManager : NSObject
 
 - (void) start;
 - (void) stop;
