@@ -18,7 +18,6 @@
 /* add listener of heading and windspeed information */
 - (void) addListener:(id <VaavudElectronicWindDelegate>) delegate;
 
-
 /* remove listener of heading and windspeed information */
 - (void) removeListener:(id <VaavudElectronicWindDelegate>) delegate;
 
@@ -28,7 +27,19 @@
 /* start the audio input/output and starts sending data */
 - (void) stop;
 
-
+// sets the audioPlot to which buffered raw audio values is send for plotting
 - (void) setAudioPlot:(EZAudioPlotGL *) audioPlot;
+
+// Starts the internal soundfile recorder
+- (void) startRecording;
+
+// Ends the internal soundfile recorder
+- (void) endRecording;
+
+// returns true if recording is active
+- (BOOL) isRecording;
+
+// returns the local path of the recording
+- (NSURL*) recordingPath;
 
 @end

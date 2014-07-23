@@ -117,5 +117,26 @@ static VaavudElectronic *sharedInstance = nil;
 }
 
 
+// Starts the internal soundfile recorder
+- (void) startRecording {
+    [self.soundManager startRecording];
+}
+
+// Ends the internal soundfile recorder
+- (void) endRecording {
+    [self.soundManager endRecording];
+}
+
+// returns true if recording is active
+- (BOOL) isRecording {
+    return [self.soundManager isRecording];
+}
+
+// returns the local path of the recording
+- (NSURL*) recordingPath {
+    return [self.soundManager recordingPath];
+}
+
+
 
 @end

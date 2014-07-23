@@ -11,6 +11,7 @@
 @interface vaavudRawSignalViewController () <VaavudElectronicWindDelegate>
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphHostingView;
+@property (weak, nonatomic) IBOutlet UILabel *textLabelMaxVelocityDiff;
 @property (strong, nonatomic) VaavudElectronic *vaavudElectronics;
 @property (nonatomic, strong)   CPTXYGraph    *graph;
 @property (nonatomic) NSArray* angularVelocities;
@@ -56,6 +57,17 @@
     self.graph = [[CPTXYGraph alloc] initWithFrame:self.graphHostingView.bounds];
     
     self.graphHostingView.hostedGraph = self.graph;
+    
+    
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.graphHostingView.hostedGraph.axisSet;
+    axisSet.hidden = YES;
+    
+    CPTAxis *y = axisSet.yAxis;
+    y.labelingPolicy = CPTAxisLabelingPolicyNone;
+    
+    CPTXYAxis *x = axisSet.xAxis;
+    x.labelingPolicy = CPTAxisLabelingPolicyNone;
+    
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) self.graph.defaultPlotSpace;
@@ -120,6 +132,32 @@
 
 - (void) newAngularVelocities: (NSArray*) angularVelocities {
     self.angularVelocities = angularVelocities;
+    
+    float min = 1;
+    float max = 1;
+    
+    
+    for (int i = 0; i < angularVelocities.count; i++) {
+        
+        if ([[angularVelocities objectAtIndex:i] floatValue] < min) {
+            min = [[angularVelocities objectAtIndex:i] floatValue];
+        }
+        
+        if ([[angularVelocities objectAtIndex:i] floatValue] > max) {
+            max = [[angularVelocities objectAtIndex:i] floatValue];
+        }
+        
+    }
+    
+    
+    float maxDiff = MAX(1-min, max-1);
+    float lowerBound = 1 - maxDiff;
+    float plotLength = maxDiff * 2;
+    
+    [(CPTXYPlotSpace *) self.graph.defaultPlotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( lowerBound ) length:CPTDecimalFromFloat( plotLength )]];
+    
+    self.textLabelMaxVelocityDiff.text = [NSString stringWithFormat:@"%0.2f%%", maxDiff*100];
+    
     [self.graph reloadData];
     
 }

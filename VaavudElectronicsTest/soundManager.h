@@ -23,14 +23,24 @@
 
 @interface SoundManager : NSObject
 
-//@property (strong, nonatomic) id<VaavudElectronicWindDelegate> WindDelegate;
-
--(void) start;
--(void) stop;
--(id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
-
+- (void) start;
+- (void) stop;
+- (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
 - (void) toggleMicrophone:(bool) micOn;
 
 @property (weak, nonatomic) EZAudioPlotGL *audioPlot;
+
+// Starts the internal soundfile recorder
+- (void) startRecording;
+
+// Ends the internal soundfile recorder
+- (void) endRecording;
+
+// returns true if recording is active
+- (BOOL) isRecording;
+
+// returns the local path of the recording
+- (NSURL*) recordingPath;
+
 
 @end

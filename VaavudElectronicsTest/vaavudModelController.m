@@ -74,7 +74,7 @@ enum Screens : NSUInteger {
         case ScreenAll2: {
             // Create a new view controller and pass suitable data.
             //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
-            viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewControllerCleanInterface"];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"UploadViewController"];
             [viewController setScreenIndex: index];
         }
             

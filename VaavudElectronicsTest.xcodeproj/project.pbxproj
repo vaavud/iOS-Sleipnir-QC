@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D7094197197EAC04008925F0 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7094196197EAC04008925F0 /* UploadViewController.m */; };
 		D70B9A9C193F298400D6FA0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9A9B193F298400D6FA0B /* Foundation.framework */; };
 		D70B9A9E193F298400D6FA0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9A9D193F298400D6FA0B /* CoreGraphics.framework */; };
 		D70B9AA0193F298400D6FA0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9A9F193F298400D6FA0B /* UIKit.framework */; };
@@ -77,6 +78,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D7094195197EAC04008925F0 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
+		D7094196197EAC04008925F0 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
 		D70B9A98193F298400D6FA0B /* VaavudElectronicsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaavudElectronicsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70B9A9B193F298400D6FA0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D70B9A9D193F298400D6FA0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -333,6 +336,8 @@
 				D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */,
 				D73E992A197E4E300011D516 /* vaavudRawSignalViewController.h */,
 				D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */,
+				D7094195197EAC04008925F0 /* UploadViewController.h */,
+				D7094196197EAC04008925F0 /* UploadViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 				D70B9AF4193F328200D6FA0B /* EZAudioPlot.m in Sources */,
 				D70B9AFB193F328200D6FA0B /* TPCircularBuffer.c in Sources */,
 				D70B9AA8193F298400D6FA0B /* main.m in Sources */,
+				D7094197197EAC04008925F0 /* UploadViewController.m in Sources */,
 				D70B9AF3193F328200D6FA0B /* EZAudioPlayer.m in Sources */,
 				D70B9AF0193F328200D6FA0B /* AEFloatConverter.m in Sources */,
 				D70B9AB2193F298400D6FA0B /* vaavudViewController.m in Sources */,
