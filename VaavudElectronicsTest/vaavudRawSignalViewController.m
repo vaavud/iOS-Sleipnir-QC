@@ -74,7 +74,7 @@
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
     [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.9 ) length:CPTDecimalFromFloat( 0.2 )]];
-    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( 10 )]];
+    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( 360 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
     CPTScatterPlot* plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
@@ -110,7 +110,8 @@
     {
         // Return x value, which will, depending on index, be between -4 to 4
         //return [NSNumber numberWithInt: x];
-        return [NSNumber numberWithInt: index];
+        
+        return [NSNumber numberWithInt: [self.vaavudElectronics getEdgeAngles][index]];
         
     } else {
         // Return y value, for this example we'll be plotting y = x * x

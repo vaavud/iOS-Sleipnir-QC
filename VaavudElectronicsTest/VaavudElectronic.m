@@ -8,6 +8,7 @@
 
 #import "VaavudElectronic.h"
 #import "AudioManager.h"
+#import "DirectionDetectionAlgo.h"
 
 
 @interface VaavudElectronic()
@@ -137,6 +138,15 @@ static VaavudElectronic *sharedInstance = nil;
     return [self.soundManager recordingPath];
 }
 
+// returns the fitcurve used in the directionAlgorithm
+- (float *) getFitCurve {
+    return [DirectionDetectionAlgo getFitCurve];
+}
+
+// returns the EdgeAngles for the samples
+- (int *) getEdgeAngles {
+    return [self.soundManager.soundProcessor.dirDetectionAlgo getEdgeAngles];
+}
 
 
 @end

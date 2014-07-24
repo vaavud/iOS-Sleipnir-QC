@@ -7,7 +7,6 @@
 //
 
 #import "SoundProcessingAlgo.h"
-#import "DirectionDetectionAlgo.h"
 
 @interface SoundProcessingAlgo() {
     int mvgAvg[3];
@@ -21,7 +20,6 @@
     short diffState;
 }
 
-@property (strong, nonatomic) DirectionDetectionAlgo *dirDetectionAlgo;
 
 @end
 

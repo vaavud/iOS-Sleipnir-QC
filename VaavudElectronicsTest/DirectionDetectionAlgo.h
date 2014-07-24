@@ -21,5 +21,7 @@
 
 - (void) newTick:(int)samples;
 - (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
++ (float *) getFitCurve;
+- (int *) getEdgeAngles;
 
 @end

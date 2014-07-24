@@ -42,4 +42,10 @@
 // returns the local path of the recording
 - (NSURL*) recordingPath;
 
+// returns the fitcurve used in direction algorithm
+- (float *) getFitCurve;
+
+// returns the EdgeAngles for the samples
+- (int *) getEdgeAngles;
+
 @end

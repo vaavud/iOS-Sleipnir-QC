@@ -12,7 +12,7 @@
 #define TICKS_PR_REV 15
 #define SAMPLE_BUFFER_SIZE 150
 #define UPDATE_INTERVAL 0.1 // 10 times a second
-#define ANGLE_CORRRECTION_COEFFICIENT 400
+#define ANGLE_CORRRECTION_COEFFICIENT 200 // originally 400 (but since actual velocity difference is about double...
 #define ANGLE_DIFF 1
 
 @interface DirectionDetectionAlgo() {
@@ -305,6 +305,9 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
 
 
 - (void) iterateAngle: (float *) mvgRelativeSpeedPercent {
+    
+    // SMALL NOTICE (ANGLES IN USE ARE EDGE ANGLES, MIGHT BE BETTER TO CALCULATE EXCATE ANGLES!)
+    
     int angleLow = (angleEstimator - ANGLE_DIFF);
     int angleHigh = (angleEstimator + ANGLE_DIFF);
     
@@ -353,5 +356,12 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     return angle;
 }
 
++ (float *) getFitCurve {
+    return fitcurve;
+}
+
+- (int *) getEdgeAngles {
+    return tickEdgeAngle;
+}
 
 @end

@@ -7,12 +7,11 @@
 //
 
 #import "AudioManager.h"
-#import "SoundProcessingAlgo.h"
 
 
 @interface AudioManager() <EZMicrophoneDelegate, EZOutputDataSource>
 
-@property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;
+
 @property (nonatomic, assign) BOOL recordingActive;
 @property (nonatomic, strong) NSMutableArray *intArray;
 

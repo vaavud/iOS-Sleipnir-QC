@@ -16,6 +16,7 @@
 #define kAudioFilePath @"EZAudioTest.m4a"
 //#define kAudioFilePath @"EZAudioTest.wav"
 
+#import "SoundProcessingAlgo.h"
 
 
 @interface AudioManager : NSObject
@@ -25,6 +26,7 @@
 - (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
 - (void) toggleMicrophone:(bool) micOn;
 
+@property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;
 @property (weak, nonatomic) EZAudioPlotGL *audioPlot;
 
 // Starts the internal soundfile recorder

@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "VaavudElectronicWindDelegate.h"
+#import "DirectionDetectionAlgo.h"
 
 @interface SoundProcessingAlgo : NSObject
+
+
+@property (strong, nonatomic) DirectionDetectionAlgo *dirDetectionAlgo;
 
 - (void) newSoundData:(int *)data bufferLength:(UInt32) bufferLength;
 - (id)initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
