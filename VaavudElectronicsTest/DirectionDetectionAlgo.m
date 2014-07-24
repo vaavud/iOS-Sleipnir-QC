@@ -32,6 +32,8 @@
     int lastSample;
     int tickEdgeAngle[TICKS_PR_REV+2]; // add one point in ether end
     int angleEstimator;
+    
+    int iteratorAngleCounter;
 }
 
 @property (strong, nonatomic) id<VaavudElectronicWindDelegate> dirDelegate;
@@ -308,6 +310,11 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     
     // SMALL NOTICE (ANGLES IN USE ARE EDGE ANGLES, MIGHT BE BETTER TO CALCULATE EXCATE ANGLES!)
     
+    if (iteratorAngleCounter == 5) {
+        [self checkOppositeAngle: mvgRelativeSpeedPercent];
+        iteratorAngleCounter = 0;
+    }
+    
     int angleLow = (angleEstimator - ANGLE_DIFF);
     int angleHigh = (angleEstimator + ANGLE_DIFF);
     
@@ -343,7 +350,50 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     if (angleEstimator > 360)
         angleEstimator -= 360;
     
+    iteratorAngleCounter++;
+    
 }
+
+
+- (void) checkOppositeAngle: (float *) mvgRelativeSpeedPercent {
+    
+    // SMALL NOTICE (ANGLES IN USE ARE EDGE ANGLES, MIGHT BE BETTER TO CALCULATE EXCATE ANGLES!)
+    
+    int angleLow = (angleEstimator);
+    int angleHigh = (angleEstimator + 180);
+    
+    if (angleLow < 0)
+        angleLow += 360;
+    
+    if (angleHigh > 360)
+        angleHigh -= 360;
+    
+    float angleLowSum = 0.0;
+    float angleHighSum = 0.0;
+    
+    for (int i = 0; i < TICKS_PR_REV; i++) {
+        
+        int signalExpectedIndexLow = tickEdgeAngle[i] - angleLow;
+        if (signalExpectedIndexLow < 0)
+            signalExpectedIndexLow += 360;
+        
+        int signalExpectedIndexHigh = tickEdgeAngle[i] - angleHigh;
+        if (signalExpectedIndexHigh < 0)
+            signalExpectedIndexHigh += 360;
+        
+        angleLowSum += powf(fitcurve[signalExpectedIndexLow]-mvgRelativeSpeedPercent[i], 2.0);
+        angleHighSum += powf(fitcurve[signalExpectedIndexHigh]-mvgRelativeSpeedPercent[i], 2.0);
+    }
+
+    if (angleLowSum > angleHighSum) {
+        angleEstimator += 180;
+    }
+    
+    if (angleEstimator > 360)
+        angleEstimator -= 360;
+    
+}
+
 
 
 - (float) correctAngle:(float) angle {
