@@ -8,7 +8,10 @@
 
 #import "DirectionDetectionAlgo.h"
 #import "vaavudViewController.h"
-
+//#define TICKS_PR_REV 10
+#define TICKS_PR_REV 15
+#define SAMPLE_BUFFER_SIZE 150
+#define UPDATE_INTERVAL 0.1 // 10 times a second
 
 @interface DirectionDetectionAlgo() {
     
@@ -30,20 +33,14 @@
 
 @property (strong, nonatomic) id<VaavudElectronicWindDelegate> dirDelegate;
 
-- (void) printStatus;
-- (void) updateNextRefreshTime;
-- (void) resetDirection;
-
 @end
-
-
 
 
 @implementation DirectionDetectionAlgo
 
 
-float compensation[TICKS_PR_REV] = {1.039799138,1.045523707,1.046944848,1.060272909,1.062841846,1.069164251,1.070833422,1.065796962,1.05726205,0.67142769};
-
+//float compensation[TICKS_PR_REV] = {1.039799138,1.045523707,1.046944848,1.060272909,1.062841846,1.069164251,1.070833422,1.065796962,1.05726205,0.67142769};
+float compensation[TICKS_PR_REV] = {1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,1.02127659574468,0.774193548387097};
 
 #pragma mark - Initialization
 -(id)init {
@@ -61,8 +58,11 @@ float compensation[TICKS_PR_REV] = {1.039799138,1.045523707,1.046944848,1.060272
     
     // standard tick
     
-    int stdTickSize = 34;
-    int bigTickSize = 54;
+//    int stdTickSize = 34;
+//    int bigTickSize = 54;
+    
+    int stdTickSize = 23.5;
+    int bigTickSize = 31;
     
     tickAngle[0] = - bigTickSize/2;
     
@@ -90,7 +90,7 @@ float compensation[TICKS_PR_REV] = {1.039799138,1.045523707,1.046944848,1.060272
 
 
 - (void) locateStart:(int)samples{
-    if (samples > 1.4 * lastSample && samples < 1.7 * lastSample) {
+    if (samples > 1.2 * lastSample && samples < 1.4 * lastSample) {
         //NSLog(@"StartLocated: Ratio: %f, StartCounter: %d", samples / ((float) lastSample), startCounter);
         
         
