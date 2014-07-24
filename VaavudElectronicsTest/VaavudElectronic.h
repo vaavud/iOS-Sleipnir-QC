@@ -42,6 +42,12 @@
 // returns the local path of the recording
 - (NSURL*) recordingPath;
 
+// returns the local path of the recording
+- (NSURL*) summeryPath;
+
+// generate summeryFile
+- (void) generateSummeryFile;
+
 // returns the fitcurve used in direction algorithm
 - (float *) getFitCurve;
 

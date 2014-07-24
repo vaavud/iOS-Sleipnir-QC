@@ -9,12 +9,14 @@
 #import "VaavudElectronic.h"
 #import "AudioManager.h"
 #import "DirectionDetectionAlgo.h"
+#import "SummeryGenerator.h"
 
 
 @interface VaavudElectronic()
 
 @property (strong, atomic) NSMutableArray *VaaElecWindDelegates;
 @property (strong, nonatomic) AudioManager *soundManager;
+@property (strong, nonatomic) SummeryGenerator *summeryGenerator;
 
 @end
 
@@ -40,6 +42,7 @@ static VaavudElectronic *sharedInstance = nil;
 - (void) initSingleton {
     self.VaaElecWindDelegates = [[NSMutableArray alloc] initWithCapacity:2];
     self.soundManager = [[AudioManager alloc] initWithDirDelegate:self];
+    self.summeryGenerator = [[SummeryGenerator alloc] init];
 }
 
 + (id) allocWithZone:(NSZone *)zone {
@@ -121,11 +124,13 @@ static VaavudElectronic *sharedInstance = nil;
 // Starts the internal soundfile recorder
 - (void) startRecording {
     [self.soundManager startRecording];
+    [self.summeryGenerator startRecording];
 }
 
 // Ends the internal soundfile recorder
 - (void) endRecording {
     [self.soundManager endRecording];
+    [self.summeryGenerator endRecording];
 }
 
 // returns true if recording is active
@@ -138,6 +143,11 @@ static VaavudElectronic *sharedInstance = nil;
     return [self.soundManager recordingPath];
 }
 
+// returns the local path of the summeryfile
+- (NSURL*) summeryPath {
+    return [self.summeryGenerator recordingPath];
+}
+
 // returns the fitcurve used in the directionAlgorithm
 - (float *) getFitCurve {
     return [DirectionDetectionAlgo getFitCurve];
@@ -146,6 +156,10 @@ static VaavudElectronic *sharedInstance = nil;
 // returns the EdgeAngles for the samples
 - (int *) getEdgeAngles {
     return [self.soundManager.soundProcessor.dirDetectionAlgo getEdgeAngles];
+}
+
+- (void) generateSummeryFile {
+    [self.summeryGenerator generateFile];
 }
 
 

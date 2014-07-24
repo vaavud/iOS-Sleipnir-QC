@@ -199,7 +199,7 @@ enum plotName : NSInteger {
 
 - (void) newSpeed: (NSNumber*) speed{
     //[self.rotationSpeedTextField setText:[NSString stringWithFormat:@"%.1f", speed.floatValue]];
-    NSLog(@"RAW speed: %.2f", speed.floatValue);
+//    NSLog(@"RAW speed: %.2f", speed.floatValue);
 }
 
 

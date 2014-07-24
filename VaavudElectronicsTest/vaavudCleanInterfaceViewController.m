@@ -36,7 +36,7 @@
 
 - (void) newSpeed: (NSNumber*) speed{
     [self.rotationSpeedTextField setText:[NSString stringWithFormat:@"%.1f", speed.floatValue]];
-    NSLog(@"awesome speed: %.2f", speed.floatValue);
+//    NSLog(@"awesome speed: %.2f", speed.floatValue);
 }
 - (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
     

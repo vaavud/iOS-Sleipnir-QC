@@ -135,11 +135,25 @@
         [self.vaavudElectronic endRecording];
         [self.recordingSwitch setOn: [self.vaavudElectronic isRecording]];
         [self uploadAudioFile];
+        [self uploadSummeryFile];
     }
     
 
 }
 
+- (void) uploadSummeryFile {
+    // Upload file to Dropbox
+    
+    if ([self.vaavudElectronic isRecording]) {
+        [self.vaavudElectronic endRecording];
+    }
+    
+    NSString *filename = [[self mainFileNameDropbox] stringByAppendingString: @".txt"];
+    [self.vaavudElectronic generateSummeryFile];
+    
+    [self.restClient uploadFile:filename toPath:[self folderDropbox] withParentRev:nil fromPath:[[self.vaavudElectronic summeryPath] path]];
+    [self.activityIndicator startAnimating];
+}
 
 
 
@@ -150,25 +164,34 @@
         [self.vaavudElectronic endRecording];
     }
     
+    NSString *filename = [[self mainFileNameDropbox] stringByAppendingString: @".wav"];
+   
+    [self.restClient uploadFile:filename toPath:[self folderDropbox] withParentRev:nil fromPath:[[self.vaavudElectronic recordingPath] path]];
+    
+    [self.activityIndicator startAnimating];
+    
+}
+
+- (NSString *) mainFileNameDropbox {
+    
+    return [NSString stringWithFormat:@"%@_%@", self.TextFieldTag.text, self.TextFieldIncrement.text];
+}
+
+- (NSString *) folderDropbox {
     NSDateFormatter *formatter;
     NSString        *dateString;
     
     formatter = [[NSDateFormatter alloc] init];
-    //    [formatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
-    //    [formatter setDateFormat:@"yyyy'-'MM'-'dd'_'HH'-'mm'-'ss"];
     [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
     
     dateString = [formatter stringFromDate:[NSDate date]];
     NSString *destDirBase = @"/";
     NSString *destDirFull = [destDirBase stringByAppendingString: dateString];
     
-    NSString *filename = [NSString stringWithFormat:@"%@_%@_%@", self.TextFieldTag.text, self.TextFieldIncrement.text, @"mic.wav"];
-   
-    [self.restClient uploadFile:filename toPath:destDirFull withParentRev:nil fromPath:[[self.vaavudElectronic recordingPath] path]];
-    
-    [self.activityIndicator startAnimating];
-    
+    return destDirFull;
 }
+
+
 
 
 /**
