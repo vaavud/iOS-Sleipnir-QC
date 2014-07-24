@@ -8,6 +8,8 @@
 
 #import "vaavudRawSignalViewController.h"
 
+#define NUMBER_OF_POINTS_FIT_PLOT 36
+
 @interface vaavudRawSignalViewController () <VaavudElectronicWindDelegate>
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphHostingView;
@@ -15,6 +17,14 @@
 @property (strong, nonatomic) VaavudElectronic *vaavudElectronics;
 @property (nonatomic, strong)   CPTXYGraph    *graph;
 @property (nonatomic) NSArray* angularVelocities;
+@property (nonatomic) NSArray* fitPlotAngles;
+@property (nonatomic) float localWindAngle;
+@property (nonatomic) float maxDiffRawPlot;
+
+enum plotName : NSInteger {
+    DataPlotFit = 0,
+    DataPlotRaw = 1
+};
 
 @end
 
@@ -46,6 +56,15 @@
     [self.vaavudElectronics setAudioPlot: self.audioPlot];
     
     
+    // generate fitplot angles
+    
+    NSMutableArray *fitPlotAnglesMutable = [[NSMutableArray alloc] initWithCapacity:NUMBER_OF_POINTS_FIT_PLOT];
+    
+    for (int i = 0; i < NUMBER_OF_POINTS_FIT_PLOT; i++) {
+        [fitPlotAnglesMutable addObject: [NSNumber numberWithFloat: i * 360/ (float) NUMBER_OF_POINTS_FIT_PLOT]];
+    }
+    self.fitPlotAngles = [fitPlotAnglesMutable copy];
+    
     
     //* GRAPH
     // We need a hostview, you can create one in IB (and create an outlet) or just do this:
@@ -73,7 +92,7 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) self.graph.defaultPlotSpace;
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
-    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.9 ) length:CPTDecimalFromFloat( 0.2 )]];
+    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -5 ) length:CPTDecimalFromFloat( 5 )]];
     [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0.0 ) length:CPTDecimalFromFloat( 360 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
@@ -82,19 +101,56 @@
     // Let's keep it simple and let this class act as datasource (therefore we implemtn <CPTPlotDataSource>)
     plot.dataSource = self;
     
+    // adde identifyer
+    plot.identifier = [NSNumber numberWithInteger:DataPlotRaw];
+    
+    
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [self.graph addPlot:plot toPlotSpace: self.graph.defaultPlotSpace];
+    
+    
+    
+    // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
+    CPTScatterPlot* plotFit = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
+    
+    // Let's keep it simple and let this class act as datasource (therefore we implemtn <CPTPlotDataSource>)
+    plotFit.dataSource = self;
+    
+    CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
+    lineStyle.miterLimit                = 1.0f;
+    lineStyle.lineWidth                 = 4.0f;
+    
+    CPTColor *vaavudBlue                = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
+    lineStyle.lineColor                 = vaavudBlue;
+    plotFit.dataLineStyle     = lineStyle;
+    
+    // adde identifyer
+    plotFit.identifier = [NSNumber numberWithInteger:DataPlotFit];
+    
+    
+    // Finally, add the created plot to the default plot space of the CPTGraph object we created before
+    [self.graph addPlot:plotFit toPlotSpace: self.graph.defaultPlotSpace];
+    
 }
 
 
 // Therefore this class implements the CPTPlotDataSource protocol
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plotnumberOfRecords {
-    if (self.angularVelocities) {
-        return self.angularVelocities.count;
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *) plot {
+    
+    if ([(NSNumber *) plot.identifier integerValue] == DataPlotRaw) {
+        if (self.angularVelocities) {
+            return self.angularVelocities.count;
+        }
+        else {
+            return 0;
+        }
     }
-    else {
-        return 0;
+    
+    if ([(NSNumber *) plot.identifier integerValue] == DataPlotFit) {
+        return 36; // HARDCODED NUMBER OF PLOT POINTS
     }
+    
+    return 0;
     //return 9; // Our sample graph contains 9 'points'
 }
 
@@ -102,21 +158,41 @@
 // Therefore this class implements the CPTPlotDataSource protocol
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    // We need to provide an X or Y (this method will be called for each) value for every index
-    //int x = index - 4;
     
-    // This method is actually called twice per point in the plot, one for the X and one for the Y value
-    if(fieldEnum == CPTScatterPlotFieldX)
-    {
-        // Return x value, which will, depending on index, be between -4 to 4
-        //return [NSNumber numberWithInt: x];
+    if ([(NSNumber *) plot.identifier integerValue] == DataPlotRaw) {
         
-        return [NSNumber numberWithInt: [self.vaavudElectronics getEdgeAngles][index]];
-        
-    } else {
-        // Return y value, for this example we'll be plotting y = x * x
-        return [self.angularVelocities objectAtIndex:index];
+        // This method is actually called twice per point in the plot, one for the X and one for the Y value
+        if(fieldEnum == CPTScatterPlotFieldX)
+        {
+            // Return x value, which will, depending on index, be between -4 to 4
+            //return [NSNumber numberWithInt: x];
+            
+            return [NSNumber numberWithInt: [self.vaavudElectronics getEdgeAngles][index]];
+            
+        } else {
+            // Return y value, for this example we'll be plotting y = x * x
+            return [self.angularVelocities objectAtIndex:index];
+        }
     }
+    
+    if ([(NSNumber *) plot.identifier integerValue] == DataPlotFit) {
+        if(fieldEnum == CPTScatterPlotFieldX) {
+            return [self.fitPlotAngles objectAtIndex:index];
+        } else {
+            
+            int fitAngleIndex = [[self.fitPlotAngles objectAtIndex:index] integerValue] - (int) self.localWindAngle;
+            if (fitAngleIndex < 0)
+                fitAngleIndex += 360;
+            
+            return [NSNumber numberWithFloat:[self.vaavudElectronics getFitCurve][fitAngleIndex] * self.maxDiffRawPlot / 1.8438 ];
+            
+        }
+        
+        return [NSNumber numberWithInt:0]; // HARDCODED NUMBER OF PLOT POINTS
+    }
+    
+    return [NSNumber numberWithInt:0];
+    
 }
 
 
@@ -134,8 +210,8 @@
 - (void) newAngularVelocities: (NSArray*) angularVelocities {
     self.angularVelocities = angularVelocities;
     
-    float min = 1;
-    float max = 1;
+    float min = 0;
+    float max = 0;
     
     
     for (int i = 0; i < angularVelocities.count; i++) {
@@ -151,13 +227,13 @@
     }
     
     
-    float maxDiff = MAX(1-min, max-1);
-    float lowerBound = 1 - maxDiff;
-    float plotLength = maxDiff * 2;
+    self.maxDiffRawPlot = MAX(1-min, max-1);
+    float lowerBound = 0 - self.maxDiffRawPlot;
+    float plotLength = self.maxDiffRawPlot * 2;
     
     [(CPTXYPlotSpace *) self.graph.defaultPlotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( lowerBound ) length:CPTDecimalFromFloat( plotLength )]];
     
-    self.textLabelMaxVelocityDiff.text = [NSString stringWithFormat:@"%0.2f%%", maxDiff*100];
+    self.textLabelMaxVelocityDiff.text = [NSString stringWithFormat:@"%0.2f%%", self.maxDiffRawPlot];
     
     [self.graph reloadData];
     
@@ -165,6 +241,7 @@
 
 - (void) newWindAngleLocal:(float) angle {
     //[self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", angle]];
+    self.localWindAngle = angle;
 }
 
 

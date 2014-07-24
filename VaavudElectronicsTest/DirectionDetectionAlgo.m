@@ -244,7 +244,7 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     for (int i = 0; i < TICKS_PR_REV; i++) {
         float mvgRelativeTimeUse = mvgSampleCountSum[i] / avgMvgSampleCount;
         
-        mvgRelativeSpeed[i] = mvgRelativeTimeUse * compensation[i];
+        mvgRelativeSpeed[i] = (mvgRelativeTimeUse * compensation[i] -1) * 100;
     }
     
     // Calculate velocity for last revolution
@@ -274,13 +274,13 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     NSLog(@"index: %d x:%f y:%f", index, [self correctAngle:xout], yout);
      */
     
-    float mvgRelativeSpeedPercent[TICKS_PR_REV];
+//    float mvgRelativeSpeedPercent[TICKS_PR_REV];
+//    
+//    for (int i = 0; i < TICKS_PR_REV; i++) {
+//        mvgRelativeSpeedPercent[i] = (mvgRelativeSpeed[i] - 1) * 100.0;
+//    }
     
-    for (int i = 0; i < TICKS_PR_REV; i++) {
-        mvgRelativeSpeedPercent[i] = (mvgRelativeSpeed[i] - 1) * 100.0;
-    }
-    
-    [self iterateAngle: (float *) mvgRelativeSpeedPercent];
+    [self iterateAngle: (float *) mvgRelativeSpeed];
     
     
     
@@ -335,7 +335,7 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     }
     
     float angleHLDiff = (angleLowSum - angleHighSum)/ (float) TICKS_PR_REV;
-    angleEstimator += angleHLDiff * (-ANGLE_CORRRECTION_COEFFICIENT);
+    angleEstimator += angleHLDiff * (ANGLE_CORRRECTION_COEFFICIENT);
     
     if (angleEstimator < 0)
         angleEstimator += 360;
