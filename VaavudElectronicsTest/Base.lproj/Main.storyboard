@@ -271,12 +271,20 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Op-22-Mbh">
+                                <rect key="frame" x="227" y="259" width="83" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="audioPlot" destination="MQ8-Pu-Vhu" id="7CL-kj-iLJ"/>
                         <outlet property="graphHostingView" destination="FOh-ol-Nge" id="YzH-FX-phE"/>
+                        <outlet property="textLabelMaxAmplitudeDiff" destination="5Op-22-Mbh" id="QVa-8c-cvL"/>
                         <outlet property="textLabelMaxVelocityDiff" destination="Wst-Pa-RZf" id="YU6-ca-3ba"/>
                     </connections>
                 </viewController>

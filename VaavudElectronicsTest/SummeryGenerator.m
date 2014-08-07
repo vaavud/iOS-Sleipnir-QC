@@ -71,10 +71,49 @@
 - (void) generateFile {
 
     
+    NSDateFormatter *formatter;
+    NSString        *dateString;
+    NSString        *timeString;
+    
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
+    dateString = [formatter stringFromDate:[NSDate date]];
+    [formatter setDateFormat:@"HH'-'mm'-'ss"];
+    timeString = [formatter stringFromDate:[NSDate date]];
+    
+    
+    
+    
+    NSMutableArray *headerrow = [[NSMutableArray alloc] initWithCapacity:30];
+    
+    [headerrow addObject: @"date"];
+    [headerrow addObject: @"time"];
+    [headerrow addObject: @"windspeed"];
+    [headerrow addObject: @"localHeading"];
+    
+    for (int i = 0; i < self.anglularVelocties.count; i++) {
+        [headerrow addObject: [NSString stringWithFormat: @"angVel_%d", i]];
+    }
+    
+    NSMutableArray *valuerow = [[NSMutableArray alloc] initWithCapacity:30];
+    
+    [valuerow addObject: dateString];
+    [valuerow addObject: timeString];
+    [valuerow addObject: self.speed.stringValue];
+    [valuerow addObject: [NSString stringWithFormat:@"%f", self.angle]];
+    
+    for (int i = 0; i < self.anglularVelocties.count; i++) {
+        [valuerow addObject: [(NSNumber *)[self.anglularVelocties objectAtIndex:i] stringValue]];
+    }
+    
+    
+    //NSArray *myStrings = [[NSArray alloc] initWithObjects:first, second, third, fourth, fifth, nil];
+    NSString *headerRowString = [headerrow componentsJoinedByString:@","];
+    NSString *valueRowString = [valuerow componentsJoinedByString:@","];
     
     
     //create content - four lines of text
-    NSString *content = @"One\nTwo\nThree\nFour\nFive";
+    NSString *content = [NSString stringWithFormat: @"%@\n%@", headerRowString, valueRowString ];
     //save content to the documents directory
     [content writeToFile:[[self recordingFilePathURL] relativePath]
               atomically:NO

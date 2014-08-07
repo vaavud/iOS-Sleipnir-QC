@@ -227,6 +227,7 @@
 		D70B9AA1193F298400D6FA0B /* VaavudElectronicsTest */ = {
 			isa = PBXGroup;
 			children = (
+				D74C247E1990C6030098A036 /* iPad */,
 				D73E9929197D8AA80011D516 /* UI */,
 				D73E9921197D33180011D516 /* VaavudElectronic */,
 				D73E99151977A7490011D516 /* vaavudRootViewController.h */,
@@ -353,6 +354,13 @@
 				D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D74C247E1990C6030098A036 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -644,9 +652,11 @@
 					"../core-plot/framework/**",
 				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -670,9 +680,11 @@
 					"../core-plot/framework/**",
 				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

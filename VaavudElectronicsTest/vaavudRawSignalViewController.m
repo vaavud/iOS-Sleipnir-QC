@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphHostingView;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxVelocityDiff;
+@property (weak, nonatomic) IBOutlet UILabel *textLabelMaxAmplitudeDiff;
 @property (strong, nonatomic) VaavudElectronic *vaavudElectronics;
 @property (nonatomic, strong)   CPTXYGraph    *graph;
 @property (nonatomic) NSArray* angularVelocities;
@@ -43,7 +44,8 @@ enum plotName : NSInteger {
      Customizing the audio plot's look
      */
     // Background color
-    self.audioPlot.backgroundColor = [UIColor colorWithRed: 0.984 green: 0.71 blue: 0.365 alpha: 1];
+    //self.audioPlot.backgroundColor = [UIColor colorWithRed: 0.984 green: 0.71 blue: 0.365 alpha: 1];
+    self.audioPlot.backgroundColor           = [UIColor colorWithRed:0.0 green:0.6298 blue:0.8789 alpha:1.0];
     // Waveform color
     self.audioPlot.color           = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
     // Plot type
@@ -130,6 +132,9 @@ enum plotName : NSInteger {
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [self.graph addPlot:plotFit toPlotSpace: self.graph.defaultPlotSpace];
+    
+    
+    self.textLabelMaxVelocityDiff.text = @"-";
     
 }
 
@@ -227,7 +232,7 @@ enum plotName : NSInteger {
     }
     
     
-    self.maxDiffRawPlot = MAX(1-min, max-1);
+    self.maxDiffRawPlot = MAX(abs(min), abs(max))*1.2;
     float lowerBound = 0 - self.maxDiffRawPlot;
     float plotLength = self.maxDiffRawPlot * 2;
     
@@ -244,6 +249,10 @@ enum plotName : NSInteger {
     self.localWindAngle = angle;
 }
 
+
+- (void) newMaxAmplitude: (NSNumber*) amplitude {
+    self.textLabelMaxAmplitudeDiff.text = amplitude.stringValue;
+}
 
 
 - (void)didReceiveMemoryWarning

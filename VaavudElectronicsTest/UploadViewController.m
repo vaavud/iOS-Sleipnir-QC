@@ -135,7 +135,8 @@
         [self.vaavudElectronic endRecording];
         [self.recordingSwitch setOn: [self.vaavudElectronic isRecording]];
         [self uploadAudioFile];
-        [self uploadSummeryFile];
+        //[self uploadSummeryFile];
+        self.StepperIncrement.value += self.StepperIncrement.stepValue;
     }
     
 
@@ -206,6 +207,7 @@
 
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
               from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+    
     [self.activityIndicator stopAnimating];
     [self.recordingProgressBar setProgress: 0.0];
     
@@ -213,7 +215,7 @@
     
     [self appendTextToConsole:  [NSString stringWithFormat: @"File uploaded successfully to path: %@", metadata.path ]];
     
-    self.StepperIncrement.value += self.StepperIncrement.stepValue;
+    
     [self updateIncrementTextField:NULL];
     
 }

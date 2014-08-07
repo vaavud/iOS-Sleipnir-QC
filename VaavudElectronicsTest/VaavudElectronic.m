@@ -103,6 +103,12 @@ static VaavudElectronic *sharedInstance = nil;
     }
 }
 
+- (void) newMaxAmplitude: (NSNumber*) amplitude {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        [delegate newMaxAmplitude: amplitude];
+    }
+}
+
 
 /* start the audio input/output and starts sending data */
 - (void) start {
@@ -161,6 +167,8 @@ static VaavudElectronic *sharedInstance = nil;
 - (void) generateSummeryFile {
     [self.summeryGenerator generateFile];
 }
+
+
 
 
 @end

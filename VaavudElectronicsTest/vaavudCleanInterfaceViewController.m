@@ -24,6 +24,9 @@
     [super viewDidLoad];
     self.vaavudElectronics = [VaavudElectronic sharedVaavudElec];
     [self.vaavudElectronics addListener:self];
+    
+    [self.windAngleTextField setText: @"-"];
+    [self.rotationSpeedTextField setText:@"-"];
     // Do any additional setup after loading the view.
 }
 
@@ -48,6 +51,9 @@
 
 - (void) newWindAngleLocal:(float) angle {
     [self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", angle]];
+}
+
+- (void) newMaxAmplitude: (NSNumber*) amplitude {
 }
 
 
