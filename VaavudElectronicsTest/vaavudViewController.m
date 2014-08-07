@@ -10,6 +10,7 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import "SoundProcessingAlgo.h"
 #import <CoreLocation/CoreLocation.h>
+#import "DirectionDetectionAlgo.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -166,13 +167,13 @@ float compassHeading;
     
     CGRect  viewRect = CGRectMake(20, 0, 280, 2);
     
-    for (int i = 0; i < TICKS_PR_REV; i++) {
-        viewRect.origin.y = i*20;
-        UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:viewRect];
-        [self.progressBarsView addSubview:progressView];
-        
-        progressView.progress = 0.5;
-    }
+//    for (int i = 0; i < TICKS_PR_REV; i++) {
+//        viewRect.origin.y = i*20;
+//        UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:viewRect];
+//        [self.progressBarsView addSubview:progressView];
+//        
+//        progressView.progress = 0.5;
+//    }
 }
 
 

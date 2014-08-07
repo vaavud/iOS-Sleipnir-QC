@@ -22,7 +22,7 @@
  */
 
 @interface vaavudModelController()
-@property (strong, nonatomic) VaavudElectronic *vaavudElectronic;
+//@property (strong, nonatomic) VaavudElectronic *vaavudElectronic;
 
 
 @end
@@ -30,9 +30,10 @@
 @implementation vaavudModelController
 
 enum Screens : NSUInteger {
-    ScreenAll,
     ScreenClean,
-    ScreenAll2,
+    ScreenRawSignal,
+    ScreenHeading,
+    ScreenUpload,
     numScreens
 };
 
@@ -42,8 +43,8 @@ enum Screens : NSUInteger {
     self = [super init];
     
     //self.vaavudElectronic = [[VaavudElectronic alloc] init];
-    self.vaavudElectronic = [VaavudElectronic sharedVaavudElec];
-    [self.vaavudElectronic start];
+//    self.vaavudElectronic = [VaavudElectronic sharedVaavudElec];
+//    [self.vaavudElectronic start];
     
     return self;
 }
@@ -58,20 +59,26 @@ enum Screens : NSUInteger {
     vaavudUIViewController *viewController;
     
     switch (index) {
-        case ScreenAll: {
+        case ScreenClean: {
             // Create a new view controller and pass suitable data.
             //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewControllerCleanInterface"];
             [viewController setScreenIndex: index];
             break;
         }
-        case ScreenClean: {
+        case ScreenRawSignal: {
             // Create a new view controller and pass suitable data.
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudRawSignalViewController"];
             [viewController setScreenIndex: index];
             break;
         }
-        case ScreenAll2: {
+        case ScreenHeading: {
+            // Create a new view controller and pass suitable data.
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"HeadingViewController"];
+            [viewController setScreenIndex: index];
+            break;
+        }
+        case ScreenUpload: {
             // Create a new view controller and pass suitable data.
             //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"UploadViewController"];

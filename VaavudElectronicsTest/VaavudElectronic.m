@@ -10,13 +10,14 @@
 #import "AudioManager.h"
 #import "DirectionDetectionAlgo.h"
 #import "SummeryGenerator.h"
-
+#import "LocationManager.h"
 
 @interface VaavudElectronic()
 
 @property (strong, atomic) NSMutableArray *VaaElecWindDelegates;
 @property (strong, nonatomic) AudioManager *soundManager;
 @property (strong, nonatomic) SummeryGenerator *summeryGenerator;
+@property (strong, nonatomic) LocationManager *locationManager;
 
 @end
 
@@ -43,6 +44,7 @@ static VaavudElectronic *sharedInstance = nil;
     self.VaaElecWindDelegates = [[NSMutableArray alloc] initWithCapacity:2];
     self.soundManager = [[AudioManager alloc] initWithDirDelegate:self];
     self.summeryGenerator = [[SummeryGenerator alloc] init];
+    self.locationManager = [[LocationManager alloc] initWithDelegate:self];
 }
 
 + (id) allocWithZone:(NSZone *)zone {
@@ -109,15 +111,32 @@ static VaavudElectronic *sharedInstance = nil;
     }
 }
 
+- (void) newHeading:(NSNumber *)heading {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(newHeading:)]) {
+            [delegate newHeading: heading];
+        }
+    }
+}
+
+
 
 /* start the audio input/output and starts sending data */
 - (void) start {
     [self.soundManager start];
+    
+    if ([self.locationManager isHeadingAvailable]) {
+        [self.locationManager start];
+    } else {
+        // Do nothing - heading will not be updated
+    }
+    
 }
 
 /* start the audio input/output and starts sending data */
 - (void) stop {
     [self.soundManager stop];
+    [self.locationManager stop];
 }
 
 - (void) setAudioPlot:(EZAudioPlotGL *) audioPlot {

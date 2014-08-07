@@ -16,4 +16,9 @@
 - (void) newWindAngleLocal:(float) angle;
 - (void) newMaxAmplitude: (NSNumber*) amplitude;
 
+
+@optional
+- (void) newHeading: (NSNumber*) heading;
+
+
 @end

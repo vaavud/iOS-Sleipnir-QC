@@ -30,7 +30,7 @@
     double nextRefreshTime;
     BOOL startLocated;
     int lastSample;
-    int tickEdgeAngle[TICKS_PR_REV+2]; // add one point in ether end
+    int tickEdgeAngle[TICKS_PR_REV]; // add one point in ether end
     int angleEstimator;
     
     int iteratorAngleCounter;
@@ -54,7 +54,10 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
 
 #pragma mark - Initialization
 -(id)init {
-    return [self initWithDirDelegate:NULL];
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"-init is not a valid initializer for the class DirectionDetectionAlgo"
+                                 userInfo:nil];
+    return nil;
 }
 
 - (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate {
@@ -81,13 +84,8 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
         fitcurve[i] = fitcurveReversed[i];
     }
     
-    // standard tick
-    
-//    int stdTickSize = 34;
-//    int bigTickSize = 54;
     
     float stdTickSize = 23.5;
-    //int bigTickSize = 31;
     
     tickEdgeAngle[0] = 0;
     for (int i = 1; i < TICKS_PR_REV; i++) {
@@ -231,25 +229,6 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
 
 
 
-//- (void) printStatus {
-//    NSLog(@"BufferRotation");
-//    
-//}
-//
-//// http://stackoverflow.com/questions/717762/how-to-calculate-the-vertex-of-a-parabola-given-three-points
-//- (void) parableTopx1:(int)x1 andx2:(int)x2 andx3:(int)x3 andy1:(float)y1 andy2:(float)y2 andy3:(float)y3 andxout:(float*)xout andyout:(float*)yout {
-//    
-//    float denom = (x1 - x2) * (x1 - x3) * (x2 - x3);
-//	float A     = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
-//	float B     = (x3*x3 * (y1 - y2) + x2*x2 * (y3 - y1) + x1*x1 * (y2 - y3)) / denom;
-//	float C     = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
-//    
-//	*xout = -B / (2*A);
-//	*yout = C - B*B / (4*A);
-//    
-//}
-
-
 
 - (void) updateUI {
     
@@ -273,32 +252,6 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
         samplesPrLastRotation += sampleCountBuffer[i][lastTickBufferCounter];
     }
     float windSpeed = 44100 / ((float)samplesPrLastRotation);
-    
-    /*OLD ANGLE ALGORITHM
-    // Calculate Angle of slowest movement
-    // find slowest rotationspeed (highest mvgSampleCount)
-    int index =0;
-    float max = 0;
-    for (int i = 0; i < TICKS_PR_REV; i++) {
-        if (mvgRelativeSpeed[i] > max) {
-            max = mvgRelativeSpeed[i];
-            index = i;
-        }
-    }
-    float xout;
-    float yout;
-    
-    // notice index (x) is shifted by to the right, and Y is allowed to wrap around
-    [self parableTopx1:tickEdgeAngle[index] andx2:tickEdgeAngle[index+1] andx3:tickEdgeAngle[index+2] andy1:mvgRelativeSpeed[(index-1)%TICKS_PR_REV] andy2:mvgRelativeSpeed[index] andy3:mvgRelativeSpeed[(index+1)%TICKS_PR_REV] andxout:&xout andyout:&yout];
-    
-    NSLog(@"index: %d x:%f y:%f", index, [self correctAngle:xout], yout);
-     */
-    
-//    float mvgRelativeSpeedPercent[TICKS_PR_REV];
-//    
-//    for (int i = 0; i < TICKS_PR_REV; i++) {
-//        mvgRelativeSpeedPercent[i] = (mvgRelativeSpeed[i] - 1) * 100.0;
-//    }
     
     [self iterateAngle: (float *) mvgRelativeSpeed];
     
@@ -345,7 +298,7 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     float angleLowSum = 0.0;
     float angleHighSum = 0.0;
     
-    for (int i = 1; i < TICKS_PR_REV-1; i++) {
+    for (int i = 1; i < TICKS_PR_REV-1; i++) {  // starts at 1 and ends before last tick, to avoid errors based on these two.
         
         int signalExpectedIndexLow = tickEdgeAngle[i] - angleLow;
         if (signalExpectedIndexLow < 0)
@@ -358,21 +311,7 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
         angleLowSum += powf(fitcurve[signalExpectedIndexLow]-mvgRelativeSpeedPercent[i], 2.0);
         angleHighSum += powf(fitcurve[signalExpectedIndexHigh]-mvgRelativeSpeedPercent[i], 2.0);
     }
-    
-//    for (int i = 0; i < TICKS_PR_REV; i++) {
-//        
-//        int signalExpectedIndexLow = tickEdgeAngle[i] - angleLow;
-//        if (signalExpectedIndexLow < 0)
-//            signalExpectedIndexLow += 360;
-//        
-//        int signalExpectedIndexHigh = tickEdgeAngle[i] - angleHigh;
-//        if (signalExpectedIndexHigh < 0)
-//            signalExpectedIndexHigh += 360;
-//        
-//        angleLowSum += powf(fitcurve[signalExpectedIndexLow]-mvgRelativeSpeedPercent[i], 2.0);
-//        angleHighSum += powf(fitcurve[signalExpectedIndexHigh]-mvgRelativeSpeedPercent[i], 2.0);
-//    }
-    
+        
     float angleHLDiff = (angleLowSum - angleHighSum)/ (float) TICKS_PR_REV;
     angleEstimator += angleHLDiff * (ANGLE_CORRRECTION_COEFFICIENT);
     

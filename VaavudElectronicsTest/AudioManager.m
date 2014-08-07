@@ -210,12 +210,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
 - (void) toggleRecording: (BOOL) recording {
     
-//    if (recording) {
-//        self.isRecording = self.isRecording ? false : true;
-//    } else {
-//        self.isRecording = [sender isOn];
-//    }
-    
     
     if(recording )
     {
@@ -273,9 +267,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 			theta -= 2.0 * M_PI;
 		}
 	}
-    
-    //    NSLog(@"left: %f", bufferLeft[frame]);
-    
     
 }
 

@@ -21,10 +21,10 @@
 /* remove listener of heading and windspeed information */
 - (void) removeListener:(id <VaavudElectronicWindDelegate>) delegate;
 
-/* start the audio input/output and starts sending data */
+/* start the audio input/output (and location,heading) and starts sending data */
 - (void) start;
 
-/* start the audio input/output and starts sending data */
+/* stop the audio input/output  (and location,heading) and starts sending data */
 - (void) stop;
 
 // sets the audioPlot to which buffered raw audio values is send for plotting
