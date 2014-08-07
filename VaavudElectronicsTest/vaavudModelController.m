@@ -7,9 +7,7 @@
 //
 
 #import "vaavudModelController.h"
-#import "vaavudViewController.h"
 #import "vaavudUIViewController.h"
-#import "VaavudElectronic.h"
 
 
 /*
@@ -22,7 +20,6 @@
  */
 
 @interface vaavudModelController()
-//@property (strong, nonatomic) VaavudElectronic *vaavudElectronic;
 
 
 @end
@@ -41,10 +38,6 @@ enum Screens : NSUInteger {
 - (id)init
 {
     self = [super init];
-    
-    //self.vaavudElectronic = [[VaavudElectronic alloc] init];
-//    self.vaavudElectronic = [VaavudElectronic sharedVaavudElec];
-//    [self.vaavudElectronic start];
     
     return self;
 }

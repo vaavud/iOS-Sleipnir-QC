@@ -7,7 +7,6 @@
 //
 
 #import "DirectionDetectionAlgo.h"
-#import "vaavudViewController.h"
 //#define TICKS_PR_REV 10
 #define TICKS_PR_REV 15
 #define SAMPLE_BUFFER_SIZE 150

@@ -10,7 +10,6 @@
 
 #import "vaavudModelController.h"
 
-#import "vaavudViewController.h"
 
 @interface vaavudRootViewController ()
 @property (readonly, strong, nonatomic) vaavudModelController *modelController;

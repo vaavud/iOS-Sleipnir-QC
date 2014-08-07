@@ -17,7 +17,6 @@
 		D70B9AA8193F298400D6FA0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D70B9AA7193F298400D6FA0B /* main.m */; };
 		D70B9AAC193F298400D6FA0B /* vaavudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D70B9AAB193F298400D6FA0B /* vaavudAppDelegate.m */; };
 		D70B9AAF193F298400D6FA0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D70B9AAD193F298400D6FA0B /* Main.storyboard */; };
-		D70B9AB2193F298400D6FA0B /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D70B9AB1193F298400D6FA0B /* vaavudViewController.m */; };
 		D70B9AB4193F298400D6FA0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70B9AB3193F298400D6FA0B /* Images.xcassets */; };
 		D70B9ABB193F298400D6FA0B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9ABA193F298400D6FA0B /* XCTest.framework */; };
 		D70B9ABC193F298400D6FA0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9A9B193F298400D6FA0B /* Foundation.framework */; };
@@ -98,8 +97,6 @@
 		D70B9AAA193F298400D6FA0B /* vaavudAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudAppDelegate.h; sourceTree = "<group>"; };
 		D70B9AAB193F298400D6FA0B /* vaavudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudAppDelegate.m; sourceTree = "<group>"; };
 		D70B9AAE193F298400D6FA0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D70B9AB0193F298400D6FA0B /* vaavudViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudViewController.h; sourceTree = "<group>"; };
-		D70B9AB1193F298400D6FA0B /* vaavudViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudViewController.m; sourceTree = "<group>"; };
 		D70B9AB3193F298400D6FA0B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D70B9AB9193F298400D6FA0B /* VaavudElectronicsTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaavudElectronicsTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70B9ABA193F298400D6FA0B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -241,8 +238,6 @@
 				D70B9AAA193F298400D6FA0B /* vaavudAppDelegate.h */,
 				D70B9AAB193F298400D6FA0B /* vaavudAppDelegate.m */,
 				D70B9AAD193F298400D6FA0B /* Main.storyboard */,
-				D70B9AB0193F298400D6FA0B /* vaavudViewController.h */,
-				D70B9AB1193F298400D6FA0B /* vaavudViewController.m */,
 				D70B9AB3193F298400D6FA0B /* Images.xcassets */,
 				D70B9AA2193F298400D6FA0B /* Supporting Files */,
 				D73E99181977AAE30011D516 /* vaavudModelController.h */,
@@ -506,7 +501,6 @@
 				D7094197197EAC04008925F0 /* UploadViewController.m in Sources */,
 				D70B9AF3193F328200D6FA0B /* EZAudioPlayer.m in Sources */,
 				D70B9AF0193F328200D6FA0B /* AEFloatConverter.m in Sources */,
-				D70B9AB2193F298400D6FA0B /* vaavudViewController.m in Sources */,
 				D70B9AF5193F328200D6FA0B /* EZAudioPlotGL.m in Sources */,
 				D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */,
 				D70B9AF2193F328200D6FA0B /* EZAudioFile.m in Sources */,
