@@ -18,5 +18,6 @@
 - (void) stop;
 
 - (BOOL) isHeadingAvailable;
+- (NSNumber*) getHeading;
 
 @end

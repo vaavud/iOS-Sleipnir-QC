@@ -107,7 +107,9 @@ static VaavudElectronic *sharedInstance = nil;
 
 - (void) newMaxAmplitude: (NSNumber*) amplitude {
     for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
-        [delegate newMaxAmplitude: amplitude];
+        if ([delegate respondsToSelector:@selector(newMaxAmplitude:)]){
+            [delegate newMaxAmplitude: amplitude];
+        }
     }
 }
 
@@ -173,6 +175,10 @@ static VaavudElectronic *sharedInstance = nil;
     return [self.summeryGenerator recordingPath];
 }
 
+- (NSURL*) summeryAngularVelocitiesPath {
+    return [self.summeryGenerator summeryAngularVelocitiesPath];
+}
+
 // returns the fitcurve used in the directionAlgorithm
 - (float *) getFitCurve {
     return [DirectionDetectionAlgo getFitCurve];
@@ -187,7 +193,9 @@ static VaavudElectronic *sharedInstance = nil;
     [self.summeryGenerator generateFile];
 }
 
-
+- (NSNumber*) getHeading {
+    return [self.locationManager getHeading];
+}
 
 
 @end

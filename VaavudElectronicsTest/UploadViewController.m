@@ -9,7 +9,7 @@
 #import "UploadViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-#define RECORDING_TIME 10.0
+#define RECORDING_TIME 5.2
 #define PROGRESS_BAR_STEPS 20
 
 @interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate>
@@ -135,7 +135,7 @@
         [self.vaavudElectronic endRecording];
         [self.recordingSwitch setOn: [self.vaavudElectronic isRecording]];
         [self uploadAudioFile];
-        //[self uploadSummeryFile];
+        [self uploadSummeryFile];
         self.StepperIncrement.value += self.StepperIncrement.stepValue;
     }
     
@@ -154,6 +154,13 @@
     
     [self.restClient uploadFile:filename toPath:[self folderDropbox] withParentRev:nil fromPath:[[self.vaavudElectronic summeryPath] path]];
     [self.activityIndicator startAnimating];
+    
+    NSString *filename_angularVelocites = [[self mainFileNameDropbox] stringByAppendingString: @"_angularVelocities.txt"];
+    
+    [self.restClient uploadFile:filename_angularVelocites toPath:[self folderDropbox] withParentRev:nil fromPath:[[self.vaavudElectronic summeryAngularVelocitiesPath] path]];
+    [self.activityIndicator startAnimating];
+
+    
 }
 
 

@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) id<VaavudElectronicWindDelegate> delegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSNumber *globalHeading;
 @end
 
 
@@ -64,9 +65,16 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
     
-    [self.delegate newHeading: [NSNumber numberWithDouble: newHeading.trueHeading]];
+    self.globalHeading = [NSNumber numberWithDouble: newHeading.trueHeading];
+    [self.delegate newHeading: self.globalHeading];
     
 }
+
+
+- (NSNumber*) getHeading {
+    return self.globalHeading;
+}
+
 
 
 

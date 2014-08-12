@@ -24,4 +24,7 @@
 // returns the local path of the summeryfile
 - (NSURL*) recordingPath;
 
+// return the local parth of the summeryfile for the angular velocites
+- (NSURL*) summeryAngularVelocitiesPath;
+
 @end

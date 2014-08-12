@@ -128,7 +128,7 @@
     switch (mvgState) {
         case 0:
             if (sampleSinceTick < 100) {
-                if (mvgAvgSum < -1200) {
+                if (mvgAvgSum < -800 && mvgDiffSum > 200) {
                     mvgState = 1;
                     diffState = 1;
                     return true;
@@ -139,7 +139,7 @@
             break;
         case 1:
             if (sampleSinceTick < 70) {
-                if (mvgAvgSum > 1200) {
+                if (mvgAvgSum > 800) {
                     mvgState = 0;
                 }
             } else {
@@ -153,19 +153,19 @@
     
     switch (diffState) {
         case 0:
-            if (mvgDiffSum > 300) { // was 300 // 600
+            if (mvgDiffSum > 800) { // was 300 // 600
                 mvgState = 1;
                 diffState = 1;
                 return  true;
             }
             break;
         case 1:
-            if (mvgDiffSum > 2100) {
+            if (mvgDiffSum > 1500) {
                 diffState = 2;
             }
             break;
         case 2:
-            if (mvgDiffSum < 90 && mvgAvgSum < 0) { // was 90  // 400
+            if (mvgDiffSum < 500 && mvgAvgSum < 0) { // was 90  // 400
                 diffState = 0;
             }
         default:

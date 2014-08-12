@@ -45,6 +45,9 @@
 // returns the local path of the recording
 - (NSURL*) summeryPath;
 
+// returns the local path of the recording
+- (NSURL*) summeryAngularVelocitiesPath;
+
 // generate summeryFile
 - (void) generateSummeryFile;
 
@@ -53,5 +56,8 @@
 
 // returns the EdgeAngles for the samples
 - (int *) getEdgeAngles;
+
+// return the current heading of device (if avilale)
+- (NSNumber*) getHeading;
 
 @end

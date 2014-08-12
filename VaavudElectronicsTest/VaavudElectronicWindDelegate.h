@@ -14,10 +14,9 @@
 - (void) newAngularVelocities: (NSArray*) angularVelocities;
 - (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length;
 - (void) newWindAngleLocal:(float) angle;
-- (void) newMaxAmplitude: (NSNumber*) amplitude;
-
 
 @optional
+- (void) newMaxAmplitude: (NSNumber*) amplitude;
 - (void) newHeading: (NSNumber*) heading;
 
 
