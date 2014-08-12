@@ -73,9 +73,11 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     float stdTickSize = 23.5;
     
     tickEdgeAngle[0] = 0;
-    for (int i = 1; i < TICKS_PR_REV; i++) {
+    for (int i = 1; i < TICKS_PR_REV-1; i++) {
         tickEdgeAngle[i] = (int) (stdTickSize*i); // shift array one to the right
     }
+    
+    tickEdgeAngle[TICKS_PR_REV-1] = (int) (360-stdTickSize);
     
     for (int i = 0 ; i < TICKS_PR_REV; i++) {
         NSLog(@"angle:%d", tickEdgeAngle[i]);

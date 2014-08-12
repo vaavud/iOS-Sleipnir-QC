@@ -153,7 +153,7 @@
     
     switch (diffState) {
         case 0:
-            if (mvgDiffSum > 800) { // was 300 // 600
+            if (mvgDiffSum > 300) { // outside 800
                 mvgState = 1;
                 diffState = 1;
                 return  true;
@@ -165,7 +165,7 @@
             }
             break;
         case 2:
-            if (mvgDiffSum < 500 && mvgAvgSum < 0) { // was 90  // 400
+            if (mvgDiffSum < 160 && mvgAvgSum < 0) { // outside 500
                 diffState = 0;
             }
         default:

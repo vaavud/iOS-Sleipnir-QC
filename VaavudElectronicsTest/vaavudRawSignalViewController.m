@@ -232,7 +232,7 @@ enum plotName : NSInteger {
     }
     
     
-    self.maxDiffRawPlot = MAX(abs(min), abs(max))*1.2;
+    self.maxDiffRawPlot = (max + min > 0) ? max*1.0 : min * (-1.0);
     float lowerBound = 0 - self.maxDiffRawPlot;
     float plotLength = self.maxDiffRawPlot * 2;
     
