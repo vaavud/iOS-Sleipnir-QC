@@ -38,7 +38,6 @@
     
     self.vaavudElectronic = [VaavudElectronic sharedVaavudElec];
     
-    
     [self.recordingSwitch setOn: [self.vaavudElectronic isRecording]];
     
     // try to link dropbox (if not linked) each time view is loaded

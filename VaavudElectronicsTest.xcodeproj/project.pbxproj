@@ -53,6 +53,7 @@
 		D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E9940197E5DAB0011D516 /* Accelerate.framework */; };
 		D79896141980B7B600388B95 /* SummeryGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D79896131980B7B600388B95 /* SummeryGenerator.m */; };
 		D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */; };
+		D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D1098719A3479E006A8277 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		D79896131980B7B600388B95 /* SummeryGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummeryGenerator.m; sourceTree = "<group>"; };
 		D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionDetectionAlgo.h; sourceTree = "<group>"; };
 		D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionDetectionAlgo.m; sourceTree = "<group>"; };
+		D7D1098719A3479E006A8277 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */,
 				D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */,
 				D73E993F197E5B830011D516 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				D73E98CD1976754B0011D516 /* CoreLocation.framework in Frameworks */,
@@ -213,6 +216,7 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7D1098719A3479E006A8277 /* MediaPlayer.framework */,
 				D73E9940197E5DAB0011D516 /* Accelerate.framework */,
 				D73E98CC1976754B0011D516 /* CoreLocation.framework */,
 				D70B9B0619448EB000D6FA0B /* AudioUnit.framework */,

@@ -7,6 +7,7 @@
 //
 
 #import "vaavudUIViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface vaavudCleanInterfaceViewController : vaavudUIViewController
 

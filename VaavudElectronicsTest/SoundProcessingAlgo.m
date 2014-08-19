@@ -19,6 +19,7 @@
     unsigned long lastTick;
     short mvgState;
     short diffState;
+    int diffSumRiseThreshold;
 }
 
 @property (strong, nonatomic) id<VaavudElectronicWindDelegate> windDelegate;
@@ -45,6 +46,8 @@
     mvgDiffSum = 0;
     lastValue = 0;
     
+    diffSumRiseThreshold = 800; // STARTING VALUE
+    
     self.dirDetectionAlgo = [[DirectionDetectionAlgo alloc] initWithDirDelegate:delegate];
     
     self.windDelegate = delegate;
@@ -56,6 +59,7 @@
 
 - (void) newSoundData:(int *)data bufferLength:(UInt32) bufferLength {
    
+    
     int maxDiff = 0;
     
     for (int i = 0; i < bufferLength; i++) {
@@ -108,6 +112,7 @@
         
         
         
+        
     }
     
     // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
@@ -119,6 +124,7 @@
 //    NSLog(@"mvgAvgSum: %d", mvgAvgSum);
 //    NSLog(@"mvgDiffSum: %d", mvgDiffSum);
     
+
 }
 
 
@@ -127,7 +133,7 @@
     // NOTE ALL COMPARISON VALUES IS TIMED BY 3
     switch (mvgState) {
         case 0:
-            if (sampleSinceTick < 100) {
+            if (sampleSinceTick < 90) {
                 if (mvgAvgSum < -800 && mvgDiffSum > 200) {
                     mvgState = 1;
                     diffState = 1;
@@ -153,7 +159,7 @@
     
     switch (diffState) {
         case 0:
-            if (mvgDiffSum > 300) { // outside 800
+            if (mvgDiffSum > diffSumRiseThreshold) { // outside 800
                 mvgState = 1;
                 diffState = 1;
                 return  true;
@@ -165,8 +171,9 @@
             }
             break;
         case 2:
-            if (mvgDiffSum < 160 && mvgAvgSum < 0) { // outside 500
+            if (mvgDiffSum < 500 && mvgAvgSum < 0) { // outside 500
                 diffState = 0;
+                diffSumRiseThreshold = mvgDiffSum * 1.4 + 100;
             }
         default:
             break;
