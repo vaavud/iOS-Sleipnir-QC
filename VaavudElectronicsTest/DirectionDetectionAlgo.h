@@ -7,20 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VaavudElectronicWindDelegate.h"
-//@protocol DirectionRecieverDelegate
-//
-//- (void) newSpeed: (NSNumber*) speed;
-//- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length;
-//- (void) newWindAngleLocal:(float) angle;
-//
-//@end
+#import "VaavudElectronic.h"
+
+
+@protocol DirectionDetectionDelegate
+
+- (void) newSpeed: (NSNumber*) speed;
+- (void) newAngularVelocities: (NSArray*) angularVelocities;
+- (void) newWindAngleLocal:(NSNumber*) angle;
+
+@end
 
 
 @interface DirectionDetectionAlgo : NSObject
 
 - (void) newTick:(int)samples;
-- (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
+- (id) initWithDirDelegate:(id<DirectionDetectionDelegate>)delegate;
 + (float *) getFitCurve;
 - (int *) getEdgeAngles;
 

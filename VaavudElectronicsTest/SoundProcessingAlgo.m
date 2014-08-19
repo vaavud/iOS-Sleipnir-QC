@@ -7,7 +7,7 @@
 //
 
 #import "SoundProcessingAlgo.h"
-#import "VaavudElectronicWindDelegate.h"
+#import "VaavudElectronic.h"
 
 @interface SoundProcessingAlgo() {
     int mvgAvg[3];
@@ -22,7 +22,7 @@
     int diffSumRiseThreshold;
 }
 
-@property (strong, nonatomic) id<VaavudElectronicWindDelegate> windDelegate;
+@property (strong, nonatomic) id<SoundProcessingDelegate, DirectionDetectionDelegate> windDelegate;
 
 @end
 
@@ -37,7 +37,7 @@
     return nil;
 }
 
-- (id)initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate {
+- (id)initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate {
     
     self = [super init];
     

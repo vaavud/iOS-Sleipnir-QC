@@ -7,15 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VaavudElectronicWindDelegate.h"
+#import "VaavudElectronic.h"
 #import "DirectionDetectionAlgo.h"
 
-@interface SoundProcessingAlgo : NSObject
+@protocol SoundProcessingDelegate <NSObject>
 
+- (void) newMaxAmplitude: (NSNumber*) amplitude;
+
+@end
+
+
+@interface SoundProcessingAlgo : NSObject
 
 @property (strong, nonatomic) DirectionDetectionAlgo *dirDetectionAlgo;
 
 - (void) newSoundData:(int *)data bufferLength:(UInt32) bufferLength;
-- (id)initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
+- (id)initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate;
 
 @end

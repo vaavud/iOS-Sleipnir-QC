@@ -28,6 +28,8 @@
     [self.windAngleTextField setText: @"-"];
     [self.rotationSpeedTextField setText:@"-"];
     // Do any additional setup after loading the view.
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,19 +43,10 @@
     [self.rotationSpeedTextField setText:[NSString stringWithFormat:@"%.1f", speed.floatValue]];
 //    NSLog(@"awesome speed: %.2f", speed.floatValue);
 }
-- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
-    
-}
 
-- (void) newAngularVelocities: (NSArray*) angularVelocities {
-    
-}
 
-- (void) newWindAngleLocal:(float) angle {
-    [self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", angle]];
-}
-
-- (void) newMaxAmplitude: (NSNumber*) amplitude {
+- (void) newWindDirection:(NSNumber *) windDirection {
+    [self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", windDirection.floatValue]];
 }
 
 

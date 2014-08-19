@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "vaavudUIViewController.h"
-#import "VaavudElectronicWindDelegate.h"
+#import "VaavudElectronic.h"
 
 
-@interface HeadingViewController : vaavudUIViewController <VaavudElectronicWindDelegate>
+@interface HeadingViewController : vaavudUIViewController <VaavudElectronicAnalysisDelegate>
 
 @end

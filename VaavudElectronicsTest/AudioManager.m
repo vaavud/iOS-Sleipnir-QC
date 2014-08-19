@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) BOOL recordingActive;
 @property (nonatomic, strong) NSMutableArray *intArray;
+@property (nonatomic) float originalAudioVolume;
 
 
 /**
@@ -46,7 +47,7 @@ float *arrayLeft;
     return nil;
 }
 
-- (id)initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate {
+- (id)initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate {
     
     self = [super init];
     
@@ -140,11 +141,17 @@ float *arrayLeft;
 -(void) start {
     [self toggleMicrophone: YES];
     [self toggleOutput: YES];
+    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    self.originalAudioVolume = musicPlayer.volume;
+    NSLog(@"Volume start: %f", self.originalAudioVolume);
+    musicPlayer.volume = 1; // device volume will be changed to maximum value
 }
 
 -(void) stop {
     [self toggleMicrophone: NO];
     [self toggleOutput: NO];
+    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    musicPlayer.volume = self.originalAudioVolume;
 }
 
 

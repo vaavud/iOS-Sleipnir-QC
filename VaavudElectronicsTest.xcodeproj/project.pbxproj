@@ -147,7 +147,6 @@
 		D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudCleanInterfaceViewController.m; sourceTree = "<group>"; };
 		D73E9922197D34570011D516 /* VaavudElectronic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronic.h; sourceTree = "<group>"; };
 		D73E9923197D34570011D516 /* VaavudElectronic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudElectronic.m; sourceTree = "<group>"; };
-		D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronicWindDelegate.h; sourceTree = "<group>"; };
 		D73E9926197D3F3C0011D516 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
 		D73E9927197D3F3C0011D516 /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
 		D73E992A197E4E300011D516 /* vaavudRawSignalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudRawSignalViewController.h; sourceTree = "<group>"; };
@@ -329,7 +328,6 @@
 				D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */,
 				D73E9922197D34570011D516 /* VaavudElectronic.h */,
 				D73E9923197D34570011D516 /* VaavudElectronic.m */,
-				D73E9925197D35110011D516 /* VaavudElectronicWindDelegate.h */,
 				D73E9926197D3F3C0011D516 /* AudioManager.h */,
 				D73E9927197D3F3C0011D516 /* AudioManager.m */,
 				D79896121980B7B600388B95 /* SummeryGenerator.h */,

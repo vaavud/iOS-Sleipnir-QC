@@ -35,7 +35,7 @@
     int iteratorAngleCounter;
 }
 
-@property (strong, nonatomic) id<VaavudElectronicWindDelegate> dirDelegate;
+@property (strong, nonatomic) id<DirectionDetectionDelegate> dirDelegate;
 
 @end
 
@@ -59,7 +59,7 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     return nil;
 }
 
-- (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate {
+- (id) initWithDirDelegate:(id<DirectionDetectionDelegate>)delegate {
     
     
     self = [super init];
@@ -257,7 +257,9 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     
     // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
     dispatch_async(dispatch_get_main_queue(),^{
-        [self.dirDelegate newWindAngleLocal:[self correctAngle: angleEstimator]];
+        [self.dirDelegate newWindAngleLocal:[NSNumber numberWithFloat:angleEstimator]];
+        
+        
         
         // wrap mvgRelativeSpeed in Array
         NSMutableArray *angularVelocities = [[NSMutableArray alloc] initWithCapacity:TICKS_PR_REV];
@@ -267,7 +269,6 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
         }
         
         [self.dirDelegate newAngularVelocities: angularVelocities];
-        [self.dirDelegate newAngularVelocities: mvgRelativeSpeed andLength:TICKS_PR_REV];
         [self.dirDelegate newSpeed: [NSNumber numberWithFloat:windSpeed]];
     });
     
@@ -365,15 +366,15 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
 
 
 
-- (float) correctAngle:(float) angle {
-    if (angle < 0) {
-        angle += 360;
-    }
-    else if (angle > 360) {
-        angle -= 360;
-    }
-    return angle;
-}
+//- (float) correctAngle:(float) angle {
+//    if (angle < 0) {
+//        angle += 360;
+//    }
+//    else if (angle > 360) {
+//        angle -= 360;
+//    }
+//    return angle;
+//}
 
 + (float *) getFitCurve {
     return fitcurve;

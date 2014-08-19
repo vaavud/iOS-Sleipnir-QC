@@ -10,7 +10,7 @@
 
 #define NUMBER_OF_POINTS_FIT_PLOT 36
 
-@interface vaavudRawSignalViewController () <VaavudElectronicWindDelegate>
+@interface vaavudRawSignalViewController () <VaavudElectronicAnalysisDelegate>
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphHostingView;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxVelocityDiff;
@@ -38,7 +38,7 @@ enum plotName : NSInteger {
     
     
     self.vaavudElectronics = [VaavudElectronic sharedVaavudElec];
-    [self.vaavudElectronics addListener:self];
+    [self.vaavudElectronics addAnalysisListener:self];
     
     /*
      Customizing the audio plot's look
@@ -244,9 +244,9 @@ enum plotName : NSInteger {
     
 }
 
-- (void) newWindAngleLocal:(float) angle {
+- (void) newWindAngleLocal:(NSNumber*) angle {
     //[self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", angle]];
-    self.localWindAngle = angle;
+    self.localWindAngle = angle.floatValue;
 }
 
 

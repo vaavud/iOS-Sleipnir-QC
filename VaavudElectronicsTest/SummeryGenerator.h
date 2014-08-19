@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VaavudElectronicWindDelegate.h"
+#import "VaavudElectronic.h"
 
-@interface SummeryGenerator : NSObject <VaavudElectronicWindDelegate>
+@interface SummeryGenerator : NSObject <VaavudElectronicWindDelegate, VaavudElectronicAnalysisDelegate>
 
 
 // Starts the recieving updates

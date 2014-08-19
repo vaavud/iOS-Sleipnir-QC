@@ -7,12 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VaavudElectronicWindDelegate.h"
+#import "VaavudElectronic.h"
 
+@protocol locationManagerDelegate <NSObject>
+
+- (void) newHeading: (NSNumber*) heading;
+
+@end
 
 @interface LocationManager : NSObject
 
-- (id) initWithDelegate:(id<VaavudElectronicWindDelegate>)delegate;
+- (id) initWithDelegate:(id<locationManagerDelegate>)delegate;
 
 - (void) start;
 - (void) stop;

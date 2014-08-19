@@ -11,7 +11,7 @@
 
 @interface LocationManager() <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) id<VaavudElectronicWindDelegate> delegate;
+@property (strong, nonatomic) id<locationManagerDelegate> delegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSNumber *globalHeading;
 @end
@@ -29,7 +29,7 @@
     return nil;
 }
 
-- (id) initWithDelegate:(id<VaavudElectronicWindDelegate>)delegate {
+- (id) initWithDelegate:(id<locationManagerDelegate>)delegate {
     
     
     self = [super init];

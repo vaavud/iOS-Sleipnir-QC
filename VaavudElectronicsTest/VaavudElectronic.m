@@ -12,9 +12,10 @@
 #import "SummeryGenerator.h"
 #import "LocationManager.h"
 
-@interface VaavudElectronic()
+@interface VaavudElectronic() <SoundProcessingDelegate, DirectionDetectionDelegate, locationManagerDelegate>
 
 @property (strong, atomic) NSMutableArray *VaaElecWindDelegates;
+@property (strong, atomic) NSMutableArray *VaaElecAnalysisDelegates;
 @property (strong, nonatomic) AudioManager *soundManager;
 @property (strong, nonatomic) SummeryGenerator *summeryGenerator;
 @property (strong, nonatomic) LocationManager *locationManager;
@@ -41,7 +42,8 @@ static VaavudElectronic *sharedInstance = nil;
 }
 
 - (void) initSingleton {
-    self.VaaElecWindDelegates = [[NSMutableArray alloc] initWithCapacity:2];
+    self.VaaElecWindDelegates = [[NSMutableArray alloc] initWithCapacity:3];
+    self.VaaElecAnalysisDelegates = [[NSMutableArray alloc] initWithCapacity:3];
     self.soundManager = [[AudioManager alloc] initWithDirDelegate:self];
     self.summeryGenerator = [[SummeryGenerator alloc] init];
     self.locationManager = [[LocationManager alloc] initWithDelegate:self];
@@ -76,37 +78,74 @@ static VaavudElectronic *sharedInstance = nil;
         // do nothing
         [self.VaaElecWindDelegates removeObject:delegate];
     } else {
-        NSLog(@"trying to remove, which does not excists");
+        NSLog(@"trying to remove delegate, which does not excists");
     }
 }
+
+
+/* add listener of heading and windspeed information */
+- (void) addAnalysisListener:(id <VaavudElectronicAnalysisDelegate>) delegate {
+    
+    NSArray *array = [self.VaaElecAnalysisDelegates copy];
+    
+    if ([array containsObject:delegate]) {
+        // do nothing
+        NSLog(@"trying to add delegate twice");
+    } else {
+        [self.VaaElecAnalysisDelegates addObject:delegate];
+    }
+}
+
+
+/* remove listener of heading and windspeed information */
+- (void) removeAnalysisListener:(id <VaavudElectronicAnalysisDelegate>) delegate {
+    NSArray *array = [self.VaaElecAnalysisDelegates copy];
+    if ([array containsObject:delegate]) {
+        // do nothing
+        [self.VaaElecAnalysisDelegates removeObject:delegate];
+    } else {
+        NSLog(@"trying to remove delegate, which does not excists");
+    }
+}
+
+
 
 
 - (void) newSpeed: (NSNumber*) speed {
     for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
-        [delegate newSpeed: speed];
+        if ([delegate respondsToSelector:@selector(newSpeed:)]) {
+            [delegate newSpeed: speed];
+        }
     }
 }
+
+- (void) newWindDirection: (NSNumber*) speed {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(newWindDirection:)]) {
+            [delegate newWindDirection: speed];
+        }
+    }
+}
+
 
 - (void) newAngularVelocities: (NSArray*) angularVelocities {
-    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
-        [delegate newAngularVelocities:angularVelocities];
+    for (id<VaavudElectronicAnalysisDelegate> delegate in self.VaaElecAnalysisDelegates) {
+        if ([delegate respondsToSelector:@selector(newAngularVelocities:)]) {
+            [delegate newAngularVelocities:angularVelocities];
+        }
     }
 }
 
-- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
-    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
-        [delegate newAngularVelocities: angularVelocities andLength: length];
-    }
-}
-
-- (void) newWindAngleLocal:(float) angle {
-    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
-        [delegate newWindAngleLocal: angle];
+- (void) newWindAngleLocal:(NSNumber*) angle {
+    for (id<VaavudElectronicAnalysisDelegate> delegate in self.VaaElecAnalysisDelegates) {
+        if ([delegate respondsToSelector:@selector(newWindAngleLocal:)]) {
+            [delegate newWindAngleLocal: angle];
+        }
     }
 }
 
 - (void) newMaxAmplitude: (NSNumber*) amplitude {
-    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+    for (id<VaavudElectronicAnalysisDelegate> delegate in self.VaaElecAnalysisDelegates) {
         if ([delegate respondsToSelector:@selector(newMaxAmplitude:)]){
             [delegate newMaxAmplitude: amplitude];
         }
@@ -114,7 +153,7 @@ static VaavudElectronic *sharedInstance = nil;
 }
 
 - (void) newHeading:(NSNumber *)heading {
-    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+    for (id<VaavudElectronicAnalysisDelegate> delegate in self.VaaElecAnalysisDelegates) {
         if ([delegate respondsToSelector:@selector(newHeading:)]) {
             [delegate newHeading: heading];
         }

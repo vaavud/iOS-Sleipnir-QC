@@ -26,7 +26,7 @@
     
     
     self.vaavudElectronics = [VaavudElectronic sharedVaavudElec];
-    [self.vaavudElectronics addListener:self];
+    [self.vaavudElectronics addAnalysisListener:self];
     
 }
 
@@ -36,34 +36,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) newSpeed: (NSNumber*) speed {
-    
-}
-- (void) newAngularVelocities: (NSArray*) angularVelocities {
-    
-}
-- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
-    
-}
-- (void) newWindAngleLocal:(float) angle {
-    
-}
-- (void) newMaxAmplitude: (NSNumber*) amplitude {
-    
-}
-
 
 - (void) newHeading: (NSNumber*) heading {
-    //    compassHeading = newHeading.trueHeading;
-    //    self.windAngleCompassTextField.text = [NSString stringWithFormat: @"%.0fº", newHeading.trueHeading];
-    
-    //[self.vaavudCoreController newHeading: [NSNumber numberWithDouble: newHeading.trueHeading]];
-    
-    //    NSLog(@"heading accuracy: %f", newHeading.headingAccuracy);
-    
+
     self.textLabelHeading.text = [NSString stringWithFormat: @"%.0fº", [heading floatValue]];
-    
-    //    NSLog(@"heading accuracy: %f", newHeading.headingAccuracy);
     
 }
 

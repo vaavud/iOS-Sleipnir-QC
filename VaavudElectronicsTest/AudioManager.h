@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VaavudElectronicWindDelegate.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import "VaavudElectronic.h"
 
 // Import EZAudio header
 #import "EZAudio.h"
@@ -23,7 +24,7 @@
 
 - (void) start;
 - (void) stop;
-- (id) initWithDirDelegate:(id<VaavudElectronicWindDelegate>)delegate;
+- (id) initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate;
 - (void) toggleMicrophone:(bool) micOn;
 
 @property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;

@@ -25,7 +25,6 @@
 - (id) init {
     self = [super init];
     if (self) {
-        //self.vaavudElectronic = [VaavudElectronic sharedVaavudElec];
     }
     
     return self;
@@ -37,11 +36,9 @@
 - (void) newAngularVelocities: (NSArray*) angularVelocities {
     self.anglularVelocties = angularVelocities;
 }
-- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
-    
-}
-- (void) newWindAngleLocal:(float) angle {
-    self.angle = [NSNumber numberWithFloat:angle];
+
+- (void) newWindAngleLocal:(NSNumber*) angle {
+    self.angle = angle;
 }
 
 - (void) newHeading: (NSNumber*) heading {
@@ -65,6 +62,7 @@
     }
     
     [self.vaavudElectronic addListener:self];
+    [self.vaavudElectronic addAnalysisListener:self];
     
     // ask for heading
     self.heading = [self.vaavudElectronic getHeading];
@@ -79,6 +77,7 @@
     }
     
     [self.vaavudElectronic removeListener:self];
+    [self.vaavudElectronic removeAnalysisListener:self];
 }
 
 // generated the file
