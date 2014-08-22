@@ -31,6 +31,7 @@ enum Screens : NSUInteger {
     ScreenRawSignal,
     ScreenHeading,
     ScreenUpload,
+    ScreenNotification,
     numScreens
 };
 
@@ -51,32 +52,39 @@ enum Screens : NSUInteger {
     
     vaavudUIViewController *viewController;
     
-    switch (index) {
+    switch (index)
         case ScreenClean: {
             // Create a new view controller and pass suitable data.
             //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewControllerCleanInterface"];
             [viewController setScreenIndex: index];
             break;
-        }
-        case ScreenRawSignal: {
+            
+        case ScreenRawSignal:
             // Create a new view controller and pass suitable data.
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudRawSignalViewController"];
             [viewController setScreenIndex: index];
             break;
-        }
-        case ScreenHeading: {
+        
+        case ScreenHeading:
             // Create a new view controller and pass suitable data.
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"HeadingViewController"];
             [viewController setScreenIndex: index];
             break;
-        }
-        case ScreenUpload: {
+        
+        case ScreenUpload:
             // Create a new view controller and pass suitable data.
             //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"UploadViewController"];
             [viewController setScreenIndex: index];
-        }
+            break;
+        
+        case ScreenNotification:
+            // Create a new view controller and pass suitable data.
+            //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
+            [viewController setScreenIndex: index];
+            break;
             
         default:
             break;

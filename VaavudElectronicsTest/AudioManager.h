@@ -5,31 +5,39 @@
 //  Created by Andreas Okholm on 21/07/14.
 //  Copyright (c) 2014 Vaavud. All rights reserved.
 //
-
+#import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "VaavudElectronic.h"
 
 // Import EZAudio header
 #import "EZAudio.h"
-
-// By default this will record a file to the application's documents directory (within the application's sandbox)
-#define kAudioFilePath @"EZAudioTest.m4a"
-//#define kAudioFilePath @"EZAudioTest.wav"
-
 #import "SoundProcessingAlgo.h"
+
+@protocol AudioManagerDelegate <NSObject>
+
+- (void) vaavudPlugedIn;
+- (void) vaavudWasUnpluged;
+- (void) vaavudStartedMeasureing;
+- (void) vaavudStopMeasureing;
+
+@end
 
 
 @interface AudioManager : NSObject
 
-- (void) start;
-- (void) stop;
+// Initializer
 - (id) initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate;
-- (void) toggleMicrophone:(bool) micOn;
 
-@property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;
-@property (weak, nonatomic) EZAudioPlotGL *audioPlot;
 
+// Starts Playback and Recording when Vaavud becomes available
+- (void) start;
+
+// End Playback and Recording
+- (void) stop;
+
+
+// Recording of sound files
 // Starts the internal soundfile recorder
 - (void) startRecording;
 
@@ -41,6 +49,11 @@
 
 // returns the local path of the recording
 - (NSURL*) recordingPath;
+
+
+
+@property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;
+@property (weak, nonatomic) EZAudioPlotGL *audioPlot;
 
 
 @end

@@ -6,38 +6,41 @@
 //  Copyright (c) 2014 Vaavud. All rights reserved.
 //
 
-#import "AudioManager.h"
+#define kAudioFilePath @"tempRawAudioFile.wav"
 
+#define sampleFrequency 44100
+#define signalFrequency 14700
+
+#import "AudioManager.h"
 
 @interface AudioManager() <EZMicrophoneDelegate, EZOutputDataSource>
 
+@property (nonatomic) BOOL measurementActive;
+@property (nonatomic) BOOL recordingActive;
+@property (nonatomic) BOOL deviceAvailable;
 
-@property (nonatomic, assign) BOOL recordingActive;
-@property (nonatomic, strong) NSMutableArray *intArray;
 @property (nonatomic) float originalAudioVolume;
 
-
-/**
- The microphone component
- */
+/** The microphone component */
 @property (nonatomic,strong) EZMicrophone *microphone;
 
-/**
- The recorder component
- */
+/** The recorder component */
 @property (nonatomic,strong) EZRecorder *recorder;
 
+@property (nonatomic, weak) id<AudioManagerDelegate> delegate;
 
 
 @end
 
-@implementation AudioManager
 
-double theta;
-double theta_increment;
-double amplitude;
-int *intArray;
-float *arrayLeft;
+@implementation AudioManager {
+    double theta;
+    double theta_increment;
+    double amplitude;
+    int *intArray;
+    float *arrayLeft;
+}
+
 
 #pragma mark - Initialization
 -(id)init {
@@ -47,64 +50,76 @@ float *arrayLeft;
     return nil;
 }
 
-- (id)initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate {
+
+- (id)initWithDirDelegate:(id<AudioManagerDelegate, SoundProcessingDelegate, DirectionDetectionDelegate>)delegate {
     
     self = [super init];
     
+    self.delegate = delegate;
+    
+    // create sound processor (locates ticks)
     self.soundProcessor = [[SoundProcessingAlgo alloc] initWithDirDelegate:delegate];
     
-    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
+    // Create an instance of the microphone and tell it to use this object as the delegate
     self.microphone = [EZMicrophone microphoneWithDelegate:self];
 
-    
-    /*
-     Log out where the file is being written to within the app's documents directory
-     */
-    NSLog(@"File written to application sandbox's documents directory: %@",[self recordingFilePathURL]);
-    
-    // output variables
-    
-    double frequency = 14700;
-    double samplerate = 44100;
-    theta_increment = 2.0 * M_PI * frequency / samplerate;
-    amplitude = 1;
-    
+    [self setupSoundOutput];
     
     // Assign a delegate to the shared instance of the output to provide the output audio data
     [EZOutput sharedOutput].outputDataSource = self;
     
-    size_t bytesPerSample = sizeof (AudioUnitSampleType);
-    AudioStreamBasicDescription stereoStreamFormat = {0};
+    // set the output format from the audioOutput stream.
+    [[EZOutput sharedOutput] setAudioStreamBasicDescription: [self getBasicAudioOutStreamingFormat]];
     
-    NSLog(@"bytes per sample: %zu", bytesPerSample);
+    // register for notification for chances in audio routing (inserting/removing jack plut)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
+                                                 name:AVAudioSessionRouteChangeNotification
+                                               object:nil];
     
-    stereoStreamFormat.mFormatID          = kAudioFormatLinearPCM;
-    //    stereoStreamFormat.mFormatFlags       = kAudioFormatFlagsAudioUnitCanonical;
-    stereoStreamFormat.mFormatFlags       = kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
-    stereoStreamFormat.mBytesPerPacket    = bytesPerSample;
-    stereoStreamFormat.mBytesPerFrame     = bytesPerSample;
-    stereoStreamFormat.mFramesPerPacket   = 1;
-    stereoStreamFormat.mBitsPerChannel    = 8 * bytesPerSample;
-    stereoStreamFormat.mChannelsPerFrame  = 2;           // 2 indicates stereo
-    stereoStreamFormat.mSampleRate        = 44100;
-    
-    [[EZOutput sharedOutput] setAudioStreamBasicDescription:stereoStreamFormat];
-    
+    // set device available property
+    self.deviceAvailable = ([self isVaavudDeviceAvailable]) ? YES : NO;
     
     return self;
 }
 
 
-- (void) toggleMicrophone:(bool) micOn {
+
+-(void) start {
     
-    if( micOn){
-        [self.microphone startFetchingAudio];
-    }
-    else {
-        [self.microphone stopFetchingAudio];
-    }
+    self.measurementActive = YES;
     
+    if (self.deviceAvailable) {
+        [self startMicAndOutput];
+    }
 }
+
+-(void) stop {
+    [self toggleMicrophone: NO];
+    [self toggleOutput: NO];
+    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    if (musicPlayer.volume != self.originalAudioVolume) {
+        musicPlayer.volume = self.originalAudioVolume;
+    }
+    
+    [self.delegate vaavudStopMeasureing];
+}
+
+
+- (void) startMicAndOutput {
+    [self toggleMicrophone: YES];
+    [self toggleOutput: YES];
+    
+    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    
+    self.originalAudioVolume = musicPlayer.volume;
+    
+    if (musicPlayer.volume != 1) {
+         musicPlayer.volume = 1; // device volume will be changed to maximum value
+    }
+    
+    [self.delegate vaavudStartedMeasureing];
+}
+
 
 
 // Starts the internal soundfile recorder
@@ -138,24 +153,103 @@ float *arrayLeft;
 
 
 
--(void) start {
-    [self toggleMicrophone: YES];
-    [self toggleOutput: YES];
-    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
-    self.originalAudioVolume = musicPlayer.volume;
-    NSLog(@"Volume start: %f", self.originalAudioVolume);
-    musicPlayer.volume = 1; // device volume will be changed to maximum value
-}
 
--(void) stop {
-    [self toggleMicrophone: NO];
-    [self toggleOutput: NO];
-    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
-    musicPlayer.volume = self.originalAudioVolume;
+
+
+
+
+- (BOOL) isVaavudDeviceAvailable {
+    
+    // might perform more check buf first check if headphoneOut and headphone Mic is available
+    
+    return ([self isHeadphoneMicAvailable] && [self isHeadphoneOutAvailable]) ? YES : NO;
 }
 
 
+- (BOOL) isHeadphoneOutAvailable {
+    
+    AVAudioSessionRouteDescription *audioRoute = [[AVAudioSession sharedInstance] currentRoute];
+    for (AVAudioSessionPortDescription* desc in [audioRoute outputs]) {
+        if ([[desc portType] isEqualToString:AVAudioSessionPortHeadphones])
+            return YES;
+    }
+    return NO;
+}
 
+
+- (BOOL) isHeadphoneMicAvailable {
+    
+    AVAudioSessionRouteDescription *audioRoute = [[AVAudioSession sharedInstance] currentRoute];
+    for (AVAudioSessionPortDescription* desc in [audioRoute inputs]) {
+        if ([[desc portType] isEqualToString:AVAudioSessionPortHeadsetMic])
+            return YES;
+    }
+    return NO;
+}
+
+
+- (void) setupSoundOutput {
+    
+    double frequency = signalFrequency;
+    double samplerate = sampleFrequency;
+    theta_increment = 2.0 * M_PI * frequency / samplerate;
+    amplitude = 1;
+    
+}
+
+
+
+
+// If the user pulls out he headphone jack, stop playing.
+- (void)audioRouteChangeListenerCallback:(NSNotification*)notification
+{
+    NSDictionary *interuptionDict = notification.userInfo;
+    
+    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    
+    switch (routeChangeReason) {
+            
+        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+//            NSLog(@"AVAudioSessionRouteChangeReasonOldDeviceUnavailable");
+//            NSLog(@"Headphone/Line was pulled. Stopping player....");
+            
+            self.deviceAvailable = NO;
+            [self.delegate vaavudWasUnpluged];
+            [self stop];
+            
+            break;
+        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+//            NSLog(@"AVAudioSessionRouteChangeReasonNewDeviceAvailable");
+//            NSLog(@"Headphone/Line plugged in");
+            
+            [self toggleMicrophone: YES];
+            // For some reason Microphone needs to be active to determine audio route properly.
+            // It works fine the first time the app is started without....
+            
+            if (!self.deviceAvailable && [self isVaavudDeviceAvailable]) {
+                self.deviceAvailable = true;
+                [self.delegate vaavudPlugedIn];
+                if (self.measurementActive) {
+                    [self startMicAndOutput];
+                }
+            }
+            
+            break;
+            
+//        case AVAudioSessionRouteChangeReasonCategoryChange:
+//            // called at start - also when other audio wants to play
+//            NSLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
+//            break;
+            
+        default:
+            NSLog(@"default audio stuff");
+
+    }
+}
+
+
+
+/* delegate method - Feed microphone data to sound-processor and plot */
 #pragma mark - EZMicrophoneDelegate
 #warning Thread Safety
 // Note that any callback that provides streamed audio data (like streaming microphone input) happens on a separate audio thread that should not be blocked. When we feed audio data into any of the UI components we need to explicity create a GCD block on the main thread to properly get the UI to work.
@@ -201,7 +295,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 
 
 
-
+// delegate method - feed microphone data to recorder (audio file).
 -(void)microphone:(EZMicrophone *)microphone
     hasBufferList:(AudioBufferList *)bufferList
    withBufferSize:(UInt32)bufferSize
@@ -215,23 +309,6 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 }
 
 
-- (void) toggleRecording: (BOOL) recording {
-    
-    
-    if(recording )
-    {
-        /*
-         Create the recorder
-         */
-        self.recorder = [EZRecorder recorderWithDestinationURL:[self recordingFilePathURL]
-                                                  sourceFormat:self.microphone.audioStreamBasicDescription
-                                           destinationFileType:EZRecorderFileTypeWAV];
-    }
-    else
-    {
-        [self.recorder closeAudioFile];
-    }
-}
 
 
 - (void)toggleOutput: (bool) output {
@@ -242,6 +319,18 @@ withNumberOfChannels:(UInt32)numberOfChannels {
         [[EZOutput sharedOutput] stopPlayback];
     }
 }
+
+- (void) toggleMicrophone:(bool) micOn {
+    
+    if( micOn){
+        [self.microphone startFetchingAudio];
+    }
+    else {
+        [self.microphone stopFetchingAudio];
+    }
+    
+}
+
 
 
 /**
@@ -293,6 +382,29 @@ withNumberOfChannels:(UInt32)numberOfChannels {
     return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",
                                    [self applicationDocumentsDirectory],
                                    kAudioFilePath]];
+}
+
+
+
+
+- (AudioStreamBasicDescription) getBasicAudioOutStreamingFormat {
+    
+    size_t bytesPerSample = sizeof (AudioUnitSampleType);
+    AudioStreamBasicDescription stereoStreamFormat = {0};
+    
+    
+    stereoStreamFormat.mFormatID          = kAudioFormatLinearPCM;
+    //    stereoStreamFormat.mFormatFlags       = kAudioFormatFlagsAudioUnitCanonical;
+    stereoStreamFormat.mFormatFlags       = kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
+    stereoStreamFormat.mBytesPerPacket    = bytesPerSample;
+    stereoStreamFormat.mBytesPerFrame     = bytesPerSample;
+    stereoStreamFormat.mFramesPerPacket   = 1;
+    stereoStreamFormat.mBitsPerChannel    = 8 * bytesPerSample;
+    stereoStreamFormat.mChannelsPerFrame  = 2;           // 2 indicates stereo
+    stereoStreamFormat.mSampleRate        = 44100;
+    
+    return stereoStreamFormat;
+    
 }
 
 

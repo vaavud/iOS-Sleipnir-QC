@@ -19,13 +19,9 @@
 
 - (void) vaavudPlugedIn;
 - (void) vaavudWasUnpluged;
-- (void) notVaavudPlugedIn;
 - (void) vaavudStartedMeasureing;
 - (void) vaavudStopMeasureing;
-//- (void) newAngularVelocities: (NSArray*) angularVelocities;
-//- (void) newWindAngleLocal:(NSNumber*) angle;
-//- (void) newMaxAmplitude: (NSNumber*) amplitude;
-//- (void) newHeading: (NSNumber*) heading;
+- (void) notVaavudPlugedIn;
 
 @end
 
@@ -33,18 +29,15 @@
 @protocol VaavudElectronicAnalysisDelegate <NSObject>
 
 @optional
-//- (void) newSpeed: (NSNumber*) speed;
 - (void) newAngularVelocities: (NSArray*) angularVelocities;
 - (void) newWindAngleLocal:(NSNumber*) angle;
 - (void) newHeading: (NSNumber*) heading;
 - (void) newMaxAmplitude: (NSNumber*) amplitude;
-
 @end
 
 
 
 @interface VaavudElectronic : NSObject
-
 
 + (VaavudElectronic *) sharedVaavudElec;
 

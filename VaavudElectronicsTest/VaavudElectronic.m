@@ -12,7 +12,7 @@
 #import "SummeryGenerator.h"
 #import "LocationManager.h"
 
-@interface VaavudElectronic() <SoundProcessingDelegate, DirectionDetectionDelegate, locationManagerDelegate>
+@interface VaavudElectronic() <SoundProcessingDelegate, DirectionDetectionDelegate, AudioManagerDelegate, locationManagerDelegate>
 
 @property (strong, atomic) NSMutableArray *VaaElecWindDelegates;
 @property (strong, atomic) NSMutableArray *VaaElecAnalysisDelegates;
@@ -142,6 +142,11 @@ static VaavudElectronic *sharedInstance = nil;
             [delegate newWindAngleLocal: angle];
         }
     }
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(newWindDirection:)]) {
+            [delegate newWindDirection: angle];
+        }
+    }
 }
 
 - (void) newMaxAmplitude: (NSNumber*) amplitude {
@@ -159,6 +164,40 @@ static VaavudElectronic *sharedInstance = nil;
         }
     }
 }
+
+
+- (void) vaavudPlugedIn {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(vaavudPlugedIn)]) {
+            [delegate vaavudPlugedIn];
+        }
+    }
+}
+- (void) vaavudWasUnpluged {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(vaavudWasUnpluged)]) {
+            [delegate vaavudWasUnpluged];
+        }
+    }
+}
+
+- (void) vaavudStartedMeasureing {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(vaavudStartedMeasureing)]) {
+            [delegate vaavudStartedMeasureing];
+        }
+    }
+}
+
+- (void) vaavudStopMeasureing {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(vaavudStopMeasureing)]) {
+            [delegate vaavudStopMeasureing];
+        }
+    }
+}
+
+
 
 
 

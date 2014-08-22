@@ -53,7 +53,9 @@
 		D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E9940197E5DAB0011D516 /* Accelerate.framework */; };
 		D79896141980B7B600388B95 /* SummeryGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D79896131980B7B600388B95 /* SummeryGenerator.m */; };
 		D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */; };
+		D7CBA57D19A790B200D80954 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CBA57C19A790B100D80954 /* NotificationViewController.m */; };
 		D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D1098719A3479E006A8277 /* MediaPlayer.framework */; };
+		D7D1098C19A4DC8F006A8277 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,7 +159,10 @@
 		D79896131980B7B600388B95 /* SummeryGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummeryGenerator.m; sourceTree = "<group>"; };
 		D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionDetectionAlgo.h; sourceTree = "<group>"; };
 		D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionDetectionAlgo.m; sourceTree = "<group>"; };
+		D7CBA57B19A790B100D80954 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		D7CBA57C19A790B100D80954 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		D7D1098719A3479E006A8277 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7D1098C19A4DC8F006A8277 /* AVFoundation.framework in Frameworks */,
 				D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */,
 				D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */,
 				D73E993F197E5B830011D516 /* libCorePlot-CocoaTouch.a in Frameworks */,
@@ -215,6 +221,7 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */,
 				D7D1098719A3479E006A8277 /* MediaPlayer.framework */,
 				D73E9940197E5DAB0011D516 /* Accelerate.framework */,
 				D73E98CC1976754B0011D516 /* CoreLocation.framework */,
@@ -351,6 +358,8 @@
 				D7094196197EAC04008925F0 /* UploadViewController.m */,
 				D70334CC199372EB000FF779 /* HeadingViewController.h */,
 				D70334CD199372EB000FF779 /* HeadingViewController.m */,
+				D7CBA57B19A790B100D80954 /* NotificationViewController.h */,
+				D7CBA57C19A790B100D80954 /* NotificationViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -496,6 +505,7 @@
 				D70334C9199366CA000FF779 /* LocationManager.m in Sources */,
 				D70B9AF6193F328200D6FA0B /* EZAudioPlotGLKViewController.m in Sources */,
 				D70B9AF8193F328200D6FA0B /* EZOutput.m in Sources */,
+				D7CBA57D19A790B200D80954 /* NotificationViewController.m in Sources */,
 				D70B9B1119463B1500D6FA0B /* SoundProcessingAlgo.m in Sources */,
 				D70B9AF4193F328200D6FA0B /* EZAudioPlot.m in Sources */,
 				D70B9AFB193F328200D6FA0B /* TPCircularBuffer.c in Sources */,
