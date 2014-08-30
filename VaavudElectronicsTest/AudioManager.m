@@ -133,9 +133,10 @@
 - (void) checkIfVolumeIsAtMaximum {
     // check if volume is at maximum.
     MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
-    self.originalAudioVolume = [NSNumber numberWithFloat: musicPlayer.volume];
+    
     
     if (musicPlayer.volume != 1) {
+        self.originalAudioVolume = [NSNumber numberWithFloat: musicPlayer.volume];
         musicPlayer.volume = 1; // device volume will be changed to maximum value
     }
 

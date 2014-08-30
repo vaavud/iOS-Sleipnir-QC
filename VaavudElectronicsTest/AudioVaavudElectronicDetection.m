@@ -55,6 +55,8 @@
         
         // INITIALIZE CHECK;
         [self checkIfRegularHeadsetOrVaavud];
+        
+        self.sampleCounter = NUMBER_OF_SAMPLES + 1;
     }
     
     return  self;
@@ -117,9 +119,7 @@
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable: {
             
             if (self.vaavudElectronicConnectionStatus != VaavudElectronicConnectionStatusConnected) {
-                if ([self isHeadphoneOutAvailable] && [self isHeadphoneMicAvailable]) {
-                    [self checkIfRegularHeadsetOrVaavud];
-                }
+                [self checkIfRegularHeadsetOrVaavud];
             }
             
             break;
@@ -130,7 +130,7 @@
             //            break;
             
         default: {
-            NSLog(@"default audio stuff");
+            //NSLog(@"default audio stuff");
         }
     }
 }
@@ -138,12 +138,16 @@
 
 - (void) checkIfRegularHeadsetOrVaavud {
     
-    // take 20 samples (full buffers) from the micrphone and estimate sum. If sum is over a certain threshold it's most likely a microphone because of the low frequency noise.
     
-    self.noiseMax = 0;
-    self.sampleCounter = 0;
-    
-    [self.microphone startFetchingAudio];
+    if ([self isHeadphoneOutAvailable] && [self isHeadphoneMicAvailable]) {
+         // take 20 samples (full buffers) from the micrphone and estimate sum. If sum is over a certain threshold it's most likely a microphone because of the low frequency noise.
+        self.noiseMax = 0;
+        self.sampleCounter = 0;
+        
+        [self.microphone startFetchingAudio];
+
+    }
+
     
 }
 
@@ -187,17 +191,21 @@ withNumberOfChannels:(UInt32)numberOfChannels {
             sum = sum + bufferArray[i];
         }
         
-        if (sum > self.noiseMax) {
+        if (fabsf(sum) > self.noiseMax) {
             self.noiseMax = sum;
         }
         
         self.sampleCounter += 1;
         
+        
+        NSLog(@"sum value: %f", sum);
+        
+        
         if (self.sampleCounter == NUMBER_OF_SAMPLES) {
             [self endCheckIfRegularHeadSetOrVaavud];
         }
         
-        NSLog(@"sum value: %f", sum);
+        
     }
     
 //    // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
