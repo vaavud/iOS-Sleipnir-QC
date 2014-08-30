@@ -22,7 +22,7 @@
 @interface DirectionDetectionAlgo : NSObject
 
 - (void) newTick:(int)samples;
-- (id) initWithDirDelegate:(id<DirectionDetectionDelegate>)delegate;
+- (id) initWithDelegate:(id<DirectionDetectionDelegate>)delegate;
 + (float *) getFitCurve;
 - (int *) getEdgeAngles;
 

@@ -22,6 +22,6 @@
 @property (strong, nonatomic) DirectionDetectionAlgo *dirDetectionAlgo;
 
 - (void) newSoundData:(int *)data bufferLength:(UInt32) bufferLength;
-- (id)initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate;
+- (id)initWithDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate;
 
 @end

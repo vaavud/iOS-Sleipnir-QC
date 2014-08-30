@@ -59,7 +59,7 @@ float fitcurve[360] = {0.492458649,0.475097354,0.457163957,0.43815945,0.41788663
     return nil;
 }
 
-- (id) initWithDirDelegate:(id<DirectionDetectionDelegate>)delegate {
+- (id) initWithDelegate:(id<DirectionDetectionDelegate>)delegate {
     
     
     self = [super init];

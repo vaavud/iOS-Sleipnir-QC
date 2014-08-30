@@ -12,12 +12,13 @@
 
 // Import EZAudio header
 #import "EZAudio.h"
+
 #import "SoundProcessingAlgo.h"
+#import "AudioVaavudElectronicDetection.h"
+
 
 @protocol AudioManagerDelegate <NSObject>
 
-- (void) vaavudPlugedIn;
-- (void) vaavudWasUnpluged;
 - (void) vaavudStartedMeasureing;
 - (void) vaavudStopMeasureing;
 
@@ -27,7 +28,7 @@
 @interface AudioManager : NSObject
 
 // Initializer
-- (id) initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate;
+- (id) initWithDelegate:( VaavudElectronic <AudioManagerDelegate, SoundProcessingDelegate, DirectionDetectionDelegate>*) delegate;
 
 
 // Starts Playback and Recording when Vaavud becomes available
@@ -50,10 +51,13 @@
 // returns the local path of the recording
 - (NSURL*) recordingPath;
 
+- (void) vaavudWasUnpluged;
+- (void) vaavudPlugedIn;
+
+- (void) returnVolumeToInitialState;
 
 
 @property (strong, nonatomic) SoundProcessingAlgo *soundProcessor;
 @property (weak, nonatomic) EZAudioPlotGL *audioPlot;
-
 
 @end

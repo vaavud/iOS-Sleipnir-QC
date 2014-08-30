@@ -11,14 +11,17 @@
 #import "DirectionDetectionAlgo.h"
 #import "SummeryGenerator.h"
 #import "LocationManager.h"
+#import "AudioVaavudElectronicDetection.h"
 
-@interface VaavudElectronic() <SoundProcessingDelegate, DirectionDetectionDelegate, AudioManagerDelegate, locationManagerDelegate>
+@interface VaavudElectronic() <SoundProcessingDelegate, DirectionDetectionDelegate, AudioManagerDelegate, locationManagerDelegate, AudioVaavudElectronicDetectionDelegate>
 
 @property (strong, atomic) NSMutableArray *VaaElecWindDelegates;
 @property (strong, atomic) NSMutableArray *VaaElecAnalysisDelegates;
-@property (strong, nonatomic) AudioManager *soundManager;
+@property (strong, nonatomic) AudioManager *audioManager;
 @property (strong, nonatomic) SummeryGenerator *summeryGenerator;
 @property (strong, nonatomic) LocationManager *locationManager;
+@property (strong, nonatomic) AudioVaavudElectronicDetection *AVElectronicDetection;
+@property (strong, nonatomic) NSNumber* currentHeading;
 
 @end
 
@@ -44,9 +47,10 @@ static VaavudElectronic *sharedInstance = nil;
 - (void) initSingleton {
     self.VaaElecWindDelegates = [[NSMutableArray alloc] initWithCapacity:3];
     self.VaaElecAnalysisDelegates = [[NSMutableArray alloc] initWithCapacity:3];
-    self.soundManager = [[AudioManager alloc] initWithDirDelegate:self];
+    self.audioManager = [[AudioManager alloc] initWithDelegate:self];
     self.summeryGenerator = [[SummeryGenerator alloc] init];
     self.locationManager = [[LocationManager alloc] initWithDelegate:self];
+    self.AVElectronicDetection = [[AudioVaavudElectronicDetection alloc] initWithDelegate:self];
 }
 
 + (id) allocWithZone:(NSZone *)zone {
@@ -55,6 +59,10 @@ static VaavudElectronic *sharedInstance = nil;
     return [VaavudElectronic sharedVaavudElec];
 }
 
+
+- (VaavudElectronicConnectionStatus) isVaavudElectronicConnected {
+    return self.AVElectronicDetection.vaavudElectronicConnectionStatus;
+}
 
 
 /* add listener of heading and windspeed information */
@@ -119,6 +127,8 @@ static VaavudElectronic *sharedInstance = nil;
     }
 }
 
+
+
 - (void) newWindDirection: (NSNumber*) speed {
     for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
         if ([delegate respondsToSelector:@selector(newWindDirection:)]) {
@@ -127,11 +137,13 @@ static VaavudElectronic *sharedInstance = nil;
     }
 }
 
-
-- (void) newAngularVelocities: (NSArray*) angularVelocities {
+- (void) newHeading:(NSNumber *)heading {
+    
+    self.currentHeading = heading;
+    
     for (id<VaavudElectronicAnalysisDelegate> delegate in self.VaaElecAnalysisDelegates) {
-        if ([delegate respondsToSelector:@selector(newAngularVelocities:)]) {
-            [delegate newAngularVelocities:angularVelocities];
+        if ([delegate respondsToSelector:@selector(newHeading:)]) {
+            [delegate newHeading: heading];
         }
     }
 }
@@ -142,9 +154,24 @@ static VaavudElectronic *sharedInstance = nil;
             [delegate newWindAngleLocal: angle];
         }
     }
-    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
-        if ([delegate respondsToSelector:@selector(newWindDirection:)]) {
-            [delegate newWindDirection: angle];
+    
+    if (self.currentHeading) {
+        float windDirection = self.currentHeading.floatValue + angle.floatValue;
+        
+        if (windDirection > 360) {
+            windDirection = windDirection - 360;
+        }
+        
+        [self newWindDirection: [NSNumber numberWithFloat: windDirection]];
+        
+    }
+    
+}
+
+- (void) newAngularVelocities: (NSArray*) angularVelocities {
+    for (id<VaavudElectronicAnalysisDelegate> delegate in self.VaaElecAnalysisDelegates) {
+        if ([delegate respondsToSelector:@selector(newAngularVelocities:)]) {
+            [delegate newAngularVelocities:angularVelocities];
         }
     }
 }
@@ -157,16 +184,14 @@ static VaavudElectronic *sharedInstance = nil;
     }
 }
 
-- (void) newHeading:(NSNumber *)heading {
-    for (id<VaavudElectronicAnalysisDelegate> delegate in self.VaaElecAnalysisDelegates) {
-        if ([delegate respondsToSelector:@selector(newHeading:)]) {
-            [delegate newHeading: heading];
-        }
-    }
-}
+
 
 
 - (void) vaavudPlugedIn {
+    
+    [self.audioManager vaavudPlugedIn];
+    
+    
     for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
         if ([delegate respondsToSelector:@selector(vaavudPlugedIn)]) {
             [delegate vaavudPlugedIn];
@@ -174,12 +199,24 @@ static VaavudElectronic *sharedInstance = nil;
     }
 }
 - (void) vaavudWasUnpluged {
+    
+    [self.audioManager vaavudWasUnpluged];
+    
     for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
         if ([delegate respondsToSelector:@selector(vaavudWasUnpluged)]) {
             [delegate vaavudWasUnpluged];
         }
     }
 }
+
+- (void) notVaavudPlugedIn {
+    for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
+        if ([delegate respondsToSelector:@selector(notVaavudPlugedIn)]) {
+            [delegate notVaavudPlugedIn];
+        }
+    }
+}
+
 
 - (void) vaavudStartedMeasureing {
     for (id<VaavudElectronicWindDelegate> delegate in self.VaaElecWindDelegates) {
@@ -203,7 +240,7 @@ static VaavudElectronic *sharedInstance = nil;
 
 /* start the audio input/output and starts sending data */
 - (void) start {
-    [self.soundManager start];
+    [self.audioManager start];
     
     if ([self.locationManager isHeadingAvailable]) {
         [self.locationManager start];
@@ -215,37 +252,41 @@ static VaavudElectronic *sharedInstance = nil;
 
 /* start the audio input/output and starts sending data */
 - (void) stop {
-    [self.soundManager stop];
+    [self.audioManager stop];
     [self.locationManager stop];
 }
 
+- (void) returnVolumeToInitialState {
+    [self.audioManager returnVolumeToInitialState];
+}
+
 - (void) setAudioPlot:(EZAudioPlotGL *) audioPlot {
-    if (self.soundManager) {
-        self.soundManager.audioPlot = audioPlot;
+    if (self.audioManager) {
+        self.audioManager.audioPlot = audioPlot;
     }
 }
 
 
 // Starts the internal soundfile recorder
 - (void) startRecording {
-    [self.soundManager startRecording];
+    [self.audioManager startRecording];
     [self.summeryGenerator startRecording];
 }
 
 // Ends the internal soundfile recorder
 - (void) endRecording {
-    [self.soundManager endRecording];
+    [self.audioManager endRecording];
     [self.summeryGenerator endRecording];
 }
 
 // returns true if recording is active
 - (BOOL) isRecording {
-    return [self.soundManager isRecording];
+    return [self.audioManager isRecording];
 }
 
 // returns the local path of the recording
 - (NSURL*) recordingPath {
-    return [self.soundManager recordingPath];
+    return [self.audioManager recordingPath];
 }
 
 // returns the local path of the summeryfile
@@ -264,7 +305,7 @@ static VaavudElectronic *sharedInstance = nil;
 
 // returns the EdgeAngles for the samples
 - (int *) getEdgeAngles {
-    return [self.soundManager.soundProcessor.dirDetectionAlgo getEdgeAngles];
+    return [self.audioManager.soundProcessor.dirDetectionAlgo getEdgeAngles];
 }
 
 - (void) generateSummeryFile {

@@ -37,7 +37,7 @@
     return nil;
 }
 
-- (id)initWithDirDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate {
+- (id)initWithDelegate:(id<SoundProcessingDelegate, DirectionDetectionDelegate>)delegate {
     
     self = [super init];
     
@@ -48,7 +48,7 @@
     
     diffSumRiseThreshold = 800; // STARTING VALUE
     
-    self.dirDetectionAlgo = [[DirectionDetectionAlgo alloc] initWithDirDelegate:delegate];
+    self.dirDetectionAlgo = [[DirectionDetectionAlgo alloc] initWithDelegate:delegate];
     
     self.windDelegate = delegate;
     

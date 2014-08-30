@@ -15,11 +15,9 @@
 
 @interface AudioManager() <EZMicrophoneDelegate, EZOutputDataSource>
 
-@property (nonatomic) BOOL measurementActive;
-@property (nonatomic) BOOL recordingActive;
-@property (nonatomic) BOOL deviceAvailable;
-
-@property (nonatomic) float originalAudioVolume;
+@property (nonatomic) BOOL askedToMeasure;
+@property (nonatomic) BOOL measureingActive;
+@property (nonatomic, strong) NSNumber *originalAudioVolume;
 
 /** The microphone component */
 @property (nonatomic,strong) EZMicrophone *microphone;
@@ -27,7 +25,7 @@
 /** The recorder component */
 @property (nonatomic,strong) EZRecorder *recorder;
 
-@property (nonatomic, weak) id<AudioManagerDelegate> delegate;
+@property (nonatomic, weak) VaavudElectronic <AudioManagerDelegate> *delegate;
 
 
 @end
@@ -51,14 +49,14 @@
 }
 
 
-- (id)initWithDirDelegate:(id<AudioManagerDelegate, SoundProcessingDelegate, DirectionDetectionDelegate>)delegate {
+- (id)initWithDelegate:(VaavudElectronic <AudioManagerDelegate, SoundProcessingDelegate, DirectionDetectionDelegate>*) delegate {
     
     self = [super init];
     
     self.delegate = delegate;
     
     // create sound processor (locates ticks)
-    self.soundProcessor = [[SoundProcessingAlgo alloc] initWithDirDelegate:delegate];
+    self.soundProcessor = [[SoundProcessingAlgo alloc] initWithDelegate:delegate];
     
     // Create an instance of the microphone and tell it to use this object as the delegate
     self.microphone = [EZMicrophone microphoneWithDelegate:self];
@@ -70,54 +68,87 @@
     
     // set the output format from the audioOutput stream.
     [[EZOutput sharedOutput] setAudioStreamBasicDescription: [self getBasicAudioOutStreamingFormat]];
-    
-    // register for notification for chances in audio routing (inserting/removing jack plut)
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
-                                                 name:AVAudioSessionRouteChangeNotification
-                                               object:nil];
-    
-    // set device available property
-    self.deviceAvailable = ([self isVaavudDeviceAvailable]) ? YES : NO;
+
     
     return self;
 }
 
-
-
 -(void) start {
     
-    self.measurementActive = YES;
+    self.askedToMeasure = YES;
     
-    if (self.deviceAvailable) {
-        [self startMicAndOutput];
+    if ([self.delegate isVaavudElectronicConnected]) {
+        [self startInternal];
+        
     }
 }
 
 -(void) stop {
-    [self toggleMicrophone: NO];
-    [self toggleOutput: NO];
-    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
-    if (musicPlayer.volume != self.originalAudioVolume) {
-        musicPlayer.volume = self.originalAudioVolume;
-    }
     
-    [self.delegate vaavudStopMeasureing];
+    self.askedToMeasure = NO;
+    [self stopInternal];
+    
 }
 
 
-- (void) startMicAndOutput {
+- (void) startInternal {
     [self toggleMicrophone: YES];
     [self toggleOutput: YES];
     
-    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    [self checkIfVolumeIsAtMaximum];
     
-    self.originalAudioVolume = musicPlayer.volume;
+     dispatch_async(dispatch_get_main_queue(),^{
+        [self.delegate vaavudStartedMeasureing];
+    });
+}
+
+
+- (void) stopInternal {
+    [self toggleMicrophone: NO];
+    [self toggleOutput: NO];
     
-    if (musicPlayer.volume != 1) {
-         musicPlayer.volume = 1; // device volume will be changed to maximum value
+    dispatch_async(dispatch_get_main_queue(),^{
+        [self.delegate vaavudStopMeasureing];
+    });
+}
+
+
+
+
+- (void) vaavudWasUnpluged {
+    
+    [self returnVolumeToInitialState];
+    [self stopInternal];
+}
+
+- (void) vaavudPlugedIn {
+    
+    if (self.askedToMeasure) {
+        [self startInternal];
     }
     
-    [self.delegate vaavudStartedMeasureing];
+}
+
+
+- (void) checkIfVolumeIsAtMaximum {
+    // check if volume is at maximum.
+    MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    self.originalAudioVolume = [NSNumber numberWithFloat: musicPlayer.volume];
+    
+    if (musicPlayer.volume != 1) {
+        musicPlayer.volume = 1; // device volume will be changed to maximum value
+    }
+
+}
+
+- (void) returnVolumeToInitialState {
+    
+    if (self.originalAudioVolume) {
+        MPMusicPlayerController* musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+        if (musicPlayer.volume != self.originalAudioVolume.floatValue) {
+            musicPlayer.volume = self.originalAudioVolume.floatValue;
+        }
+    }
 }
 
 
@@ -129,12 +160,12 @@
                                               sourceFormat:self.microphone.audioStreamBasicDescription
                                        destinationFileType:EZRecorderFileTypeWAV];
     
-    self.recordingActive = YES;
+    self.measureingActive = YES;
 }
 
 // Ends the internal soundfile recorder
 - (void) endRecording {
-    self.recordingActive = NO;
+    self.measureingActive = NO;
     [self.recorder closeAudioFile];
     self.recorder = nil;
     
@@ -142,7 +173,7 @@
 
 // returns true if recording is active
 - (BOOL) isRecording {
-    return self.recordingActive;
+    return self.measureingActive;
 }
 
 // returns the local path of the recording
@@ -150,42 +181,6 @@
     return [self recordingFilePathURL];
 }
 
-
-
-
-
-
-
-
-
-- (BOOL) isVaavudDeviceAvailable {
-    
-    // might perform more check buf first check if headphoneOut and headphone Mic is available
-    
-    return ([self isHeadphoneMicAvailable] && [self isHeadphoneOutAvailable]) ? YES : NO;
-}
-
-
-- (BOOL) isHeadphoneOutAvailable {
-    
-    AVAudioSessionRouteDescription *audioRoute = [[AVAudioSession sharedInstance] currentRoute];
-    for (AVAudioSessionPortDescription* desc in [audioRoute outputs]) {
-        if ([[desc portType] isEqualToString:AVAudioSessionPortHeadphones])
-            return YES;
-    }
-    return NO;
-}
-
-
-- (BOOL) isHeadphoneMicAvailable {
-    
-    AVAudioSessionRouteDescription *audioRoute = [[AVAudioSession sharedInstance] currentRoute];
-    for (AVAudioSessionPortDescription* desc in [audioRoute inputs]) {
-        if ([[desc portType] isEqualToString:AVAudioSessionPortHeadsetMic])
-            return YES;
-    }
-    return NO;
-}
 
 
 - (void) setupSoundOutput {
@@ -198,54 +193,6 @@
 }
 
 
-
-
-// If the user pulls out he headphone jack, stop playing.
-- (void)audioRouteChangeListenerCallback:(NSNotification*)notification
-{
-    NSDictionary *interuptionDict = notification.userInfo;
-    
-    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
-    
-    switch (routeChangeReason) {
-            
-        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-//            NSLog(@"AVAudioSessionRouteChangeReasonOldDeviceUnavailable");
-//            NSLog(@"Headphone/Line was pulled. Stopping player....");
-            
-            self.deviceAvailable = NO;
-            [self.delegate vaavudWasUnpluged];
-            [self stop];
-            
-            break;
-        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
-//            NSLog(@"AVAudioSessionRouteChangeReasonNewDeviceAvailable");
-//            NSLog(@"Headphone/Line plugged in");
-            
-            [self toggleMicrophone: YES];
-            // For some reason Microphone needs to be active to determine audio route properly.
-            // It works fine the first time the app is started without....
-            
-            if (!self.deviceAvailable && [self isVaavudDeviceAvailable]) {
-                self.deviceAvailable = true;
-                [self.delegate vaavudPlugedIn];
-                if (self.measurementActive) {
-                    [self startMicAndOutput];
-                }
-            }
-            
-            break;
-            
-//        case AVAudioSessionRouteChangeReasonCategoryChange:
-//            // called at start - also when other audio wants to play
-//            NSLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
-//            break;
-            
-        default:
-            NSLog(@"default audio stuff");
-
-    }
-}
 
 
 
@@ -302,7 +249,7 @@ withNumberOfChannels:(UInt32)numberOfChannels {
 withNumberOfChannels:(UInt32)numberOfChannels {
     
     // Getting audio data as a buffer list that can be directly fed into the EZRecorder. This is happening on the audio thread - any UI updating needs a GCD main queue block. This will keep appending data to the tail of the audio file.
-    if( self.recordingActive ){
+    if( self.measureingActive ){
         [self.recorder appendDataFromBufferList:bufferList
                                  withBufferSize:bufferSize];
     }

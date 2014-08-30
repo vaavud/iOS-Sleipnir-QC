@@ -8,12 +8,15 @@
 
 #import "HeadingViewController.h"
 #import "VaavudElectronic.h"
+#import "HeadingPlot.h"
 
 
 @interface HeadingViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabelHeading;
 @property (strong, nonatomic) VaavudElectronic *vaavudElectronics;
+@property (weak, nonatomic) IBOutlet HeadingPlot *headingPlot;
+
 
 @end
 

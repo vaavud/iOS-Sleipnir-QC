@@ -35,11 +35,18 @@
 - (void) newMaxAmplitude: (NSNumber*) amplitude;
 @end
 
-
+typedef NS_ENUM(NSUInteger, VaavudElectronicConnectionStatus) {
+    VaavudElectronicConnectionStatusUnchecked,
+    VaavudElectronicConnectionStatusConnected,
+    VaavudElectronicConnectionStatusNotConnected
+};
 
 @interface VaavudElectronic : NSObject
 
 + (VaavudElectronic *) sharedVaavudElec;
+
+/* What is the current Vaavud Electronic connection status ? Initialize class as soon as possible to start detection*/
+- (VaavudElectronicConnectionStatus) isVaavudElectronicConnected;
 
 /* add listener of heading, windspeed and device information */
 - (void) addListener:(id <VaavudElectronicWindDelegate>) delegate;
@@ -54,10 +61,14 @@
 - (void) removeAnalysisListener:(id <VaavudElectronicAnalysisDelegate>) delegate;
 
 /* start the audio input/output (and location,heading) and starts sending data */
+// If Vaavud Electronic is not inserted nothing will happen.
 - (void) start;
 
 /* stop the audio input/output  (and location,heading) and stop sending data */
 - (void) stop;
+
+// returnt the volume to initial state - to be used when the app closes
+- (void) returnVolumeToInitialState;
 
 // sets the audioPlot to which buffered raw audio values is send for plotting
 - (void) setAudioPlot:(EZAudioPlotGL *) audioPlot;
@@ -91,5 +102,6 @@
 
 // return the current heading of device (if avilale)
 - (NSNumber*) getHeading;
+
 
 @end
