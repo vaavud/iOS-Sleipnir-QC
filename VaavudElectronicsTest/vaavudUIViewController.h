@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VaavudElectronic.h"
 
 @interface vaavudUIViewController : UIViewController
 

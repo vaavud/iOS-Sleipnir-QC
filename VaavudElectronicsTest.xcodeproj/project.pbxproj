@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D70334C9199366CA000FF779 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D70334C8199366CA000FF779 /* LocationManager.m */; };
 		D70334CE199372EB000FF779 /* HeadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D70334CD199372EB000FF779 /* HeadingViewController.m */; };
+		D70629BC19B4640200E6879A /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70629B719B463AF00E6879A /* libVaavudElectronicSDK.a */; };
 		D7094197197EAC04008925F0 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7094196197EAC04008925F0 /* UploadViewController.m */; };
 		D70B9A9C193F298400D6FA0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9A9B193F298400D6FA0B /* Foundation.framework */; };
 		D70B9A9E193F298400D6FA0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9A9D193F298400D6FA0B /* CoreGraphics.framework */; };
@@ -40,20 +40,14 @@
 		D70B9AFF193F32F500D6FA0B /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */; };
 		D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B00193F331A00D6FA0B /* Security.framework */; };
 		D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B02193F332700D6FA0B /* QuartzCore.framework */; };
-		D70B9B1119463B1500D6FA0B /* SoundProcessingAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */; };
 		D73E98CD1976754B0011D516 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E98CC1976754B0011D516 /* CoreLocation.framework */; };
 		D73E99171977A7490011D516 /* vaavudRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E99161977A7490011D516 /* vaavudRootViewController.m */; };
 		D73E991A1977AAE30011D516 /* vaavudModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E99191977AAE30011D516 /* vaavudModelController.m */; };
 		D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991C197D0E230011D516 /* vaavudUIViewController.m */; };
 		D73E9920197D13BA0011D516 /* vaavudCleanInterfaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */; };
-		D73E9924197D34570011D516 /* VaavudElectronic.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9923197D34570011D516 /* VaavudElectronic.m */; };
-		D73E9928197D3F3C0011D516 /* AudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E9927197D3F3C0011D516 /* AudioManager.m */; };
 		D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */; };
 		D73E993F197E5B830011D516 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */; };
 		D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E9940197E5DAB0011D516 /* Accelerate.framework */; };
-		D742FBBD19AE261300D5988A /* AudioVaavudElectronicDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = D742FBBC19AE261300D5988A /* AudioVaavudElectronicDetection.m */; };
-		D79896141980B7B600388B95 /* SummeryGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D79896131980B7B600388B95 /* SummeryGenerator.m */; };
-		D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */; };
 		D7CBA57D19A790B200D80954 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CBA57C19A790B100D80954 /* NotificationViewController.m */; };
 		D7CBA58319AA0A8200D80954 /* HeadingPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CBA58219AA0A8200D80954 /* HeadingPlot.m */; };
 		D7CBA58619AA0BC900D80954 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CBA58519AA0BC900D80954 /* CircleView.m */; };
@@ -62,6 +56,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D70629B619B463AF00E6879A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D7D9996919B3AD3B0099FB8F;
+			remoteInfo = VaavudElectronicSDK;
+		};
+		D70629B819B463AF00E6879A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D7D9997919B3AD3B0099FB8F;
+			remoteInfo = VaavudElectronicSDKTests;
+		};
+		D70629BA19B463DD00E6879A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D7D9996819B3AD3B0099FB8F;
+			remoteInfo = VaavudElectronicSDK;
+		};
 		D70B9ABE193F298400D6FA0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D70B9A90193F298400D6FA0B /* Project object */;
@@ -86,10 +101,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D70334C7199366CA000FF779 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
-		D70334C8199366CA000FF779 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		D70334CC199372EB000FF779 /* HeadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadingViewController.h; sourceTree = "<group>"; };
 		D70334CD199372EB000FF779 /* HeadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadingViewController.m; sourceTree = "<group>"; };
+		D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
 		D7094195197EAC04008925F0 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		D7094196197EAC04008925F0 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
 		D70B9A98193F298400D6FA0B /* VaavudElectronicsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaavudElectronicsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,8 +153,6 @@
 		D70B9B00193F331A00D6FA0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D70B9B02193F332700D6FA0B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D70B9B0619448EB000D6FA0B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
-		D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundProcessingAlgo.h; sourceTree = "<group>"; };
-		D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundProcessingAlgo.m; sourceTree = "<group>"; };
 		D73E98CC1976754B0011D516 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D73E99151977A7490011D516 /* vaavudRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vaavudRootViewController.h; path = ../vaavudRootViewController.h; sourceTree = "<group>"; };
 		D73E99161977A7490011D516 /* vaavudRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = vaavudRootViewController.m; path = ../vaavudRootViewController.m; sourceTree = "<group>"; };
@@ -150,20 +162,10 @@
 		D73E991C197D0E230011D516 /* vaavudUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudUIViewController.m; sourceTree = "<group>"; };
 		D73E991E197D13BA0011D516 /* vaavudCleanInterfaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudCleanInterfaceViewController.h; sourceTree = "<group>"; };
 		D73E991F197D13BA0011D516 /* vaavudCleanInterfaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudCleanInterfaceViewController.m; sourceTree = "<group>"; };
-		D73E9922197D34570011D516 /* VaavudElectronic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudElectronic.h; sourceTree = "<group>"; };
-		D73E9923197D34570011D516 /* VaavudElectronic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudElectronic.m; sourceTree = "<group>"; };
-		D73E9926197D3F3C0011D516 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
-		D73E9927197D3F3C0011D516 /* AudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioManager.m; sourceTree = "<group>"; };
 		D73E992A197E4E300011D516 /* vaavudRawSignalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudRawSignalViewController.h; sourceTree = "<group>"; };
 		D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudRawSignalViewController.m; sourceTree = "<group>"; };
 		D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		D73E9940197E5DAB0011D516 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		D742FBBB19AE261300D5988A /* AudioVaavudElectronicDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioVaavudElectronicDetection.h; sourceTree = "<group>"; };
-		D742FBBC19AE261300D5988A /* AudioVaavudElectronicDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioVaavudElectronicDetection.m; sourceTree = "<group>"; };
-		D79896121980B7B600388B95 /* SummeryGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummeryGenerator.h; sourceTree = "<group>"; };
-		D79896131980B7B600388B95 /* SummeryGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummeryGenerator.m; sourceTree = "<group>"; };
-		D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionDetectionAlgo.h; sourceTree = "<group>"; };
-		D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionDetectionAlgo.m; sourceTree = "<group>"; };
 		D7CBA57B19A790B100D80954 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		D7CBA57C19A790B100D80954 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		D7CBA58119AA0A8200D80954 /* HeadingPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadingPlot.h; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D70629BC19B4640200E6879A /* libVaavudElectronicSDK.a in Frameworks */,
 				D7D1098C19A4DC8F006A8277 /* AVFoundation.framework in Frameworks */,
 				D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */,
 				D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */,
@@ -206,6 +209,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D70629B119B463AF00E6879A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D70629B719B463AF00E6879A /* libVaavudElectronicSDK.a */,
+				D70629B919B463AF00E6879A /* VaavudElectronicSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D70B9A8F193F298400D6FA0B = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +242,7 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */,
 				D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */,
 				D7D1098719A3479E006A8277 /* MediaPlayer.framework */,
 				D73E9940197E5DAB0011D516 /* Accelerate.framework */,
@@ -251,7 +264,6 @@
 			children = (
 				D74C247E1990C6030098A036 /* iPad */,
 				D73E9929197D8AA80011D516 /* UI */,
-				D73E9921197D33180011D516 /* VaavudElectronic */,
 				D73E99151977A7490011D516 /* vaavudRootViewController.h */,
 				D73E99161977A7490011D516 /* vaavudRootViewController.m */,
 				D70B9AAA193F298400D6FA0B /* vaavudAppDelegate.h */,
@@ -335,27 +347,6 @@
 			path = VERSION;
 			sourceTree = "<group>";
 		};
-		D73E9921197D33180011D516 /* VaavudElectronic */ = {
-			isa = PBXGroup;
-			children = (
-				D79A7BB81948C7840071AEA7 /* DirectionDetectionAlgo.h */,
-				D79A7BB91948C7840071AEA7 /* DirectionDetectionAlgo.m */,
-				D70B9B0F19463B1500D6FA0B /* SoundProcessingAlgo.h */,
-				D70B9B1019463B1500D6FA0B /* SoundProcessingAlgo.m */,
-				D73E9922197D34570011D516 /* VaavudElectronic.h */,
-				D73E9923197D34570011D516 /* VaavudElectronic.m */,
-				D73E9926197D3F3C0011D516 /* AudioManager.h */,
-				D73E9927197D3F3C0011D516 /* AudioManager.m */,
-				D79896121980B7B600388B95 /* SummeryGenerator.h */,
-				D79896131980B7B600388B95 /* SummeryGenerator.m */,
-				D70334C7199366CA000FF779 /* LocationManager.h */,
-				D70334C8199366CA000FF779 /* LocationManager.m */,
-				D742FBBB19AE261300D5988A /* AudioVaavudElectronicDetection.h */,
-				D742FBBC19AE261300D5988A /* AudioVaavudElectronicDetection.m */,
-			);
-			name = VaavudElectronic;
-			sourceTree = "<group>";
-		};
 		D73E9929197D8AA80011D516 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +407,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D70629BB19B463DD00E6879A /* PBXTargetDependency */,
 				D73E993E197E5B380011D516 /* PBXTargetDependency */,
 			);
 			name = VaavudElectronicsTest;
@@ -475,6 +467,10 @@
 					ProductGroup = D73E9936197E5B2C0011D516 /* Products */;
 					ProjectRef = D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */;
 				},
+				{
+					ProductGroup = D70629B119B463AF00E6879A /* Products */;
+					ProjectRef = D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -485,6 +481,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D70629B719B463AF00E6879A /* libVaavudElectronicSDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libVaavudElectronicSDK.a;
+			remoteRef = D70629B619B463AF00E6879A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D70629B919B463AF00E6879A /* VaavudElectronicSDKTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = VaavudElectronicSDKTests.xctest;
+			remoteRef = D70629B819B463AF00E6879A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -524,14 +534,10 @@
 			files = (
 				D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */,
 				D73E9920197D13BA0011D516 /* vaavudCleanInterfaceViewController.m in Sources */,
-				D79896141980B7B600388B95 /* SummeryGenerator.m in Sources */,
-				D70334C9199366CA000FF779 /* LocationManager.m in Sources */,
 				D70B9AF6193F328200D6FA0B /* EZAudioPlotGLKViewController.m in Sources */,
 				D70B9AF8193F328200D6FA0B /* EZOutput.m in Sources */,
 				D7CBA57D19A790B200D80954 /* NotificationViewController.m in Sources */,
-				D70B9B1119463B1500D6FA0B /* SoundProcessingAlgo.m in Sources */,
 				D70B9AF4193F328200D6FA0B /* EZAudioPlot.m in Sources */,
-				D742FBBD19AE261300D5988A /* AudioVaavudElectronicDetection.m in Sources */,
 				D70B9AFB193F328200D6FA0B /* TPCircularBuffer.c in Sources */,
 				D70B9AA8193F298400D6FA0B /* main.m in Sources */,
 				D7CBA58319AA0A8200D80954 /* HeadingPlot.m in Sources */,
@@ -539,19 +545,16 @@
 				D70B9AF3193F328200D6FA0B /* EZAudioPlayer.m in Sources */,
 				D70B9AF0193F328200D6FA0B /* AEFloatConverter.m in Sources */,
 				D70B9AF5193F328200D6FA0B /* EZAudioPlotGL.m in Sources */,
-				D79A7BBA1948C7840071AEA7 /* DirectionDetectionAlgo.m in Sources */,
 				D70B9AF2193F328200D6FA0B /* EZAudioFile.m in Sources */,
 				D70B9AAC193F298400D6FA0B /* vaavudAppDelegate.m in Sources */,
 				D70B9AFA193F328200D6FA0B /* EZRecorder.m in Sources */,
 				D70B9AF1193F328200D6FA0B /* EZAudio.m in Sources */,
 				D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */,
-				D73E9928197D3F3C0011D516 /* AudioManager.m in Sources */,
 				D70B9AF7193F328200D6FA0B /* EZMicrophone.m in Sources */,
 				D70B9AF9193F328200D6FA0B /* EZPlot.m in Sources */,
 				D73E99171977A7490011D516 /* vaavudRootViewController.m in Sources */,
 				D7CBA58619AA0BC900D80954 /* CircleView.m in Sources */,
 				D70334CE199372EB000FF779 /* HeadingViewController.m in Sources */,
-				D73E9924197D34570011D516 /* VaavudElectronic.m in Sources */,
 				D73E991A1977AAE30011D516 /* vaavudModelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,6 +570,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D70629BB19B463DD00E6879A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VaavudElectronicSDK;
+			targetProxy = D70629BA19B463DD00E6879A /* PBXContainerItemProxy */;
+		};
 		D70B9ABF193F298400D6FA0B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D70B9A97193F298400D6FA0B /* VaavudElectronicsTest */;

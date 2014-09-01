@@ -7,7 +7,6 @@
 //
 
 #import "HeadingViewController.h"
-#import "VaavudElectronic.h"
 #import "HeadingPlot.h"
 
 

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "vaavudUIViewController.h"
-#import "VaavudElectronic.h"
 
 
 @interface HeadingViewController : vaavudUIViewController <VaavudElectronicAnalysisDelegate>

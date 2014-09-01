@@ -7,7 +7,6 @@
 //
 
 #import "NotificationViewController.h"
-#import "VaavudElectronic.h"
 
 @interface NotificationViewController ()<VaavudElectronicWindDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *TextViewConsole;
