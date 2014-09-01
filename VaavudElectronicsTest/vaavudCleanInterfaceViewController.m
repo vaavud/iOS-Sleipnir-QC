@@ -9,7 +9,7 @@
 #import "vaavudCleanInterfaceViewController.h"
 
 @interface vaavudCleanInterfaceViewController () <VaavudElectronicWindDelegate>
-@property (strong, nonatomic) VaavudElectronic *vaavudElectronics;
+@property (strong, nonatomic) VaavudElectronicSDK *vaavudElectronics;
 
 @property (weak, nonatomic) IBOutlet UILabel *rotationSpeedTextField;
 @property (weak, nonatomic) IBOutlet UILabel *windAngleTextField;
@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.vaavudElectronics = [VaavudElectronic sharedVaavudElec];
+    self.vaavudElectronics = [VaavudElectronicSDK sharedVaavudElectronic];
     [self.vaavudElectronics addListener:self];
     
     [self.windAngleTextField setText: @"-"];

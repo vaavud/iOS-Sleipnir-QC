@@ -13,7 +13,7 @@
 @interface HeadingViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabelHeading;
-@property (strong, nonatomic) VaavudElectronic *vaavudElectronics;
+@property (strong, nonatomic) VaavudElectronicSDK *vaavudElectronics;
 @property (weak, nonatomic) IBOutlet HeadingPlot *headingPlot;
 
 
@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     
-    self.vaavudElectronics = [VaavudElectronic sharedVaavudElec];
+    self.vaavudElectronics = [VaavudElectronicSDK sharedVaavudElectronic];
     [self.vaavudElectronics addAnalysisListener:self];
     
 }
