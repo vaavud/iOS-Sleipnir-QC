@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphHostingView;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxVelocityDiff;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxAmplitudeDiff;
-@property (strong, nonatomic) VaavudElectronicSDK *vaavudElectronics;
+@property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 @property (nonatomic, strong)   CPTXYGraph    *graph;
 @property (nonatomic) NSArray* angularVelocities;
 @property (nonatomic) NSArray* fitPlotAngles;
@@ -37,7 +37,7 @@ enum plotName : NSInteger {
     // Do any additional setup after loading the view.
     
     
-    self.vaavudElectronics = [VaavudElectronicSDK sharedVaavudElectronic];
+    self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
     [self.vaavudElectronics addAnalysisListener:self];
     
     /*

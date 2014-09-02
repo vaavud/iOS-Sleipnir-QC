@@ -14,7 +14,7 @@
 
 @interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) VaavudElectronicSDK *vaavudElectronic;
+@property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronic;
 @property (nonatomic, strong) DBRestClient *restClient;
 @property (weak, nonatomic) IBOutlet UISwitch *recordingSwitch;
 @property (weak, nonatomic) IBOutlet UIProgressView *recordingProgressBar;
@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     
-    self.vaavudElectronic = [VaavudElectronicSDK sharedVaavudElectronic];
+    self.vaavudElectronic = [VEVaavudElectronicSDK sharedVaavudElectronic];
     
     [self.recordingSwitch setOn: [self.vaavudElectronic isRecording]];
     

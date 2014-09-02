@@ -22,7 +22,7 @@
     // Do any additional setup after loading the view.
     self.TextViewConsole.text = @"";
     
-    [[VaavudElectronicSDK sharedVaavudElectronic] addListener:self];
+    [[VEVaavudElectronicSDK sharedVaavudElectronic] addListener:self];
     
 }
 
