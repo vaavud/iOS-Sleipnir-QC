@@ -33,11 +33,20 @@
 }
 
 
+- (void) devicePlugedInChecking {
+    [self appendTextToConsole: @"Device pluged in - checking"];
+}
+
 - (void) vaavudPlugedIn {
     [self appendTextToConsole: @"Vaavud pluged in"];
 }
-- (void) vaavudWasUnpluged {
-    [self appendTextToConsole: @"Vaavud was unpluged"];
+- (void) notVaavudPlugedIn {
+    [self appendTextToConsole: @"Not a vaavud pluged in"];
+}
+
+
+- (void) deviceWasUnpluged {
+    [self appendTextToConsole: @"Devuce was unpluged"];
 }
 - (void) vaavudStartedMeasureing {
     [self appendTextToConsole: @"Vaavud started measureing "];
@@ -45,9 +54,7 @@
 - (void) vaavudStopMeasureing {
     [self appendTextToConsole: @"Vaavud stoped measureing"];
 }
-- (void) notVaavudPlugedIn {
-    [self appendTextToConsole: @"Not a vaavud pluged in"];
-}
+
 
 
 - (void) appendTextToConsole: (NSString *) message {

@@ -27,11 +27,11 @@
 @implementation vaavudModelController
 
 enum Screens : NSUInteger {
-    ScreenHeading,
-    ScreenClean,
-    ScreenRawSignal,
-    ScreenUpload,
     ScreenNotification,
+    ScreenRawSignal,
+    ScreenClean,
+    ScreenHeading,
+    ScreenUpload,
     numScreens
 };
 
