@@ -23,7 +23,6 @@
 {
     [super viewDidLoad];
     self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
-    [self.vaavudElectronics addListener:self];
     
     [self.windAngleTextField setText: @"-"];
     [self.rotationSpeedTextField setText:@"-"];
@@ -49,5 +48,12 @@
     [self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", windDirection.floatValue]];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [self.vaavudElectronics addListener:self];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [self.vaavudElectronics removeListener:self];
+}
 
 @end

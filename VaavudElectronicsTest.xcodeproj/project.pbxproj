@@ -51,6 +51,7 @@
 		D7CBA57D19A790B200D80954 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CBA57C19A790B100D80954 /* NotificationViewController.m */; };
 		D7CBA58319AA0A8200D80954 /* HeadingPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CBA58219AA0A8200D80954 /* HeadingPlot.m */; };
 		D7CBA58619AA0BC900D80954 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CBA58519AA0BC900D80954 /* CircleView.m */; };
+		D7CCC30519B99C6D00585BDE /* vaavudUINavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CCC30419B99C6D00585BDE /* vaavudUINavigationController.m */; };
 		D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D1098719A3479E006A8277 /* MediaPlayer.framework */; };
 		D7D1098C19A4DC8F006A8277 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -172,6 +173,8 @@
 		D7CBA58219AA0A8200D80954 /* HeadingPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadingPlot.m; sourceTree = "<group>"; };
 		D7CBA58419AA0BC900D80954 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		D7CBA58519AA0BC900D80954 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
+		D7CCC30319B99C6D00585BDE /* vaavudUINavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudUINavigationController.h; sourceTree = "<group>"; };
+		D7CCC30419B99C6D00585BDE /* vaavudUINavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudUINavigationController.m; sourceTree = "<group>"; };
 		D7D1098719A3479E006A8277 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -273,6 +276,8 @@
 				D70B9AA2193F298400D6FA0B /* Supporting Files */,
 				D73E99181977AAE30011D516 /* vaavudModelController.h */,
 				D73E99191977AAE30011D516 /* vaavudModelController.m */,
+				D7CCC30319B99C6D00585BDE /* vaavudUINavigationController.h */,
+				D7CCC30419B99C6D00585BDE /* vaavudUINavigationController.m */,
 			);
 			path = VaavudElectronicsTest;
 			sourceTree = "<group>";
@@ -548,6 +553,7 @@
 				D70B9AF2193F328200D6FA0B /* EZAudioFile.m in Sources */,
 				D70B9AAC193F298400D6FA0B /* vaavudAppDelegate.m in Sources */,
 				D70B9AFA193F328200D6FA0B /* EZRecorder.m in Sources */,
+				D7CCC30519B99C6D00585BDE /* vaavudUINavigationController.m in Sources */,
 				D70B9AF1193F328200D6FA0B /* EZAudio.m in Sources */,
 				D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */,
 				D70B9AF7193F328200D6FA0B /* EZMicrophone.m in Sources */,

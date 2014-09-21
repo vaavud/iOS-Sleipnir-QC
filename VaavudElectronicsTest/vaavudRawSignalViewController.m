@@ -38,7 +38,6 @@ enum plotName : NSInteger {
     
     
     self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
-    [self.vaavudElectronics addAnalysisListener:self];
     
     /*
      Customizing the audio plot's look
@@ -259,6 +258,14 @@ enum plotName : NSInteger {
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [self.vaavudElectronics addAnalysisListener:self];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [self.vaavudElectronics removeAnalysisListener:self];
 }
 
 

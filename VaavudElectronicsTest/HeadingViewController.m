@@ -26,9 +26,7 @@
 {
     [super viewDidLoad];
     
-    
     self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
-    [self.vaavudElectronics addAnalysisListener:self];
     
 }
 
@@ -43,6 +41,14 @@
 
     self.textLabelHeading.text = [NSString stringWithFormat: @"%.0fº", [heading floatValue]];
     
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [self.vaavudElectronics addAnalysisListener:self];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [self.vaavudElectronics removeAnalysisListener:self];
 }
 
 

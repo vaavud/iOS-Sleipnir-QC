@@ -79,10 +79,10 @@
             </objects>
             <point key="canvasLocation" x="698" y="156"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--VaavudUI Navigation Controller-->
         <scene sceneID="bVf-NR-266">
             <objects>
-                <navigationController definesPresentationContext="YES" id="J5I-eI-iH7" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="J5I-eI-iH7" customClass="vaavudUINavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tGw-Dr-EKJ">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
