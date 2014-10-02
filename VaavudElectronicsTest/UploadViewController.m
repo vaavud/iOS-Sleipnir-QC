@@ -12,7 +12,7 @@
 #define RECORDING_TIME 5.2
 #define PROGRESS_BAR_STEPS 20
 
-@interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate>
+@interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate, VaavudElectronicAnalysisDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronic;
 @property (nonatomic, strong) DBRestClient *restClient;
@@ -37,6 +37,7 @@
     [super viewDidLoad];
     
     self.vaavudElectronic = [VEVaavudElectronicSDK sharedVaavudElectronic];
+    
     
     [self.recordingSwitch setOn: [self.vaavudElectronic isRecording]];
     
@@ -163,6 +164,10 @@
 }
 
 
+- (void) newRecordingReadyToUpload {
+    [self uploadAudioFile];
+}
+
 
 - (void) uploadAudioFile {
     // Upload file to Dropbox
@@ -234,6 +239,14 @@
 - (void) appendTextToConsole: (NSString *) message {
     self.TextViewConsole.text = [NSString stringWithFormat: @"%@\n%@", self.TextViewConsole.text, message ];
     [self.TextViewConsole scrollRangeToVisible:NSMakeRange(0,[self.TextViewConsole.text length])];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [self.vaavudElectronic addAnalysisListener:self];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [self.vaavudElectronic removeAnalysisListener:self];
 }
 
 @end
