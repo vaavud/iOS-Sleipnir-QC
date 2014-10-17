@@ -9,7 +9,7 @@
 #import "UploadViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-#define RECORDING_TIME 5.2
+#define RECORDING_TIME 5
 #define PROGRESS_BAR_STEPS 20
 
 @interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate, VaavudElectronicAnalysisDelegate>
