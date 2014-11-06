@@ -8,16 +8,16 @@
 
 #import "vaavudCleanInterfaceViewController.h"
 
-@interface vaavudCleanInterfaceViewController () <VaavudElectronicWindDelegate>
+@interface vaavudCleanInterfaceViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 
 @property (weak, nonatomic) IBOutlet UILabel *rotationSpeedTextField;
 @property (weak, nonatomic) IBOutlet UILabel *windAngleTextField;
+@property (weak, nonatomic) IBOutlet UILabel *windAngleLocalTextField;
 
 @end
 
 @implementation vaavudCleanInterfaceViewController
-
 
 - (void)viewDidLoad
 {
@@ -26,9 +26,8 @@
     
     [self.windAngleTextField setText: @"-"];
     [self.rotationSpeedTextField setText:@"-"];
+    [self.windAngleLocalTextField setText:@"-"];
     // Do any additional setup after loading the view.
-    
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,12 +47,18 @@
     [self.windAngleTextField setText:[NSString stringWithFormat:@"%.0f", windDirection.floatValue]];
 }
 
+- (void) newWindAngleLocal:(NSNumber *)angle {
+    [self.windAngleLocalTextField setText:[NSString stringWithFormat:@"%.0f", angle.floatValue]];
+}
+
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addListener:self];
+    [self.vaavudElectronics addAnalysisListener:self];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronics removeListener:self];
+    [self.vaavudElectronics removeAnalysisListener:self];
 }
 
 @end
