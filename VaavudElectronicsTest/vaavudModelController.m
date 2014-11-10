@@ -27,6 +27,7 @@
 @implementation vaavudModelController
 
 enum Screens : NSUInteger {
+    ScreenProductionTest,
     ScreenNotification,
     ScreenRawSignal,
     ScreenClean,
@@ -85,6 +86,12 @@ enum Screens : NSUInteger {
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
             [viewController setScreenIndex: index];
             break;
+        
+        case ScreenProductionTest:
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"ProductionTestViewController"];
+            [viewController setScreenIndex: index];
+            break;
+            
             
         default:
             break;
