@@ -28,11 +28,12 @@
 
 enum Screens : NSUInteger {
     ScreenProductionTest,
-    ScreenNotification,
     ScreenRawSignal,
     ScreenClean,
-    ScreenHeading,
+    ScreenAudioDescription,
+    ScreenNotification,
     ScreenUpload,
+    ScreenHeading,
     numScreens
 };
 
@@ -92,7 +93,10 @@ enum Screens : NSUInteger {
             [viewController setScreenIndex: index];
             break;
             
-            
+        case ScreenAudioDescription:
+            viewController = [storyboard instantiateViewControllerWithIdentifier:@"AudioDescriptionViewController"];
+            [viewController setScreenIndex: index];
+            break;
         default:
             break;
     }

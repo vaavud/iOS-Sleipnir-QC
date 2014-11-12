@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rotationSpeedTextField;
 @property (weak, nonatomic) IBOutlet UILabel *windAngleTextField;
 @property (weak, nonatomic) IBOutlet UILabel *windAngleLocalTextField;
+@property (weak, nonatomic) IBOutlet UILabel *headingTextField;
 
 @end
 
@@ -27,6 +28,7 @@
     [self.windAngleTextField setText: @"-"];
     [self.rotationSpeedTextField setText:@"-"];
     [self.windAngleLocalTextField setText:@"-"];
+    [self.headingTextField setText:@"-"];
     // Do any additional setup after loading the view.
 }
 
@@ -49,6 +51,10 @@
 
 - (void) newWindAngleLocal:(NSNumber *)angle {
     [self.windAngleLocalTextField setText:[NSString stringWithFormat:@"%.0f", angle.floatValue]];
+}
+
+- (void) newHeading:(NSNumber *)heading {
+    [self.headingTextField setText:[NSString stringWithFormat:@"%.0f", heading.floatValue]];
 }
 
 - (void) viewDidAppear:(BOOL)animated {

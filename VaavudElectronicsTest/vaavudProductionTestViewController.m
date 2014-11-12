@@ -11,6 +11,7 @@
 @interface vaavudProductionTestViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 @property BOOL headset;
+@property BOOL amplitudeCheck;
 @property BOOL gap;
 @property BOOL block;
 @property BOOL windDirection;
@@ -41,6 +42,7 @@
     self.gap = NO;
     self.block = NO;
     self.windDirection = NO;
+    self.amplitudeCheck = NO;
     
     self.labelHeadsetCheck.text = self.unChecked;
     self.labelGapCheck.text = self.unChecked;
@@ -61,26 +63,33 @@
             self.headset = YES;
             self.labelHeadsetCheck.text = self.checked;
             NSLog(@"headset Detected");
+            [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(amplitudeCheckReady) userInfo:nil repeats:NO];
         }
     }
 }
+             
+ - (void) amplitudeCheckReady {
+     self.amplitudeCheck = YES;
+ }
 
 
 - (void) newMaxAmplitude: (NSNumber*) amplitude {
     
-    if (!self.gap) {
-        if (amplitude.intValue > 3500) {
-            self.gap = YES;
-            self.labelGapCheck.text = self.checked;
-            NSLog(@"GAP detected");
+    if (self.amplitudeCheck) {
+        if (!self.gap) {
+            if (amplitude.intValue > 3500) {
+                self.gap = YES;
+                self.labelGapCheck.text = self.checked;
+                NSLog(@"GAP detected");
+            }
         }
-    }
-    
-    if (!self.block) {
-        if (amplitude.intValue < 500) {
-            self.block = YES;
-            self.labelBlockCheck.text = self.checked;
-            NSLog(@"Block Detected");
+        
+        if (!self.block) {
+            if (amplitude.intValue < 500) {
+                self.block = YES;
+                self.labelBlockCheck.text = self.checked;
+                NSLog(@"Block Detected");
+            }
         }
     }
 }
