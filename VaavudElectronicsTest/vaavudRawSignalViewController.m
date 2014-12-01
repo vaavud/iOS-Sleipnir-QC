@@ -10,11 +10,13 @@
 
 #define NUMBER_OF_POINTS_FIT_PLOT 36
 
-@interface vaavudRawSignalViewController () <VaavudElectronicAnalysisDelegate>
+@interface vaavudRawSignalViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphHostingView;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxVelocityDiff;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxAmplitudeDiff;
+@property (weak, nonatomic) IBOutlet UILabel *textLabelTickErrorCount;
+@property (weak, nonatomic) IBOutlet UIProgressView *calibrationProgressBar;
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 @property (nonatomic, strong)   CPTXYGraph    *graph;
 @property (nonatomic) NSArray* angularVelocities;
@@ -135,6 +137,9 @@ enum plotName : NSInteger {
     
     self.textLabelMaxVelocityDiff.text = @"-";
     
+    self.calibrationProgressBar.progress = 0;
+    self.calibrationProgressBar.hidden = true;
+    
 }
 
 
@@ -207,9 +212,6 @@ enum plotName : NSInteger {
 }
 
 
-- (void) newAngularVelocities: (float*) angularVelocities andLength: (int) length {
-    
-}
 
 - (void) newAngularVelocities: (NSArray*) angularVelocities {
     self.angularVelocities = angularVelocities;
@@ -253,6 +255,10 @@ enum plotName : NSInteger {
     self.textLabelMaxAmplitudeDiff.text = amplitude.stringValue;
 }
 
+- (void) newTickDetectionErrorCount: (NSNumber *) tickDetectionErrorCount {
+    self.textLabelTickErrorCount.text = tickDetectionErrorCount.stringValue;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -260,12 +266,27 @@ enum plotName : NSInteger {
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)startCalibration:(id)sender {
+    [self.vaavudElectronics startCalibration];
+    self.calibrationProgressBar.hidden = false;
+}
+
+- (void) calibrationPercentageComplete:(NSNumber *)percentage {
+    self.calibrationProgressBar.progress = percentage.floatValue;
+    if (percentage.floatValue >= 1) {
+        self.calibrationProgressBar.hidden = true;
+    } 
+}
+
+
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addAnalysisListener:self];
+    [self.vaavudElectronics addListener:self];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronics removeAnalysisListener:self];
+    [self.vaavudElectronics removeListener:self];
 }
 
 
