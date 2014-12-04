@@ -9,10 +9,10 @@
 #import "UploadViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-#define RECORDING_TIME 20.2
+#define RECORDING_TIME 5.2
 #define PROGRESS_BAR_STEPS 20
 
-@interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate, VaavudElectronicAnalysisDelegate>
+@interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate, VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronic;
 @property (nonatomic, strong) DBRestClient *restClient;
@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *TextFieldTag;
 @property (weak, nonatomic) IBOutlet UITextField *TextFieldIncrement;
 //@property (nonatomic) NSUInteger increment;
+@property (weak, nonatomic) IBOutlet UILabel *labelSpeed;
+@property (weak, nonatomic) IBOutlet UILabel *labelDirection;
 @property (weak, nonatomic) IBOutlet UIStepper *StepperIncrement;
 @property (weak, nonatomic) IBOutlet UITextView *TextViewConsole;
 
@@ -163,7 +165,15 @@
 
 
 - (void) newRecordingReadyToUpload {
-    [self uploadAudioFile];
+    //[self uploadAudioFile]; don't upload sound when Sleipnir is inserted.
+}
+
+- (void) newSpeed: (NSNumber*) speed {
+    self.labelSpeed.text = [NSString stringWithFormat:@"%.2f", speed.floatValue];
+}
+
+- (void) newWindAngleLocal:(NSNumber*) angle {
+    self.labelDirection.text = [NSString stringWithFormat:@"%d", angle.integerValue];
 }
 
 
@@ -241,10 +251,12 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronic addAnalysisListener:self];
+    [self.vaavudElectronic addListener:self];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronic removeAnalysisListener:self];
+    [self.vaavudElectronic removeListener:self];
 }
 
 @end

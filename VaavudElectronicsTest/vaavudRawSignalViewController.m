@@ -82,14 +82,29 @@ enum plotName : NSInteger {
     
     
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.graphHostingView.hostedGraph.axisSet;
-    axisSet.hidden = YES;
+//    axisSet.hidden = NO;
     
     CPTAxis *y = axisSet.yAxis;
-    y.labelingPolicy = CPTAxisLabelingPolicyNone;
+//    y.labelingPolicy = CPTAxisLabelingPolicyNone;
     
     CPTXYAxis *x = axisSet.xAxis;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
     
+    // Grid line styles
+    CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+    majorGridLineStyle.lineWidth = 0.75;
+    majorGridLineStyle.lineColor = [[CPTColor blackColor] colorWithAlphaComponent:0.75];
+    
+    CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
+    minorGridLineStyle.lineWidth = 0.25;
+    minorGridLineStyle.lineColor = [[CPTColor blackColor] colorWithAlphaComponent:0.5];
+    
+    y.minorGridLineStyle = minorGridLineStyle;
+    y.majorGridLineStyle = majorGridLineStyle;
+    y.majorIntervalLength = [[NSNumber numberWithInteger:10] decimalValue];
+    y.minorTicksPerInterval = 10;
+    
+//    x.hidden = YES;
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) self.graph.defaultPlotSpace;
