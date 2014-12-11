@@ -7,6 +7,17 @@
 //
 
 #import "vaavudProductionTestViewController.h"
+#import "vaavudProductionTestResultViewController.h"
+
+
+#define MEASURE_TIME 5.0
+#define PROGRESS_BAR_STEPS 20
+#define ANGLE_MAX_DEVIATION 20
+#define ANGLE_STARNDARD 90
+#define WINDSPEED_STANDARD 3.5
+#define WINDSPEED_MAX_DEVIATION 0.4
+
+
 
 @interface vaavudProductionTestViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
@@ -15,10 +26,19 @@
 @property BOOL gap;
 @property BOOL block;
 @property BOOL windDirection;
+
+@property double localWindAngle;
+@property UInt32 windAngleCounter;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *labelHeadsetCheck;
-@property (weak, nonatomic) IBOutlet UILabel *labelGapCheck;
-@property (weak, nonatomic) IBOutlet UILabel *labelBlockCheck;
-@property (weak, nonatomic) IBOutlet UILabel *labelWindCheck;
+@property (weak, nonatomic) IBOutlet UILabel *labelWindDirection;
+@property (weak, nonatomic) IBOutlet UILabel *labelWindSpeed;
+
+@property (weak, nonatomic) IBOutlet UIProgressView *recordingProgressBar;
+@property (nonatomic) NSUInteger progressBarStepCount;
+@property (strong, nonatomic) NSTimer *progressBarTimer;
+
 @property (strong, nonatomic) NSString *unChecked;
 @property (strong, nonatomic) NSString *checked;
 
@@ -45,9 +65,12 @@
     self.amplitudeCheck = NO;
     
     self.labelHeadsetCheck.text = self.unChecked;
-    self.labelGapCheck.text = self.unChecked;
-    self.labelBlockCheck.text = self.unChecked;
-    self.labelWindCheck.text = self.unChecked;
+    self.labelWindDirection.text = self.unChecked;
+    
+    [self.recordingProgressBar setProgress: 0.0];
+    
+    self.windAngleCounter = 0;
+    
 }
 
 
@@ -64,43 +87,67 @@
             self.labelHeadsetCheck.text = self.checked;
             NSLog(@"headset Detected");
             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(amplitudeCheckReady) userInfo:nil repeats:NO];
+//            [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(windDirectionCheck) userInfo:nil repeats:NO];
+            
         }
     }
+}
+
+
+- (void) updateProgress {
+    if ( self.progressBarStepCount < PROGRESS_BAR_STEPS) {
+        [self.recordingProgressBar setProgress: self.progressBarStepCount / (float) PROGRESS_BAR_STEPS];
+        self.progressBarStepCount++;
+    }
+    else {
+        [self.recordingProgressBar setProgress: 1.0];
+        self.progressBarStepCount = 0;
+        [self.progressBarTimer invalidate];
+        [self windDirectionCheck];
+    }
+
 }
              
  - (void) amplitudeCheckReady {
      self.amplitudeCheck = YES;
  }
 
-
-- (void) newMaxAmplitude: (NSNumber*) amplitude {
-    
-    if (self.amplitudeCheck) {
-        if (!self.gap) {
-            if (amplitude.intValue > 3500) {
-                self.gap = YES;
-                self.labelGapCheck.text = self.checked;
-                NSLog(@"GAP detected");
-            }
-        }
+- (void) windDirectionCheck {
+    if (self.windAngleCounter > 20) {
+        NSLog(@"awesome");
         
-        if (!self.block) {
-            if (amplitude.intValue < 500) {
-                self.block = YES;
-                self.labelBlockCheck.text = self.checked;
-                NSLog(@"Block Detected");
-            }
-        }
+        [self performSegueWithIdentifier:@"testResultScreen" sender:self];
     }
+    
 }
 
 
+- (void) newSpeed:(NSNumber *)speed {
+    self.labelWindSpeed.text = [NSString stringWithFormat:@"%0.1f", speed.floatValue];
+    
+}
+
 - (void) newWindAngleLocal:(NSNumber *)angle {
-    if (!self.windDirection) {
-        self.windDirection = YES;
-        self.labelWindCheck.text = self.checked;
-        NSLog(@"Winddirection Detected");
+    
+    
+    if (self.windAngleCounter == 0) {
+        double timeInterval = MEASURE_TIME/ (double) PROGRESS_BAR_STEPS;
+        
+        self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
+        [self.progressBarTimer setTolerance:0.1];
+        [self.progressBarTimer fire];
     }
+    
+    self.labelWindDirection.text = [NSString stringWithFormat:@"%0.1f", angle.floatValue];
+    
+    if (abs(angle.floatValue - ANGLE_STARNDARD) > ANGLE_MAX_DEVIATION  ) {
+        self.labelWindDirection.textColor = [UIColor redColor];
+    } else {
+        self.labelWindDirection.textColor = [UIColor blackColor];
+    }
+    
+    self.windAngleCounter++;
+    NSLog(@"NewAngle: %d", (unsigned int) self.windAngleCounter);
 }
 
 
@@ -118,6 +165,15 @@
     [self.vaavudElectronics removeListener:self];
     [self.vaavudElectronics removeAnalysisListener:self];
 }
+
+
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+     if ([segue.identifier isEqualToString:@"testResultScreen"]) {
+         vaavudProductionTestResultViewController *destViewController = segue.destinationViewController;
+         destViewController.testSucessful = YES;
+     }
+ }
+
 
 
 @end

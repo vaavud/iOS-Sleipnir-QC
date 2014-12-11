@@ -57,7 +57,6 @@ enum Screens : NSUInteger {
     switch (index)
         case ScreenClean: {
             // Create a new view controller and pass suitable data.
-            //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewControllerCleanInterface"];
             [viewController setScreenIndex: index];
             break;
@@ -76,14 +75,12 @@ enum Screens : NSUInteger {
         
         case ScreenUpload:
             // Create a new view controller and pass suitable data.
-            //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"UploadViewController"];
             [viewController setScreenIndex: index];
             break;
         
         case ScreenNotification:
             // Create a new view controller and pass suitable data.
-            //viewController = [storyboard instantiateViewControllerWithIdentifier:@"vaavudViewController"];
             viewController = [storyboard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
             [viewController setScreenIndex: index];
             break;

@@ -35,6 +35,7 @@
 		D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */; };
 		D73E993F197E5B830011D516 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */; };
 		D73E9941197E5DAB0011D516 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73E9940197E5DAB0011D516 /* Accelerate.framework */; };
+		D78B776F1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78B776E1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m */; };
 		D79DCCCE19DD6F3700CA7B36 /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = D79DCCB419DD6F3600CA7B36 /* AEFloatConverter.m */; };
 		D79DCCCF19DD6F3700CA7B36 /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D79DCCB619DD6F3600CA7B36 /* EZAudio.m */; };
 		D79DCCD019DD6F3700CA7B36 /* EZAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D79DCCB819DD6F3600CA7B36 /* EZAudioFile.m */; };
@@ -145,6 +146,8 @@
 		D73E992B197E4E300011D516 /* vaavudRawSignalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudRawSignalViewController.m; sourceTree = "<group>"; };
 		D73E9935197E5B2C0011D516 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "../core-plot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		D73E9940197E5DAB0011D516 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		D78B776D1A39CD0400D15CCC /* vaavudProductionTestResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudProductionTestResultViewController.h; sourceTree = "<group>"; };
+		D78B776E1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudProductionTestResultViewController.m; sourceTree = "<group>"; };
 		D79DCCB319DD6F3600CA7B36 /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
 		D79DCCB419DD6F3600CA7B36 /* AEFloatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEFloatConverter.m; sourceTree = "<group>"; };
 		D79DCCB519DD6F3600CA7B36 /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
@@ -337,6 +340,8 @@
 				D70C8DAA1A101C1E001E8E40 /* vaavudProductionTestViewController.m */,
 				D7EE94BC1A12BC0E001979BE /* vaavudAudioDescriptionViewController.h */,
 				D7EE94BD1A12BC0E001979BE /* vaavudAudioDescriptionViewController.m */,
+				D78B776D1A39CD0400D15CCC /* vaavudProductionTestResultViewController.h */,
+				D78B776E1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -568,6 +573,7 @@
 				D70C8DAB1A101C1E001E8E40 /* vaavudProductionTestViewController.m in Sources */,
 				D73E99171977A7490011D516 /* vaavudRootViewController.m in Sources */,
 				D7CBA58619AA0BC900D80954 /* CircleView.m in Sources */,
+				D78B776F1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m in Sources */,
 				D70334CE199372EB000FF779 /* HeadingViewController.m in Sources */,
 				D7EE94BE1A12BC0E001979BE /* vaavudAudioDescriptionViewController.m in Sources */,
 				D79DCCD719DD6F3700CA7B36 /* EZPlot.m in Sources */,
