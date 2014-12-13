@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="J5I-eI-iH7">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -142,16 +143,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Change Output volume to highest" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XG-4w-RJI">
-                                <rect key="frame" x="31" y="201" width="259" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PA6-Tl-EjV" customClass="MPVolumeView">
                                 <rect key="frame" x="0.0" y="297" width="320" height="136"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdM-0I-nPs">
+                                <rect key="frame" x="31" y="98" width="259" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Calibrate Wind Speed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Af6-eV-Die" kind="push" id="o7J-kg-FNG"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Change Output volume to highest" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XG-4w-RJI">
+                                <rect key="frame" x="31" y="268" width="259" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -174,7 +185,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iqv-ku-oAp">
-                                <rect key="frame" x="56" y="60" width="208" height="140"/>
+                                <rect key="frame" x="26" y="60" width="268" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="TIx-qZ-eUD"/>
                                 </constraints>
@@ -182,16 +193,26 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind Speed Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="od3-wY-WcS">
+                                <rect key="frame" x="26" y="179" width="268" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="od3-wY-WcS" firstAttribute="trailing" secondItem="iqv-ku-oAp" secondAttribute="trailing" id="4U1-CX-k8b"/>
                             <constraint firstItem="iqv-ku-oAp" firstAttribute="top" secondItem="I1Z-o3-Qfy" secondAttribute="bottom" constant="40" id="5PJ-ZD-WYs"/>
-                            <constraint firstItem="iqv-ku-oAp" firstAttribute="leading" secondItem="UPt-TV-RJv" secondAttribute="leadingMargin" constant="40" id="EOB-1T-oag"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="iqv-ku-oAp" secondAttribute="trailing" constant="40" id="vec-6x-Tyg"/>
+                            <constraint firstItem="od3-wY-WcS" firstAttribute="leading" secondItem="iqv-ku-oAp" secondAttribute="leading" id="DrN-EJ-w8Y"/>
+                            <constraint firstItem="iqv-ku-oAp" firstAttribute="leading" secondItem="UPt-TV-RJv" secondAttribute="leadingMargin" constant="10" id="EOB-1T-oag"/>
+                            <constraint firstItem="od3-wY-WcS" firstAttribute="top" secondItem="iqv-ku-oAp" secondAttribute="bottom" constant="-21" id="Mln-Xm-MTU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iqv-ku-oAp" secondAttribute="trailing" constant="10" id="vec-6x-Tyg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Jsa-8V-b7B"/>
                     <connections>
+                        <outlet property="labelTestResultErrorMessage" destination="od3-wY-WcS" id="TlX-bl-lvT"/>
                         <outlet property="labelTestResultIcon" destination="iqv-ku-oAp" id="wA5-Dd-5LS"/>
                     </connections>
                 </viewController>
@@ -211,8 +232,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ8-Pu-Vhu" customClass="EZAudioPlotGL">
-                                <rect key="frame" x="0.0" y="330" width="320" height="188"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQ8-Pu-Vhu" customClass="EZAudioPlotGL">
+                                <rect key="frame" x="0.0" y="315" width="320" height="203"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Op-22-Mbh">
@@ -232,6 +253,7 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oJ5-Om-PsA">
+                                <rect key="frame" x="10" y="274" width="300" height="20"/>
                                 <color key="tintColor" red="0.81960785388946533" green="0.16470588743686676" blue="0.18431372940540314" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="9Gk-lb-4On"/>
@@ -537,6 +559,98 @@
             </objects>
             <point key="canvasLocation" x="2761" y="156"/>
         </scene>
+        <!--Vaavud Production Test Calibration View Controller-->
+        <scene sceneID="8LV-1x-cBC">
+            <objects>
+                <viewController id="Af6-eV-Die" customClass="vaavudProductionTestCalibrationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2Z7-DY-3Cu"/>
+                        <viewControllerLayoutGuide type="bottom" id="HNE-WJ-nMX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jNd-Y9-HbZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current windspeed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2l-OL-a1Z">
+                                <rect key="frame" x="16" y="133" width="146" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whd-tw-j9r">
+                                <rect key="frame" x="262" y="133" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sa2-XU-asx">
+                                <rect key="frame" x="16" y="225" width="290" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Start Test">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonStartTest:" destination="Af6-eV-Die" eventType="touchUpInside" id="Ia8-vC-wba"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="naL-Jn-Ik6">
+                                <rect key="frame" x="16" y="191" width="288" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="lvm-Tg-Nqn"/>
+                                </constraints>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Windspeed Average" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Yu-eR-dQj">
+                                <rect key="frame" x="16" y="162" width="154" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98a-vp-g2E">
+                                <rect key="frame" x="262" y="162" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guide: Let the Calibration Sample be spinning freely and press start test" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hz9-Bz-QZB">
+                                <rect key="frame" x="16" y="72" width="300" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Hz9-Bz-QZB" firstAttribute="trailing" secondItem="98a-vp-g2E" secondAttribute="trailing" constant="12" id="1cI-5j-wqh"/>
+                            <constraint firstItem="sa2-XU-asx" firstAttribute="leading" secondItem="E2l-OL-a1Z" secondAttribute="leading" id="5Qn-Un-1ny"/>
+                            <constraint firstItem="naL-Jn-Ik6" firstAttribute="top" secondItem="2Yu-eR-dQj" secondAttribute="bottom" constant="8" id="9cW-iJ-zBk"/>
+                            <constraint firstItem="Hz9-Bz-QZB" firstAttribute="top" secondItem="2Z7-DY-3Cu" secondAttribute="bottom" constant="8" id="9rk-B2-9dF"/>
+                            <constraint firstItem="E2l-OL-a1Z" firstAttribute="leading" secondItem="jNd-Y9-HbZ" secondAttribute="leadingMargin" id="E9w-2O-cxi"/>
+                            <constraint firstItem="E2l-OL-a1Z" firstAttribute="top" secondItem="Hz9-Bz-QZB" secondAttribute="bottom" constant="20" id="LDM-hD-INE"/>
+                            <constraint firstItem="98a-vp-g2E" firstAttribute="top" secondItem="whd-tw-j9r" secondAttribute="bottom" constant="8" id="OnN-Cm-Thq"/>
+                            <constraint firstItem="E2l-OL-a1Z" firstAttribute="leading" secondItem="naL-Jn-Ik6" secondAttribute="leading" id="P0Z-lh-5ir"/>
+                            <constraint firstItem="whd-tw-j9r" firstAttribute="trailing" secondItem="98a-vp-g2E" secondAttribute="trailing" id="ZyB-VT-RqY"/>
+                            <constraint firstItem="whd-tw-j9r" firstAttribute="trailing" secondItem="jNd-Y9-HbZ" secondAttribute="trailingMargin" id="cST-jU-rHS"/>
+                            <constraint firstItem="Hz9-Bz-QZB" firstAttribute="leading" secondItem="2Yu-eR-dQj" secondAttribute="leading" id="hcV-R5-HgL"/>
+                            <constraint firstItem="2Yu-eR-dQj" firstAttribute="top" secondItem="E2l-OL-a1Z" secondAttribute="bottom" constant="8" id="lTE-wf-xta"/>
+                            <constraint firstAttribute="centerX" secondItem="sa2-XU-asx" secondAttribute="centerX" constant="-1" id="rha-CA-UVy"/>
+                            <constraint firstItem="2Yu-eR-dQj" firstAttribute="leading" secondItem="E2l-OL-a1Z" secondAttribute="leading" id="sla-C3-uPX"/>
+                            <constraint firstItem="whd-tw-j9r" firstAttribute="top" secondItem="E2l-OL-a1Z" secondAttribute="top" id="t6h-Yv-U2w"/>
+                            <constraint firstAttribute="centerX" secondItem="naL-Jn-Ik6" secondAttribute="centerX" id="wdD-ly-3wB"/>
+                            <constraint firstItem="sa2-XU-asx" firstAttribute="top" secondItem="naL-Jn-Ik6" secondAttribute="bottom" constant="14" id="ybi-gO-3Co"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hgc-wJ-aaJ"/>
+                    <connections>
+                        <outlet property="buttonStart" destination="sa2-XU-asx" id="Q8L-UV-wl4"/>
+                        <outlet property="labelWindspeed" destination="whd-tw-j9r" id="Vmg-Vc-RUB"/>
+                        <outlet property="progressbar" destination="naL-Jn-Ik6" id="0ip-gf-Wmg"/>
+                        <outlet property="windSpeedAverage" destination="98a-vp-g2E" id="N0e-zF-8PO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LeR-S3-Vj5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="268" y="1670"/>
+        </scene>
         <!--Vaavud Production Test View Controller-->
         <scene sceneID="nrM-rL-HXN">
             <objects>
@@ -549,66 +663,89 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Device Connected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UE3-KQ-V5e">
-                                <rect key="frame" x="16" y="65" width="180" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Connected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UE3-KQ-V5e">
+                                <rect key="frame" x="16" y="65" width="178" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wind direction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWG-Sd-1um">
-                                <rect key="frame" x="16" y="203" width="180" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind direction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWG-Sd-1um">
+                                <rect key="frame" x="16" y="201" width="139" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGH-Mn-xCR">
-                                <rect key="frame" x="218" y="203" width="86" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGH-Mn-xCR">
+                                <rect key="frame" x="251" y="201" width="53" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Production Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evd-eV-40G">
-                                <rect key="frame" x="16" y="30" width="124" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vaavud Production Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evd-eV-40G">
+                                <rect key="frame" x="16" y="30" width="186" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="TeZ-rT-EjI">
-                                <rect key="frame" x="16" y="139" width="288" height="20"/>
+                                <rect key="frame" x="16" y="138" width="288" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="sG5-HR-9tf"/>
                                 </constraints>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wind Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpM-5v-gng">
-                                <rect key="frame" x="16" y="167" width="180" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpM-5v-gng">
+                                <rect key="frame" x="16" y="166" width="119" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Luv-uw-S6m">
-                                <rect key="frame" x="218" y="167" width="86" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Luv-uw-S6m">
+                                <rect key="frame" x="251" y="166" width="53" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmY-hm-BW1">
-                                <rect key="frame" x="264" y="65" width="40" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmY-hm-BW1">
+                                <rect key="frame" x="251" y="65" width="53" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zp1-bK-RXI">
+                                <rect key="frame" x="16" y="527" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NmY-hm-BW1" firstAttribute="baseline" secondItem="UE3-KQ-V5e" secondAttribute="baseline" id="0FU-46-Ry6"/>
+                            <constraint firstItem="NmY-hm-BW1" firstAttribute="trailing" secondItem="Eah-3d-zUW" secondAttribute="trailingMargin" id="8ZV-8X-ofd"/>
+                            <constraint firstItem="IWG-Sd-1um" firstAttribute="baseline" secondItem="eGH-Mn-xCR" secondAttribute="baseline" id="Bam-px-cr3"/>
+                            <constraint firstItem="NmY-hm-BW1" firstAttribute="trailing" secondItem="Zp1-bK-RXI" secondAttribute="trailing" id="EQv-i0-ILY"/>
+                            <constraint firstItem="jpM-5v-gng" firstAttribute="leading" secondItem="evd-eV-40G" secondAttribute="leading" id="Ol3-MT-lHD"/>
                             <constraint firstAttribute="centerX" secondItem="TeZ-rT-EjI" secondAttribute="centerX" id="RoV-PK-ZF5"/>
-                            <constraint firstItem="TeZ-rT-EjI" firstAttribute="top" secondItem="evd-eV-40G" secondAttribute="bottom" constant="8" id="Zea-gR-9ce"/>
+                            <constraint firstItem="Luv-uw-S6m" firstAttribute="baseline" secondItem="jpM-5v-gng" secondAttribute="baseline" id="TGN-Ay-aHM"/>
+                            <constraint firstItem="UE3-KQ-V5e" firstAttribute="leading" secondItem="evd-eV-40G" secondAttribute="leading" id="fGc-rX-NPi"/>
+                            <constraint firstItem="I2P-P5-uhC" firstAttribute="top" secondItem="Zp1-bK-RXI" secondAttribute="bottom" constant="20" id="gLJ-g6-S4Q"/>
+                            <constraint firstItem="jpM-5v-gng" firstAttribute="top" secondItem="TeZ-rT-EjI" secondAttribute="bottom" constant="8" id="ipD-C3-mak"/>
+                            <constraint firstItem="Luv-uw-S6m" firstAttribute="trailing" secondItem="NmY-hm-BW1" secondAttribute="trailing" id="kTh-9l-Yhh"/>
+                            <constraint firstItem="UE3-KQ-V5e" firstAttribute="leading" secondItem="Zp1-bK-RXI" secondAttribute="leading" id="olg-s1-x9L"/>
                             <constraint firstItem="evd-eV-40G" firstAttribute="leading" secondItem="Eah-3d-zUW" secondAttribute="leadingMargin" id="p78-Pb-95L"/>
+                            <constraint firstItem="IWG-Sd-1um" firstAttribute="leading" secondItem="evd-eV-40G" secondAttribute="leading" id="qYm-ae-MZ1"/>
+                            <constraint firstItem="UE3-KQ-V5e" firstAttribute="top" secondItem="evd-eV-40G" secondAttribute="bottom" constant="14" id="sxD-xj-wJA"/>
+                            <constraint firstItem="IWG-Sd-1um" firstAttribute="top" secondItem="jpM-5v-gng" secondAttribute="bottom" constant="8" id="u4e-jo-AHs"/>
+                            <constraint firstItem="NmY-hm-BW1" firstAttribute="trailing" secondItem="eGH-Mn-xCR" secondAttribute="trailing" id="uGh-yk-GhE"/>
                             <constraint firstItem="evd-eV-40G" firstAttribute="top" secondItem="3cG-wq-k3i" secondAttribute="bottom" constant="10" id="wW3-XY-jZl"/>
                             <constraint firstItem="TeZ-rT-EjI" firstAttribute="leading" secondItem="evd-eV-40G" secondAttribute="leading" id="xK0-ag-pT1"/>
+                            <constraint firstItem="TeZ-rT-EjI" firstAttribute="top" secondItem="UE3-KQ-V5e" secondAttribute="bottom" constant="46" id="zr5-Yx-AGQ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="mHv-52-CjE"/>
                     <connections>
                         <outlet property="labelHeadsetCheck" destination="NmY-hm-BW1" id="NnP-9M-cpc"/>
+                        <outlet property="labelVersion" destination="Zp1-bK-RXI" id="CwA-JG-Rir"/>
                         <outlet property="labelWindDirection" destination="eGH-Mn-xCR" id="ZvU-yK-nOL"/>
                         <outlet property="labelWindSpeed" destination="Luv-uw-S6m" id="xQP-Nb-eIb"/>
                         <outlet property="recordingProgressBar" destination="TeZ-rT-EjI" id="qJY-fr-Tbj"/>

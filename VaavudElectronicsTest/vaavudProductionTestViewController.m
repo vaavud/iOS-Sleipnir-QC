@@ -8,14 +8,15 @@
 
 #import "vaavudProductionTestViewController.h"
 #import "vaavudProductionTestResultViewController.h"
+#import "Property+Util.h"
 
 
 #define MEASURE_TIME 5.0
 #define PROGRESS_BAR_STEPS 20
 #define ANGLE_MAX_DEVIATION 20
 #define ANGLE_STARNDARD 90
-#define WINDSPEED_STANDARD 3.5
-#define WINDSPEED_MAX_DEVIATION 0.4
+#define WINDSPEED_STANDARD 2.00
+#define WINDSPEED_MAX_DEVIATION 0.25
 
 
 
@@ -26,14 +27,22 @@
 @property BOOL gap;
 @property BOOL block;
 @property BOOL windDirection;
+@property BOOL measureWindspeed;
+@property double windDirectionValue;
 
-@property double localWindAngle;
+@property BOOL windSpeed;
+@property double windSpeedValue;
+@property (nonatomic) double windspeedSum;
+@property (nonatomic) int windspeedCounter;
+
+
+
 @property UInt32 windAngleCounter;
-
 
 @property (weak, nonatomic) IBOutlet UILabel *labelHeadsetCheck;
 @property (weak, nonatomic) IBOutlet UILabel *labelWindDirection;
 @property (weak, nonatomic) IBOutlet UILabel *labelWindSpeed;
+@property (weak, nonatomic) IBOutlet UILabel *labelVersion;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *recordingProgressBar;
 @property (nonatomic) NSUInteger progressBarStepCount;
@@ -41,6 +50,8 @@
 
 @property (strong, nonatomic) NSString *unChecked;
 @property (strong, nonatomic) NSString *checked;
+
+@property double windspeedStandard;
 
 @end
 
@@ -52,24 +63,37 @@
     
     self.unChecked = @"☑️";
     self.checked = @"✅";
+    
     [self reset];
-
+    
+    NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
+    NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    
+    NSString * versionBuildString = [NSString stringWithFormat:@"Version: %@ (%@)", appVersionString, appBuildString];
+    
+    self.labelVersion.text = versionBuildString;
+    
     // Do any additional setup after loading the view.
 }
 
 - (void) reset {
     self.headset = NO;
-    self.gap = NO;
-    self.block = NO;
     self.windDirection = NO;
-    self.amplitudeCheck = NO;
+    self.windSpeed = NO;
+    self.measureWindspeed = NO;
     
     self.labelHeadsetCheck.text = self.unChecked;
-    self.labelWindDirection.text = self.unChecked;
+    self.labelWindDirection.text = @"-";
+    self.labelWindSpeed.text = @"-";
+    
     
     [self.recordingProgressBar setProgress: 0.0];
     
     self.windAngleCounter = 0;
+
+    self.windspeedSum = 0;
+    self.windspeedCounter = 0;
     
 }
 
@@ -86,7 +110,7 @@
             self.headset = YES;
             self.labelHeadsetCheck.text = self.checked;
             NSLog(@"headset Detected");
-            [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(amplitudeCheckReady) userInfo:nil repeats:NO];
+//            [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(amplitudeCheckReady) userInfo:nil repeats:NO];
 //            [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(windDirectionCheck) userInfo:nil repeats:NO];
             
         }
@@ -103,27 +127,30 @@
         [self.recordingProgressBar setProgress: 1.0];
         self.progressBarStepCount = 0;
         [self.progressBarTimer invalidate];
-        [self windDirectionCheck];
+        [self performSegueWithIdentifier:@"testResultScreen" sender:self];
     }
 
 }
              
- - (void) amplitudeCheckReady {
-     self.amplitudeCheck = YES;
- }
-
-- (void) windDirectionCheck {
-    if (self.windAngleCounter > 20) {
-        NSLog(@"awesome");
-        
-        [self performSegueWithIdentifier:@"testResultScreen" sender:self];
-    }
-    
-}
-
 
 - (void) newSpeed:(NSNumber *)speed {
-    self.labelWindSpeed.text = [NSString stringWithFormat:@"%0.1f", speed.floatValue];
+    
+    if (!self.measureWindspeed) {
+        return;
+    }
+    
+    self.windspeedSum += speed.doubleValue;
+    self.windspeedCounter++;
+    
+    self.windSpeedValue = self.windspeedSum / (float) self.windspeedCounter;
+
+    
+    
+    [self sleipnirAvailabliltyChanged: YES];
+    self.labelWindSpeed.text = [NSString stringWithFormat:@"%0.2f", self.windSpeedValue];
+    
+    self.windSpeed = fabs(self.windSpeedValue - self.windspeedStandard) < WINDSPEED_MAX_DEVIATION ? YES : NO;
+    self.labelWindSpeed.textColor = self.windSpeed ? [UIColor blackColor] : [UIColor redColor];
     
 }
 
@@ -133,44 +160,79 @@
     if (self.windAngleCounter == 0) {
         double timeInterval = MEASURE_TIME/ (double) PROGRESS_BAR_STEPS;
         
+        [self.progressBarTimer invalidate];
         self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
         [self.progressBarTimer setTolerance:0.1];
         [self.progressBarTimer fire];
+        
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureWindspeedStart) userInfo:nil repeats:NO];
     }
     
     self.labelWindDirection.text = [NSString stringWithFormat:@"%0.1f", angle.floatValue];
     
-    if (abs(angle.floatValue - ANGLE_STARNDARD) > ANGLE_MAX_DEVIATION  ) {
-        self.labelWindDirection.textColor = [UIColor redColor];
-    } else {
-        self.labelWindDirection.textColor = [UIColor blackColor];
-    }
+    self.windDirectionValue = angle.doubleValue;
+    
+    self.windDirection = fabs(angle.floatValue - ANGLE_STARNDARD) < ANGLE_MAX_DEVIATION ? YES : NO;
+    self.labelWindDirection.textColor = self.windDirection ? [UIColor blackColor] : [UIColor redColor];
     
     self.windAngleCounter++;
-    NSLog(@"NewAngle: %d", (unsigned int) self.windAngleCounter);
 }
 
+- (void) measureWindspeedStart {
+    self.measureWindspeed = YES;
+}
 
 - (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
     [self reset];
 }
 
-
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addListener:self];
     [self.vaavudElectronics addAnalysisListener:self];
+    [self reset];
+    
+    
+    NSNumber *windspeedStandardDatabase = [Property getAsDouble:KEY_CALIBRATION_WINDSPEED_STANDARD];
+    
+    if (windspeedStandardDatabase == nil) {
+        self.windspeedStandard = WINDSPEED_STANDARD;
+    } else {
+        self.windspeedStandard = windspeedStandardDatabase.doubleValue;
+    }
+    
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronics removeListener:self];
     [self.vaavudElectronics removeAnalysisListener:self];
+    self.progressBarStepCount = 0;
+    [self.progressBarTimer invalidate];
 }
 
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if ([segue.identifier isEqualToString:@"testResultScreen"]) {
          vaavudProductionTestResultViewController *destViewController = segue.destinationViewController;
+         
+         destViewController.testSucessful = NO;
+         
+         if (self.windAngleCounter < 24) {
+             destViewController.errorMessage = @"Signal Error";
+             return;
+         }
+         
+         if (!self.windSpeed) {
+             destViewController.errorMessage = [NSString stringWithFormat:@"Error, Speed: %.2f m/s", self.windSpeedValue];
+             return;
+         }
+         
+         if (!self.windDirection) {
+             destViewController.errorMessage = [NSString stringWithFormat:@"Error: Direction %.1f deg", self.windDirectionValue];
+             return;
+         }
+     
          destViewController.testSucessful = YES;
+         destViewController.errorMessage = @"Sucessful";
      }
  }
 

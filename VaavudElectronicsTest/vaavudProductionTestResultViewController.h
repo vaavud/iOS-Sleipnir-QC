@@ -11,5 +11,6 @@
 @interface vaavudProductionTestResultViewController : vaavudUIViewController <VaavudElectronicWindDelegate>
 
 @property BOOL testSucessful;
+@property NSString *errorMessage;
 
 @end

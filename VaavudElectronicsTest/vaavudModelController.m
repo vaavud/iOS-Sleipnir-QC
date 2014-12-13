@@ -9,6 +9,7 @@
 #import "vaavudModelController.h"
 #import "vaavudUIViewController.h"
 
+#define PRODUCTION_TEST_APP YES
 
 /*
  A controller object that manages a simple model -- a collection of month names.
@@ -36,7 +37,6 @@ enum Screens : NSUInteger {
     ScreenHeading,
     numScreens
 };
-
 
 - (id)init
 {
@@ -114,6 +114,10 @@ enum Screens : NSUInteger {
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
+    if (PRODUCTION_TEST_APP) {
+        return nil;
+    }
+    
     NSUInteger index = [(vaavudUIViewController *)viewController screenIndex];
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
@@ -125,6 +129,10 @@ enum Screens : NSUInteger {
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
+    if (PRODUCTION_TEST_APP) {
+        return nil;
+    }
+    
     NSUInteger index = [(vaavudUIViewController *)viewController screenIndex];
     if (index == NSNotFound) {
         return nil;

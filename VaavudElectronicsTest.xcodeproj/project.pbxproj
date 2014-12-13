@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE267A47661696E49EB44436 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54FF988B493137689FFE3DD7 /* libPods.a */; };
 		D70334CE199372EB000FF779 /* HeadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D70334CD199372EB000FF779 /* HeadingViewController.m */; };
 		D70629BC19B4640200E6879A /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70629B719B463AF00E6879A /* libVaavudElectronicSDK.a */; };
 		D7094197197EAC04008925F0 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7094196197EAC04008925F0 /* UploadViewController.m */; };
@@ -56,6 +57,11 @@
 		D7CCC30519B99C6D00585BDE /* vaavudUINavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7CCC30419B99C6D00585BDE /* vaavudUINavigationController.m */; };
 		D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D1098719A3479E006A8277 /* MediaPlayer.framework */; };
 		D7D1098C19A4DC8F006A8277 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */; };
+		D7EDF1A01A3C871400397285 /* vaavudProductionTestCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EDF19F1A3C871400397285 /* vaavudProductionTestCalibrationViewController.m */; };
+		D7EDF1A41A3C96DB00397285 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7EDF1A21A3C96DB00397285 /* Model.xcdatamodeld */; };
+		D7EDF1A71A3C99ED00397285 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7EDF1A61A3C99ED00397285 /* CoreData.framework */; };
+		D7EDF1AD1A3C9AAB00397285 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EDF1AA1A3C9AAB00397285 /* Property.m */; };
+		D7EDF1AE1A3C9AAB00397285 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EDF1AC1A3C9AAB00397285 /* Property+Util.m */; };
 		D7EE94BE1A12BC0E001979BE /* vaavudAudioDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7EE94BD1A12BC0E001979BE /* vaavudAudioDescriptionViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +111,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		295031CB2F773EB612548703 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		54FF988B493137689FFE3DD7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EC7665DF327FC90E925F7E8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D70334CC199372EB000FF779 /* HeadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadingViewController.h; sourceTree = "<group>"; };
 		D70334CD199372EB000FF779 /* HeadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadingViewController.m; sourceTree = "<group>"; };
 		D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
@@ -184,6 +193,14 @@
 		D7CCC30419B99C6D00585BDE /* vaavudUINavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudUINavigationController.m; sourceTree = "<group>"; };
 		D7D1098719A3479E006A8277 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D7EDF19E1A3C871400397285 /* vaavudProductionTestCalibrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudProductionTestCalibrationViewController.h; sourceTree = "<group>"; };
+		D7EDF19F1A3C871400397285 /* vaavudProductionTestCalibrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudProductionTestCalibrationViewController.m; sourceTree = "<group>"; };
+		D7EDF1A31A3C96DB00397285 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		D7EDF1A61A3C99ED00397285 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D7EDF1A91A3C9AAB00397285 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
+		D7EDF1AA1A3C9AAB00397285 /* Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Property.m; sourceTree = "<group>"; };
+		D7EDF1AB1A3C9AAB00397285 /* Property+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Property+Util.h"; sourceTree = "<group>"; };
+		D7EDF1AC1A3C9AAB00397285 /* Property+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Property+Util.m"; sourceTree = "<group>"; };
 		D7EE94BC1A12BC0E001979BE /* vaavudAudioDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudAudioDescriptionViewController.h; sourceTree = "<group>"; };
 		D7EE94BD1A12BC0E001979BE /* vaavudAudioDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudAudioDescriptionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,6 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7EDF1A71A3C99ED00397285 /* CoreData.framework in Frameworks */,
 				D70629BC19B4640200E6879A /* libVaavudElectronicSDK.a in Frameworks */,
 				D7D1098C19A4DC8F006A8277 /* AVFoundation.framework in Frameworks */,
 				D7D1098819A3479E006A8277 /* MediaPlayer.framework in Frameworks */,
@@ -205,6 +223,7 @@
 				D70B9A9E193F298400D6FA0B /* CoreGraphics.framework in Frameworks */,
 				D70B9AA0193F298400D6FA0B /* UIKit.framework in Frameworks */,
 				D70B9A9C193F298400D6FA0B /* Foundation.framework in Frameworks */,
+				BE267A47661696E49EB44436 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +240,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		76F3447E35177346A6627348 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9EC7665DF327FC90E925F7E8 /* Pods.debug.xcconfig */,
+				295031CB2F773EB612548703 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D70629B119B463AF00E6879A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +266,7 @@
 				D70B9AC0193F298400D6FA0B /* VaavudElectronicsTestTests */,
 				D70B9A9A193F298400D6FA0B /* Frameworks */,
 				D70B9A99193F298400D6FA0B /* Products */,
+				76F3447E35177346A6627348 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -253,6 +282,7 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7EDF1A61A3C99ED00397285 /* CoreData.framework */,
 				D79DCCB219DD6F3600CA7B36 /* EZAudio */,
 				D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */,
 				D7D1098B19A4DC8F006A8277 /* AVFoundation.framework */,
@@ -267,6 +297,7 @@
 				D70B9A9D193F298400D6FA0B /* CoreGraphics.framework */,
 				D70B9A9F193F298400D6FA0B /* UIKit.framework */,
 				D70B9ABA193F298400D6FA0B /* XCTest.framework */,
+				54FF988B493137689FFE3DD7 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,6 +305,7 @@
 		D70B9AA1193F298400D6FA0B /* VaavudElectronicsTest */ = {
 			isa = PBXGroup;
 			children = (
+				D7EDF1A81A3C9A8900397285 /* Model */,
 				D74C247E1990C6030098A036 /* iPad */,
 				D73E9929197D8AA80011D516 /* UI */,
 				D73E99151977A7490011D516 /* vaavudRootViewController.h */,
@@ -323,6 +355,7 @@
 		D73E9929197D8AA80011D516 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				D7EDF1A11A3C872300397285 /* ProductionTest */,
 				D7CBA58019AA0A2D00D80954 /* headingPlot */,
 				D73E991B197D0E230011D516 /* vaavudUIViewController.h */,
 				D73E991C197D0E230011D516 /* vaavudUIViewController.m */,
@@ -336,12 +369,8 @@
 				D70334CD199372EB000FF779 /* HeadingViewController.m */,
 				D7CBA57C19A790B100D80954 /* NotificationViewController.m */,
 				D7CBA57B19A790B100D80954 /* NotificationViewController.h */,
-				D70C8DA91A101C1E001E8E40 /* vaavudProductionTestViewController.h */,
-				D70C8DAA1A101C1E001E8E40 /* vaavudProductionTestViewController.m */,
 				D7EE94BC1A12BC0E001979BE /* vaavudAudioDescriptionViewController.h */,
 				D7EE94BD1A12BC0E001979BE /* vaavudAudioDescriptionViewController.m */,
-				D78B776D1A39CD0400D15CCC /* vaavudProductionTestResultViewController.h */,
-				D78B776E1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -413,6 +442,31 @@
 			name = headingPlot;
 			sourceTree = "<group>";
 		};
+		D7EDF1A11A3C872300397285 /* ProductionTest */ = {
+			isa = PBXGroup;
+			children = (
+				D70C8DA91A101C1E001E8E40 /* vaavudProductionTestViewController.h */,
+				D70C8DAA1A101C1E001E8E40 /* vaavudProductionTestViewController.m */,
+				D78B776D1A39CD0400D15CCC /* vaavudProductionTestResultViewController.h */,
+				D78B776E1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m */,
+				D7EDF19E1A3C871400397285 /* vaavudProductionTestCalibrationViewController.h */,
+				D7EDF19F1A3C871400397285 /* vaavudProductionTestCalibrationViewController.m */,
+			);
+			name = ProductionTest;
+			sourceTree = "<group>";
+		};
+		D7EDF1A81A3C9A8900397285 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D7EDF1A91A3C9AAB00397285 /* Property.h */,
+				D7EDF1AA1A3C9AAB00397285 /* Property.m */,
+				D7EDF1AB1A3C9AAB00397285 /* Property+Util.h */,
+				D7EDF1AC1A3C9AAB00397285 /* Property+Util.m */,
+				D7EDF1A21A3C96DB00397285 /* Model.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -420,9 +474,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D70B9ACA193F298400D6FA0B /* Build configuration list for PBXNativeTarget "VaavudElectronicsTest" */;
 			buildPhases = (
+				DB7BD7371913FC15AE53D6AB /* Check Pods Manifest.lock */,
 				D70B9A94193F298400D6FA0B /* Sources */,
 				D70B9A95193F298400D6FA0B /* Frameworks */,
 				D70B9A96193F298400D6FA0B /* Resources */,
+				352ED5ED6B71F3CE1E3CD88B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -547,6 +603,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		352ED5ED6B71F3CE1E3CD88B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB7BD7371913FC15AE53D6AB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D70B9A94193F298400D6FA0B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -555,6 +644,7 @@
 				D79DCCD219DD6F3700CA7B36 /* EZAudioPlot.m in Sources */,
 				D73E992C197E4E300011D516 /* vaavudRawSignalViewController.m in Sources */,
 				D73E9920197D13BA0011D516 /* vaavudCleanInterfaceViewController.m in Sources */,
+				D7EDF1A01A3C871400397285 /* vaavudProductionTestCalibrationViewController.m in Sources */,
 				D7CBA57D19A790B200D80954 /* NotificationViewController.m in Sources */,
 				D70B9AA8193F298400D6FA0B /* main.m in Sources */,
 				D7CBA58319AA0A8200D80954 /* HeadingPlot.m in Sources */,
@@ -568,11 +658,14 @@
 				D79DCCD819DD6F3700CA7B36 /* EZRecorder.m in Sources */,
 				D79DCCD519DD6F3700CA7B36 /* EZMicrophone.m in Sources */,
 				D79DCCD019DD6F3700CA7B36 /* EZAudioFile.m in Sources */,
+				D7EDF1A41A3C96DB00397285 /* Model.xcdatamodeld in Sources */,
 				D79DCCCF19DD6F3700CA7B36 /* EZAudio.m in Sources */,
 				D73E991D197D0E230011D516 /* vaavudUIViewController.m in Sources */,
 				D70C8DAB1A101C1E001E8E40 /* vaavudProductionTestViewController.m in Sources */,
 				D73E99171977A7490011D516 /* vaavudRootViewController.m in Sources */,
 				D7CBA58619AA0BC900D80954 /* CircleView.m in Sources */,
+				D7EDF1AD1A3C9AAB00397285 /* Property.m in Sources */,
+				D7EDF1AE1A3C9AAB00397285 /* Property+Util.m in Sources */,
 				D78B776F1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m in Sources */,
 				D70334CE199372EB000FF779 /* HeadingViewController.m in Sources */,
 				D7EE94BE1A12BC0E001979BE /* vaavudAudioDescriptionViewController.m in Sources */,
@@ -711,6 +804,7 @@
 		};
 		D70B9ACB193F298400D6FA0B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EC7665DF327FC90E925F7E8 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -729,7 +823,7 @@
 				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -739,6 +833,7 @@
 		};
 		D70B9ACC193F298400D6FA0B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 295031CB2F773EB612548703 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -757,7 +852,7 @@
 				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -836,6 +931,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D7EDF1A21A3C96DB00397285 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D7EDF1A31A3C96DB00397285 /* Model.xcdatamodel */,
+			);
+			currentVersion = D7EDF1A31A3C96DB00397285 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D70B9A90193F298400D6FA0B /* Project object */;
 }

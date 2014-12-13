@@ -16,6 +16,7 @@
 @property NSString *checked;
 @property (weak, nonatomic) IBOutlet UILabel *labelTestResultIcon;
 @property VEVaavudElectronicSDK *vaavudElectronics;
+@property (weak, nonatomic) IBOutlet UILabel *labelTestResultErrorMessage;
 
 @end
 
@@ -31,6 +32,8 @@
     self.checked = @"✅";
     
     self.labelTestResultIcon.text = self.testSucessful ? self.checked : self.unChecked ;
+    self.labelTestResultErrorMessage.text = self.errorMessage;
+    
     
     self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
     
