@@ -9,7 +9,7 @@
 #import "vaavudModelController.h"
 #import "vaavudUIViewController.h"
 
-#define PRODUCTION_TEST_APP YES
+#define PRODUCTION_TEST_APP NO
 
 /*
  A controller object that manages a simple model -- a collection of month names.
