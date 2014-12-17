@@ -283,13 +283,14 @@ enum plotName : NSInteger {
 
 - (IBAction)startCalibration:(id)sender {
     [self.vaavudElectronics startCalibration];
-    self.calibrationProgressBar.hidden = false;
+    self.calibrationProgressBar.hidden = NO;
 }
 
 - (void) calibrationPercentageComplete:(NSNumber *)percentage {
     self.calibrationProgressBar.progress = percentage.floatValue;
     if (percentage.floatValue >= 1) {
-        self.calibrationProgressBar.hidden = true;
+        self.calibrationProgressBar.hidden = YES;
+        self.calibrationProgressBar.progress = 0.0;
     } 
 }
 
