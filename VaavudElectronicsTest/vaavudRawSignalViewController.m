@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxVelocityDiff;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxAmplitudeDiff;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelTickErrorCount;
+@property (weak, nonatomic) IBOutlet UILabel *textLabelVelocityProfileError;
 @property (weak, nonatomic) IBOutlet UIProgressView *calibrationProgressBar;
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 @property (nonatomic, strong)   CPTXYGraph    *graph;
@@ -208,7 +209,8 @@ enum plotName : NSInteger {
             if (fitAngleIndex < 0)
                 fitAngleIndex += 360;
             
-            return [NSNumber numberWithFloat:[self.vaavudElectronics getFitCurve][fitAngleIndex] * self.maxDiffRawPlot / 1.8438 ];
+//            return [NSNumber numberWithFloat:[self.vaavudElectronics getFitCurve][fitAngleIndex] * self.maxDiffRawPlot / 1.8438 ];
+            return [NSNumber numberWithFloat:[self.vaavudElectronics getFitCurve][fitAngleIndex]];
             
         }
         
@@ -272,6 +274,10 @@ enum plotName : NSInteger {
 
 - (void) newTickDetectionErrorCount: (NSNumber *) tickDetectionErrorCount {
     self.textLabelTickErrorCount.text = tickDetectionErrorCount.stringValue;
+}
+
+- (void) newVelocityProfileError:(NSNumber *)profileError {
+    self.textLabelVelocityProfileError.text = [NSString stringWithFormat:@"%.1f", profileError.floatValue];
 }
 
 

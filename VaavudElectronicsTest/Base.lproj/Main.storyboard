@@ -102,12 +102,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="240" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="k07-R2-rxi">
+                                <rect key="frame" x="188" y="422" width="132" height="71"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SignalError" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4n-KE-NZR">
+                                <rect key="frame" x="95" y="472" width="85" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="headingTextField" destination="gXg-cJ-ydz" id="e1t-LV-wtq"/>
                         <outlet property="rotationSpeedTextField" destination="cz6-Ja-Iiw" id="ima-Dm-EIF"/>
+                        <outlet property="signalErrorTextField" destination="k07-R2-rxi" id="6R9-TF-gEs"/>
                         <outlet property="windAngleLocalTextField" destination="XUc-zF-FnV" id="Kp0-tg-Srz"/>
                         <outlet property="windAngleTextField" destination="aF8-YM-zHh" id="xe1-zk-hgp"/>
                     </connections>
@@ -261,7 +273,7 @@
                                 </constraints>
                             </progressView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.5%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wst-Pa-RZf">
-                                <rect key="frame" x="263" y="274" width="41" height="21"/>
+                                <rect key="frame" x="263" y="274.5" width="41" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -285,9 +297,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOh-ol-Nge" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="60" width="320" height="204"/>
+                                <rect key="frame" x="0.0" y="60" width="320" height="204.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfv-fH-0ws">
+                                <rect key="frame" x="191" y="274.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -300,8 +318,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Wst-Pa-RZf" secondAttribute="trailing" id="KLb-8n-ezE"/>
                             <constraint firstItem="MQ8-Pu-Vhu" firstAttribute="top" secondItem="Wst-Pa-RZf" secondAttribute="bottom" constant="20" id="KVI-Ne-ulr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MQ8-Pu-Vhu" secondAttribute="trailing" constant="-16" id="LGM-BI-ek4"/>
+                            <constraint firstItem="Wst-Pa-RZf" firstAttribute="baseline" secondItem="Pfv-fH-0ws" secondAttribute="baseline" id="O8A-Uw-Hqy"/>
                             <constraint firstItem="FOh-ol-Nge" firstAttribute="leading" secondItem="j1R-xh-ZtD" secondAttribute="leadingMargin" constant="-16" id="Sb5-wa-IW7"/>
                             <constraint firstAttribute="centerY" secondItem="Wst-Pa-RZf" secondAttribute="centerY" id="ecc-dJ-w0o"/>
+                            <constraint firstItem="Wst-Pa-RZf" firstAttribute="leading" secondItem="Pfv-fH-0ws" secondAttribute="trailing" constant="30" id="gRm-K8-kKa"/>
                             <constraint firstItem="Bxb-vJ-uqS" firstAttribute="top" secondItem="MQ8-Pu-Vhu" secondAttribute="bottom" constant="20" id="mMi-6x-zg7"/>
                             <constraint firstItem="Wst-Pa-RZf" firstAttribute="top" secondItem="FOh-ol-Nge" secondAttribute="bottom" constant="10" id="mvo-3G-5Vr"/>
                             <constraint firstItem="FOh-ol-Nge" firstAttribute="top" secondItem="rb1-sD-PZG" secondAttribute="bottom" constant="40" id="pCF-8M-yeZ"/>
@@ -314,6 +334,7 @@
                         <outlet property="textLabelMaxAmplitudeDiff" destination="5Op-22-Mbh" id="QVa-8c-cvL"/>
                         <outlet property="textLabelMaxVelocityDiff" destination="Wst-Pa-RZf" id="YU6-ca-3ba"/>
                         <outlet property="textLabelTickErrorCount" destination="3UT-6O-MD8" id="Nj6-2G-gL7"/>
+                        <outlet property="textLabelVelocityProfileError" destination="Pfv-fH-0ws" id="LQm-U6-8bs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kia-8e-KtG" userLabel="First Responder" sceneMemberID="firstResponder"/>

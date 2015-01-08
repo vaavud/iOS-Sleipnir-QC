@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *windAngleTextField;
 @property (weak, nonatomic) IBOutlet UILabel *windAngleLocalTextField;
 @property (weak, nonatomic) IBOutlet UILabel *headingTextField;
+@property (weak, nonatomic) IBOutlet UILabel *signalErrorTextField;
 
 @end
 
@@ -29,6 +30,7 @@
     [self.rotationSpeedTextField setText:@"-"];
     [self.windAngleLocalTextField setText:@"-"];
     [self.headingTextField setText:@"-"];
+    [self.signalErrorTextField setText:@"-"];
     // Do any additional setup after loading the view.
 }
 
@@ -55,6 +57,10 @@
 
 - (void) newHeading:(NSNumber *)heading {
     [self.headingTextField setText:[NSString stringWithFormat:@"%.0f", heading.floatValue]];
+}
+
+- (void) newVelocityProfileError:(NSNumber *)profileError {
+    self.signalErrorTextField.text = [NSString stringWithFormat:@"%.1f", profileError.floatValue];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
