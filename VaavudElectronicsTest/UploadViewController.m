@@ -150,7 +150,7 @@
     }
     
     NSString *filename = [[self mainFileNameDropbox] stringByAppendingString: @".txt"];
-    [self.vaavudElectronic generateSummeryFile];
+    [self.vaavudElectronic generateSummaryFile];
     
     [self.restClient uploadFile:filename toPath:[self folderDropbox] withParentRev:nil fromPath:[[self.vaavudElectronic summeryPath] path]];
     [self.activityIndicator startAnimating];
