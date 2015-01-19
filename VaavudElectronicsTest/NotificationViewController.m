@@ -35,12 +35,12 @@
 
 - (void) sleipnirAvailabliltyChanged: (BOOL) available {
     if (available) {
-        NSLog(@"[SleipnirMeasurementController] Sleipnir availablilty changed - available");
+        NSLog(@"[NotificationViewController] Sleipnir availablilty changed - available");
         [self appendTextToConsole: @"Sleipnir availablilty changed - available"];
     }
     
     else {
-        NSLog(@"[SleipnirMeasurementController] Sleipnir availablilty changed - Not available");
+        NSLog(@"[NotificationViewController] Sleipnir availablilty changed - Not available");
         [self appendTextToConsole: @"Sleipnir availablilty changed - Not available"];
     }
     
@@ -49,11 +49,11 @@
 
 - (void) deviceConnectedTypeSleipnir: (BOOL) sleipnir {
     if (sleipnir) {
-        NSLog(@"[SleipnirMeasurementController] Device connected - Sleipnir");
+        NSLog(@"[NotificationViewController] Device connected - Sleipnir");
         [self appendTextToConsole: @"Device connected - Sleipnir "];
     }
     else {
-        NSLog(@"[SleipnirMeasurementController] Device connected - Unknown");
+        NSLog(@"[NotificationViewController] Device connected - Unknown");
         [self appendTextToConsole: @"Device connected - Unknown "];
     }
     
@@ -63,11 +63,11 @@
 
 - (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
     if (sleipnir) {
-        NSLog(@"[SleipnirMeasurementController] Device disconnected - Sleipnir");
+        NSLog(@"[NotificationViewController] Device disconnected - Sleipnir");
         [self appendTextToConsole: @"Device disconnected - Sleipnir "];
     }
     else {
-        NSLog(@"[SleipnirMeasurementController] Device disconnected - Unknown");
+        NSLog(@"[NotificationViewController] Device disconnected - Unknown");
         [self appendTextToConsole: @"Device disconnected - Unknown"];
     }
     
@@ -75,7 +75,7 @@
 }
 
 - (void) deviceConnectedChecking {
-    NSLog(@"[SleipnirMeasurementController] Device Connected Checking");
+    NSLog(@"[NotificationViewController] Device Connected Checking");
     [self appendTextToConsole: @"Device Connected Checking"];
 }
 
@@ -84,11 +84,11 @@
 
 - (void) sleipnirStartedMeasureing {
     [self appendTextToConsole: @"Vaavud started measureing "];
-    NSLog(@"[SleipnirMeasurementController] Vaavud started measureing");
+    NSLog(@"[NotificationViewController] Vaavud started measureing");
 }
 - (void) sleipnirStopedMeasureing {
     [self appendTextToConsole: @"Vaavud stoped measureing"];
-    NSLog(@"[SleipnirMeasurementController] Vaavud Stoped measureing");
+    NSLog(@"[NotificationViewController] Vaavud Stoped measureing");
 }
 
 
