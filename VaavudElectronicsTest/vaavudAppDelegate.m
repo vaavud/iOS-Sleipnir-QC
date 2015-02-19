@@ -43,7 +43,6 @@
     
     [vaavudElectronic endRecording];
     [vaavudElectronic stop];
-    [vaavudElectronic returnVolumeToInitialState];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

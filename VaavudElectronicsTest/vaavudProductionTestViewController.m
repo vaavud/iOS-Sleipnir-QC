@@ -17,6 +17,7 @@
 #define ANGLE_STARNDARD 90
 #define WINDSPEED_STANDARD 2.00
 #define WINDSPEED_MAX_DEVIATION 0.25
+#define SIGNAL_ERROR_MAX 7.0
 
 
 
@@ -29,6 +30,9 @@
 @property BOOL windDirection;
 @property BOOL measureWindspeed;
 @property double windDirectionValue;
+
+@property BOOL signalQuality;
+@property double signalQUalityValue;
 
 @property BOOL windSpeed;
 @property double windSpeedValue;
@@ -43,6 +47,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelWindDirection;
 @property (weak, nonatomic) IBOutlet UILabel *labelWindSpeed;
 @property (weak, nonatomic) IBOutlet UILabel *labelVersion;
+@property (weak, nonatomic) IBOutlet UILabel *labelSignalQuality;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *recordingProgressBar;
 @property (nonatomic) NSUInteger progressBarStepCount;
@@ -82,10 +87,13 @@
     self.windDirection = NO;
     self.windSpeed = NO;
     self.measureWindspeed = NO;
+    self.signalQuality = NO;
+    
     
     self.labelHeadsetCheck.text = self.unChecked;
     self.labelWindDirection.text = @"-";
     self.labelWindSpeed.text = @"-";
+    self.labelSignalQuality.text = @"-";
     
     
     [self.recordingProgressBar setProgress: 0.0];
@@ -109,12 +117,15 @@
         if (!self.headset) {
             self.headset = YES;
             self.labelHeadsetCheck.text = self.checked;
-            NSLog(@"headset Detected");
-//            [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(amplitudeCheckReady) userInfo:nil repeats:NO];
-//            [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(windDirectionCheck) userInfo:nil repeats:NO];
-            
         }
     }
+    else {
+        if (self.headset) {
+            self.headset = false;
+            self.labelHeadsetCheck.text = self.unChecked;
+        }
+    }
+    
 }
 
 
@@ -178,6 +189,14 @@
     self.windAngleCounter++;
 }
 
+- (void)newVelocityProfileError:(NSNumber *)profileError {
+    self.signalQuality = profileError.intValue <= SIGNAL_ERROR_MAX ? true : false;
+    
+    self.labelSignalQuality.text = [NSString stringWithFormat:@"%i", profileError.intValue];
+    self.labelSignalQuality.textColor = self.signalQuality ? [UIColor blackColor] : [UIColor redColor];
+    self.signalQUalityValue = profileError.doubleValue;
+}
+
 - (void) measureWindspeedStart {
     self.measureWindspeed = YES;
 }
@@ -228,6 +247,11 @@
          
          if (!self.windDirection) {
              destViewController.errorMessage = [NSString stringWithFormat:@"Error: Direction %.1f deg", self.windDirectionValue];
+             return;
+         }
+         
+         if (!self.signalQuality) {
+             destViewController.errorMessage = [NSString stringWithFormat:@"Error: S-Quality %.0f", self.signalQUalityValue];
              return;
          }
      

@@ -300,6 +300,9 @@ enum plotName : NSInteger {
     } 
 }
 
+- (IBAction)resetCalibration:(id)sender {
+    [self.vaavudElectronics resetCalibration];
+}
 
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addAnalysisListener:self];
