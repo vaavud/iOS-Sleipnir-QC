@@ -7,7 +7,6 @@
 //
 
 #import "vaavudProductionTestCalibrationViewController.h"
-#import "Property+Util.h"
 
 #define PROGRESS_BAR_STEPS 20
 #define MEASURE_TIME 15
@@ -70,8 +69,7 @@
         self.progressBarStepCount = 0;
         [self.progressBarTimer invalidate];
         
-        
-        [Property setAsDouble:[NSNumber numberWithDouble: self.windspeedSum / (double) self.windspeedCounter] forKey:KEY_CALIBRATION_WINDSPEED_STANDARD];
+        [[NSUserDefaults standardUserDefaults] setFloat:self.windspeedSum / (double) self.windspeedCounter forKey:@"MEAN_WIND_SPEED"];
         
         [self.navigationController popViewControllerAnimated:YES];
     }

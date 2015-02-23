@@ -13,8 +13,6 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-    #define MR_SHORTHAND 1
-    #import <MagicalRecord/CoreData+MagicalRecord.h>
     #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
     #import <VaavudElectronicSDK/VEVaavudElectronicSDK+Analysis.h>
 #endif

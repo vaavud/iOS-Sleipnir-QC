@@ -8,8 +8,6 @@
 
 #import "vaavudProductionTestViewController.h"
 #import "vaavudProductionTestResultViewController.h"
-#import "Property+Util.h"
-
 
 #define MEASURE_TIME 5.0
 #define PROGRESS_BAR_STEPS 20
@@ -211,7 +209,7 @@
     [self reset];
     
     
-    NSNumber *windspeedStandardDatabase = [Property getAsDouble:KEY_CALIBRATION_WINDSPEED_STANDARD];
+    NSNumber *windspeedStandardDatabase = @([[NSUserDefaults standardUserDefaults] floatForKey:@"MEAN_WIND_SPEED"]);
     
     if (windspeedStandardDatabase == nil) {
         self.windspeedStandard = WINDSPEED_STANDARD;
