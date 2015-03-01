@@ -8,8 +8,9 @@
 
 #import "vaavudUIViewController.h"
 #import "CorePlot-CocoaTouch.h"
+#import "EZAudio.h"
 
 
-@interface vaavudRawSignalViewController : vaavudUIViewController <CPTPlotDataSource>
+@interface vaavudRawSignalViewController : vaavudUIViewController <CPTPlotDataSource, VaavudElectronicMicrophoneOutputDelegate>
 
 @end
