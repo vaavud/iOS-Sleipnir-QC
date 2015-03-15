@@ -10,7 +10,7 @@
 
 #define NUMBER_OF_POINTS_FIT_PLOT 36
 
-@interface vaavudRawSignalViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
+@interface vaavudRawSignalViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate, VaavudElectronicMicrophoneOutputDelegate>
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *graphHostingView;
 @property (weak, nonatomic) IBOutlet UILabel *textLabelMaxVelocityDiff;
@@ -39,7 +39,6 @@ enum plotName : NSInteger {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
     self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
     
     /*
@@ -57,7 +56,7 @@ enum plotName : NSInteger {
     // Mirror
     self.audioPlot.shouldMirror    = NO;
 
-    self.vaavudElectronics.microphoneOutputDeletage = self;
+//    [self.vaavudElectronics setMicrophoneFloatRawListener:self];
     
     
     // generate fitplot angles
@@ -159,6 +158,10 @@ enum plotName : NSInteger {
 }
 
 
+-(void)updateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize {
+//    [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+}
+
 // Therefore this class implements the CPTPlotDataSource protocol
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *) plot {
     
@@ -220,11 +223,6 @@ enum plotName : NSInteger {
     return [NSNumber numberWithInt:0];
     
 }
-
--(void)updateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize {
-    NSLog(@"vaavudRawSignal, buffer called");
-}
-
 
 
 - (void) newSpeed: (NSNumber*) speed{

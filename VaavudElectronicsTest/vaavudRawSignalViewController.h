@@ -11,6 +11,6 @@
 #import "EZAudio.h"
 
 
-@interface vaavudRawSignalViewController : vaavudUIViewController <CPTPlotDataSource, VaavudElectronicMicrophoneOutputDelegate>
+@interface vaavudRawSignalViewController : vaavudUIViewController <CPTPlotDataSource> // VaavudElectronicMicrophoneOutputDelegate
 
 @end
