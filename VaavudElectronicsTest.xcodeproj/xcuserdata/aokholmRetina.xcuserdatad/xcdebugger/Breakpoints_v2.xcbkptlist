@@ -142,11 +142,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioProcessor.m"
-            timestampString = "448142280.31839"
+            timestampString = "448142823.460846"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "500"
-            endingLineNumber = "500"
+            startingLineNumber = "498"
+            endingLineNumber = "498"
             landmarkName = "-dealloc"
             landmarkType = "5">
          </BreakpointContent>

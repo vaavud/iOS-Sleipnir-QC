@@ -48,10 +48,12 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addListener:self];
+    [super viewDidAppear:animated];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronics removeListener:self];
+    [super viewDidDisappear:animated];
 }
 
 - (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {

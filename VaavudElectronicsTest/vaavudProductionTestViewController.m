@@ -217,6 +217,8 @@
         self.windspeedStandard = windspeedStandardDatabase.doubleValue;
     }
     
+    [super viewDidAppear:animated];
+    
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -224,6 +226,8 @@
     [self.vaavudElectronics removeAnalysisListener:self];
     self.progressBarStepCount = 0;
     [self.progressBarTimer invalidate];
+    
+    [super viewDidDisappear:animated];
 }
 
 

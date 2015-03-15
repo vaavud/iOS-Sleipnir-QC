@@ -100,10 +100,12 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [[VEVaavudElectronicSDK sharedVaavudElectronic] addListener:self];
+    [super viewDidAppear:animated];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [[VEVaavudElectronicSDK sharedVaavudElectronic] removeListener:self];
+    [super viewDidDisappear:animated];
 }
 
 - (void) dealloc {

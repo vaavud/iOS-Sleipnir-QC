@@ -316,11 +316,13 @@ enum plotName : NSInteger {
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addAnalysisListener:self];
     [self.vaavudElectronics addListener:self];
+    [super viewDidAppear:animated];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronics removeAnalysisListener:self];
     [self.vaavudElectronics removeListener:self];
+    [super viewDidDisappear:animated];
 }
 
 

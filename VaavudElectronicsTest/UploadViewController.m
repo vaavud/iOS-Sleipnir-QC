@@ -252,11 +252,13 @@
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronic addAnalysisListener:self];
     [self.vaavudElectronic addListener:self];
+    [super viewDidAppear:animated];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronic removeAnalysisListener:self];
     [self.vaavudElectronic removeListener:self];
+    [super viewDidDisappear:animated];
 }
 
 @end

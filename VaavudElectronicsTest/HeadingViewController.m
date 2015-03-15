@@ -45,10 +45,12 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addAnalysisListener:self];
+    [super viewDidAppear:animated];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronics removeAnalysisListener:self];
+    [super viewDidDisappear:animated];
 }
 
 

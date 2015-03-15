@@ -66,11 +66,13 @@
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronics addListener:self];
     [self.vaavudElectronics addAnalysisListener:self];
+    [super viewDidAppear:animated];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronics removeListener:self];
     [self.vaavudElectronics removeAnalysisListener:self];
+    [super viewDidDisappear:animated];
 }
 
 @end

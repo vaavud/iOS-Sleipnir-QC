@@ -101,10 +101,12 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [self.vaavudElectronic addListener:self];
+    [super viewDidAppear:animated];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudElectronic removeListener:self];
+    [super viewDidDisappear:animated];
 }
 
 
