@@ -58,6 +58,7 @@ enum plotName : NSInteger {
     self.audioPlot.shouldMirror    = NO;
 
 //    self.vaavudElectronics.microphoneOutputDeletage = self;
+    [self.vaavudElectronics setMicrophoneFloatRawListener:self];
     
     
     // generate fitplot angles
@@ -222,7 +223,8 @@ enum plotName : NSInteger {
 }
 
 -(void)updateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize {
-    NSLog(@"vaavudRawSignal, buffer called");
+//    NSLog(@"vaavudRawSignal, buffer called, value 0: %f", buffer[0]);
+    
 }
 
 
