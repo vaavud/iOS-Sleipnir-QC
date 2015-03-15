@@ -57,7 +57,7 @@ enum plotName : NSInteger {
     // Mirror
     self.audioPlot.shouldMirror    = NO;
 
-//    self.vaavudElectronics.microphoneOutputDeletage = self;
+    NSLog(@"just before asignment");
     [self.vaavudElectronics setMicrophoneFloatRawListener:self];
     
     
@@ -224,7 +224,10 @@ enum plotName : NSInteger {
 
 -(void)updateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize {
 //    NSLog(@"vaavudRawSignal, buffer called, value 0: %f", buffer[0]);
-    
+    dispatch_async(dispatch_get_main_queue(),^{
+        // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
+        [self.audioPlot updateBuffer:buffer withBufferSize:bufferSize];
+    });
 }
 
 
