@@ -57,7 +57,7 @@ enum plotName : NSInteger {
     // Mirror
     self.audioPlot.shouldMirror    = NO;
 
-    self.vaavudElectronics.microphoneOutputDeletage = self;
+//    self.vaavudElectronics.microphoneOutputDeletage = self;
     
     
     // generate fitplot angles
