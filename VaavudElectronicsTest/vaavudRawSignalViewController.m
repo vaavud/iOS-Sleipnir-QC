@@ -20,8 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *calibrationProgressBar;
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 @property (nonatomic, strong)   CPTXYGraph    *graph;
-@property (nonatomic) NSArray* angularVelocities;
-@property (nonatomic) NSArray* fitPlotAngles;
+@property (nonatomic) NSArray *angularVelocities;
+@property (nonatomic) NSArray *fitPlotAngles;
 @property (nonatomic) float localWindAngle;
 @property (nonatomic) float maxDiffRawPlot;
 
