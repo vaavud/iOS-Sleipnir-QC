@@ -57,7 +57,6 @@ enum plotName : NSInteger {
     // Mirror
     self.audioPlot.shouldMirror    = NO;
 
-    NSLog(@"just before asignment");
     [self.vaavudElectronics setMicrophoneFloatRawListener:self];
     
     

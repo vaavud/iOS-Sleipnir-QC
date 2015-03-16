@@ -73,7 +73,7 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioProcessingSpeedDirection.m"
+            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioProcessingTick.m"
             timestampString = "446926826.850762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -89,29 +89,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioProcessingSpeedDirection.m"
+            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioProcessingTick.m"
             timestampString = "446926826.850762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "204"
             endingLineNumber = "204"
             landmarkName = "-processValidTick:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEVaavudElectronicSDK.m"
-            timestampString = "446928602.952022"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-initSingleton"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -132,23 +116,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             symbolName = "malloc_error_break"
-            moduleName = "">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioManager.m"
-            timestampString = "448137845.172563"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "-processBufferList:withBufferLengthInFrames:"
-            landmarkType = "5">
+            moduleName = "libsystem_malloc.dylib">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

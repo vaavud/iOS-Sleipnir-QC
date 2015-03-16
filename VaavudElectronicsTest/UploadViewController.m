@@ -163,11 +163,6 @@
     
 }
 
-
-- (void) newRecordingReadyToUpload {
-    //[self uploadAudioFile]; don't upload sound when Sleipnir is inserted.
-}
-
 - (void) newSpeed: (NSNumber*) speed {
     self.labelSpeed.text = [NSString stringWithFormat:@"%.2f", speed.floatValue];
 }
