@@ -39,7 +39,7 @@
     VEVaavudElectronicSDK *vaavudElectronic = [VEVaavudElectronicSDK sharedVaavudElectronic];
     
     [vaavudElectronic endRecording];
-    [vaavudElectronic stop];
+    [vaavudElectronic stopSleipnir];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -51,7 +51,7 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     VEVaavudElectronicSDK *vaavudElectronic = [VEVaavudElectronicSDK sharedVaavudElectronic];
-    [vaavudElectronic start];
+    [vaavudElectronic startSleipnir];
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
