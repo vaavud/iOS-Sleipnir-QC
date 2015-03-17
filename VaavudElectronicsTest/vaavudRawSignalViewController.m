@@ -156,9 +156,9 @@ enum plotName : NSInteger {
     
     
     
-    [self.vaavudElectronics addAnalysisListener:self];
-    [self.vaavudElectronics addListener:self];
-    [self.vaavudElectronics setMicrophoneFloatRawListener:self];
+//    [self.vaavudElectronics addAnalysisListener:self];
+//    [self.vaavudElectronics addListener:self];
+//    [self.vaavudElectronics setMicrophoneFloatRawListener:self];
 }
 
 
