@@ -57,8 +57,6 @@ enum plotName : NSInteger {
     // Mirror
     self.audioPlot.shouldMirror    = NO;
 
-    [self.vaavudElectronics setMicrophoneFloatRawListener:self];
-    
     
     // generate fitplot angles
     
@@ -156,6 +154,11 @@ enum plotName : NSInteger {
     self.calibrationProgressBar.progress = 0;
     self.calibrationProgressBar.hidden = true;
     
+    
+    
+    [self.vaavudElectronics addAnalysisListener:self];
+    [self.vaavudElectronics addListener:self];
+    [self.vaavudElectronics setMicrophoneFloatRawListener:self];
 }
 
 
@@ -312,17 +315,9 @@ enum plotName : NSInteger {
     [self.vaavudElectronics resetCalibration];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [self.vaavudElectronics addAnalysisListener:self];
-    [self.vaavudElectronics addListener:self];
-    [super viewDidAppear:animated];
-}
-
-- (void) viewDidDisappear:(BOOL)animated {
+- (void)dealloc{
     [self.vaavudElectronics removeAnalysisListener:self];
     [self.vaavudElectronics removeListener:self];
-    [super viewDidDisappear:animated];
 }
-
 
 @end
