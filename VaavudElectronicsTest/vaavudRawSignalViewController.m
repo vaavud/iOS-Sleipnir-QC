@@ -139,7 +139,7 @@ enum plotName : NSInteger {
     
     CPTColor *vaavudBlue                = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
     lineStyle.lineColor                 = vaavudBlue;
-    plotFit.dataLineStyle     = lineStyle;
+    plotFit.dataLineStyle               = lineStyle;
     
     // adde identifyer
     plotFit.identifier = [NSNumber numberWithInteger:DataPlotFit];
@@ -156,8 +156,8 @@ enum plotName : NSInteger {
     
     
     
-//    [self.vaavudElectronics addAnalysisListener:self];
-//    [self.vaavudElectronics addListener:self];
+    [self.vaavudElectronics addAnalysisListener:self];
+    [self.vaavudElectronics addListener:self];
 //    [self.vaavudElectronics setMicrophoneFloatRawListener:self];
 }
 
