@@ -150,7 +150,7 @@
 - (void)upload {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request addValue:@"gvasidyfgaisudyfgoauysgdf" forHTTPHeaderField:@"authToken"];
-    [request setURL:[NSURL URLWithString:@"http://54.75.224.219/api/production/qc"]];
+    [request setURL:[NSURL URLWithString:@"https://mobile-api.vaavud.com/api/production/qc"]];
     [request setHTTPMethod:@"POST"];
     
     // This is how we set header fields
@@ -162,6 +162,7 @@
     
     [uploadDic setValue:@(self.signalQUalityValue) forKey:@"velocityProfileError"];
     [uploadDic setValue:@(self.windSpeedValue) forKey:@"velocity"];
+    [uploadDic setValue:@(self.windspeedStandard) forKey:@"velocityTarget"];
     [uploadDic setValue:@(self.windDirectionValue) forKey:@"direction"];
     [uploadDic setValue:@(self.windAngleCounter) forKey:@"measurementPoints"];
     
