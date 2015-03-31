@@ -19,7 +19,10 @@
 
 
 
-@interface vaavudProductionTestViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
+@interface vaavudProductionTestViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate, NSURLConnectionDelegate>
+//{
+//    NSMutableData *_responseData;
+//}
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 @property BOOL headset;
 @property BOOL amplitudeCheck;
@@ -36,6 +39,7 @@
 @property double windSpeedValue;
 @property (nonatomic) double windspeedSum;
 @property (nonatomic) int windspeedCounter;
+@property NSMutableData *responseData;
 
 
 
@@ -136,11 +140,56 @@
         [self.recordingProgressBar setProgress: 1.0];
         self.progressBarStepCount = 0;
         [self.progressBarTimer invalidate];
+        [self upload];
         [self performSegueWithIdentifier:@"testResultScreen" sender:self];
+        
     }
 
 }
-             
+
+- (void)upload {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request addValue:@"gvasidyfgaisudyfgoauysgdf" forHTTPHeaderField:@"authToken"];
+    [request setURL:[NSURL URLWithString:@"http://54.75.224.219/api/production/qc"]];
+    [request setHTTPMethod:@"POST"];
+    
+    // This is how we set header fields
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    request.timeoutInterval = 20.0;
+    
+    // Convert your data and set your request's HTTPBody property
+    NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
+    
+    [uploadDic setValue:@(self.signalQUalityValue) forKey:@"velocityProfileError"];
+    [uploadDic setValue:@(self.windSpeedValue) forKey:@"velocity"];
+    [uploadDic setValue:@(self.windDirectionValue) forKey:@"direction"];
+    [uploadDic setValue:@(self.windAngleCounter) forKey:@"measurementPoints"];
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:uploadDic
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:&error];
+    request.HTTPBody = jsonData;
+    
+    
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", jsonString);
+    }
+    
+    
+    
+    
+//    // Create the request.
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://google.com"]];
+    
+    // Create url connection and fire request
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+}
+
 
 - (void) newSpeed:(NSNumber *)speed {
     
@@ -235,7 +284,9 @@
      if ([segue.identifier isEqualToString:@"testResultScreen"]) {
          vaavudProductionTestResultViewController *destViewController = segue.destinationViewController;
          
+         
          destViewController.testSucessful = NO;
+         destViewController.signalQuality = self.signalQUalityValue;
          
          if (self.windAngleCounter < 24) {
              destViewController.errorMessage = @"Signal Error";
@@ -263,5 +314,41 @@
  }
 
 
+#pragma mark NSURLConnection Delegate Methods
 
+
+
+ - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
+     // A response has been received, this is where we initialize the instance var you created
+     // so that we can append data to it in the didReceiveData method
+     // Furthermore, this method is called each time there is a redirect so reinitializing it
+     // also serves to clear it
+     
+     NSLog(@"Response Status code: %i", (int)response.statusCode);
+     self.responseData = [[NSMutableData alloc] init];
+ }
+ 
+ - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+     // Append the new data to the instance variable you declared
+     [self.responseData appendData:data];
+ }
+ 
+ - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+ willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+     // Return nil to indicate not necessary to store a cached response for this connection
+     return nil;
+ }
+ 
+ - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+     // The request is complete and data has been received
+     // You can parse the stuff in your instance variable now
+//     NSLog(@"connectionDidFinishLoading");
+ }
+ 
+ - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+     // The request has failed for some reason!
+     // Check the error var
+ }
+     
+     
 @end

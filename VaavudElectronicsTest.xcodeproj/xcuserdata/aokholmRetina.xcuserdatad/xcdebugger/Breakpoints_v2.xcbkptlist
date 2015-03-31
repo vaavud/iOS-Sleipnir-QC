@@ -94,12 +94,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VaavudElectronicsTest/vaavudRawSignalViewController.m"
-            timestampString = "448296009.653113"
+            timestampString = "448411456.238428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "-updateBuffer:withBufferSize:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioProcessingRaw.m"
+            timestampString = "449080287.438892"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
+            landmarkName = "-detectTick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioIO.m"
+            timestampString = "449080287.438892"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
+            landmarkName = "-checkStartStop"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

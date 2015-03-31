@@ -7,6 +7,7 @@
 //
 
 #import "vaavudAppDelegate.h"
+#import "TestFairy.h"
 #import <DropboxSDK/DropboxSDK.h>
 
 
@@ -21,6 +22,9 @@
                             appSecret:@"befkrjtnjgumn3c"
                             root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
     [DBSession setSharedSession:dbSession];
+    
+    [TestFairy begin:@"871cd14813a2328db63cf77473e1e5c2820e6b61"];
+    
     return YES;
 }
 							
