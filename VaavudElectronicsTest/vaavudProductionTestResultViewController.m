@@ -58,8 +58,10 @@
     [super viewDidDisappear:animated];
 }
 
-- (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void) sleipnirAvailabliltyChanged:(BOOL)available {
+    if (!available) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

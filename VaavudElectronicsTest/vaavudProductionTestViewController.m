@@ -9,39 +9,105 @@
 #import "vaavudProductionTestViewController.h"
 #import "vaavudProductionTestResultViewController.h"
 
-#define MEASURE_TIME 5.0
-#define PROGRESS_BAR_STEPS 20
-#define ANGLE_MAX_DEVIATION 20
-#define ANGLE_STARNDARD 90
-#define WINDSPEED_STANDARD 2.00
-#define WINDSPEED_MAX_DEVIATION 0.25
-#define SIGNAL_ERROR_MAX 7.0
+const int PROGRESS_BAR_STEPS = 20;
+const float MEASURE_TIME = 5.0;
+const float ANGLE_MAX_DEVIATION = 25.0;
+const float ANGLE_STANDARD = 90;
+const float WINDSPEED_MAX_DEVIATION = 0.25;
+const float SIGNAL_ERROR_MAX = 15.0;
+const int SIGNAL_LOSS_COUNT_MAX = 2;
+
+@interface QCProductionSession : NSObject
+@property (nonatomic) float windDirection;
+@property (nonatomic) float velocity;
+@property (nonatomic) float signalLossCount;
+@property (nonatomic) float velocityTarget;
+@property (nonatomic) float velocityProfileError;
+@property (nonatomic, strong) NSArray *velocityProfile;
+- (QCProductionSession *) initWith:(float)velocityTarget;
+- (NSDictionary *)asDic;
+- (BOOL)velocityPassed;
+- (BOOL)windDirectinoPassed;
+- (BOOL)velocityProfileErrorPassed;
+- (NSString *)errorMessage;
+- (BOOL)qcPassed;
+@end
+
+@implementation QCProductionSession
+
+- (QCProductionSession *) initWith:(float)velocityTarget {
+    self = [super init];
+    if (self) {
+        self.velocityTarget = velocityTarget;
+    }
+    return self;
+}
+
+- (NSDictionary *)asDic {
+    // Convert your data and set your request's HTTPBody property
+    NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
+    
+    [uploadDic setValue:@(self.velocityProfileError) forKey:@"velocityProfileError"];
+    [uploadDic setValue:@(self.velocity) forKey:@"velocity"];
+    [uploadDic setValue:@(self.velocityTarget) forKey:@"velocityTarget"];
+    [uploadDic setValue:@(self.windDirection) forKey:@"direction"];
+    [uploadDic setValue:@(self.signalLossCount) forKey:@"tickDetectionErrorCount"];
+    [uploadDic setValue:self.velocityProfile forKey:@"velocityProfile"];
+    [uploadDic setValue:@([self qcPassed]) forKey:@"qcPassed"];
+    
+    return uploadDic;
+}
+
+- (BOOL)signalLossCountPassed {
+    return self.signalLossCount < SIGNAL_LOSS_COUNT_MAX ? YES : NO;
+}
+
+- (BOOL)velocityPassed {
+    return fabs(self.velocity - self.velocityTarget) < WINDSPEED_MAX_DEVIATION ? YES : NO;
+}
+
+- (BOOL)windDirectinoPassed {
+    return fabs(self.windDirection - ANGLE_STANDARD) < ANGLE_MAX_DEVIATION ? YES : NO;
+}
+
+- (BOOL)velocityProfileErrorPassed {
+    return self.velocityProfileError <= SIGNAL_ERROR_MAX ? true : false;
+}
+
+- (NSString *)errorMessage {
+    if (![self signalLossCountPassed]) {
+        return @"Signal Error";
+    }
+    if (![self velocityPassed]) {
+        return [NSString stringWithFormat:@"Error, Speed: %.2f m/s", self.velocity];
+    }
+    if (![self windDirectinoPassed]) {
+        return [NSString stringWithFormat:@"Error: Direction %.1f deg", self.windDirection];
+    }
+    if (![self velocityProfileErrorPassed]) {
+        return [NSString stringWithFormat:@"Error: S-Quality %.0f", self.velocityProfileError];
+    }
+    return @"";
+}
+
+- (BOOL)qcPassed {
+    return [self signalLossCountPassed] && [self velocityPassed] && [self windDirectinoPassed] && [self velocityProfileErrorPassed];
+}
+
+@end
 
 
 
 @interface vaavudProductionTestViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate, NSURLConnectionDelegate>
-//{
-//    NSMutableData *_responseData;
-//}
+
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
-@property BOOL headset;
-@property BOOL amplitudeCheck;
-@property BOOL gap;
-@property BOOL block;
-@property BOOL windDirection;
-@property BOOL measureWindspeed;
-@property double windDirectionValue;
 
-@property BOOL signalQuality;
-@property double signalQUalityValue;
+@property (strong, nonatomic) QCProductionSession *qcSession;
 
-@property BOOL windSpeed;
-@property double windSpeedValue;
+@property (nonatomic) BOOL measureWindspeed;
 @property (nonatomic) double windspeedSum;
 @property (nonatomic) int windspeedCounter;
 @property NSMutableData *responseData;
-
-
 
 @property UInt32 windAngleCounter;
 
@@ -52,13 +118,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelSignalQuality;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *recordingProgressBar;
+
 @property (nonatomic) NSUInteger progressBarStepCount;
 @property (strong, nonatomic) NSTimer *progressBarTimer;
 
 @property (strong, nonatomic) NSString *unChecked;
 @property (strong, nonatomic) NSString *checked;
-
-@property double windspeedStandard;
 
 @end
 
@@ -67,44 +132,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
-    
     self.unChecked = @"☑️";
     self.checked = @"✅";
     
     [self reset];
     
     NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    
     NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    
     NSString * versionBuildString = [NSString stringWithFormat:@"Version: %@ (%@)", appVersionString, appBuildString];
     
     self.labelVersion.text = versionBuildString;
-    
-    // Do any additional setup after loading the view.
 }
 
-- (void) reset {
-    self.headset = NO;
-    self.windDirection = NO;
-    self.windSpeed = NO;
-    self.measureWindspeed = NO;
-    self.signalQuality = NO;
-    
-    
+- (void)reset {
     self.labelHeadsetCheck.text = self.unChecked;
     self.labelWindDirection.text = @"-";
     self.labelWindSpeed.text = @"-";
     self.labelSignalQuality.text = @"-";
     
-    
     [self.recordingProgressBar setProgress: 0.0];
-    
     self.windAngleCounter = 0;
-
     self.windspeedSum = 0;
     self.windspeedCounter = 0;
     
+    self.qcSession = [[QCProductionSession alloc] initWith:[[NSUserDefaults standardUserDefaults] floatForKey:@"MEAN_WIND_SPEED"]];
 }
 
 
@@ -113,25 +164,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void) sleipnirAvailabliltyChanged: (BOOL) available {
-    if (available) {
-        if (!self.headset) {
-            self.headset = YES;
-            self.labelHeadsetCheck.text = self.checked;
-        }
-    }
-    else {
-        if (self.headset) {
-            self.headset = false;
-            self.labelHeadsetCheck.text = self.unChecked;
-        }
-    }
-    
-}
-
-
-- (void) updateProgress {
+- (void)updateProgress {
     if ( self.progressBarStepCount < PROGRESS_BAR_STEPS) {
         [self.recordingProgressBar setProgress: self.progressBarStepCount / (float) PROGRESS_BAR_STEPS];
         self.progressBarStepCount++;
@@ -142,9 +175,7 @@
         [self.progressBarTimer invalidate];
         [self upload];
         [self performSegueWithIdentifier:@"testResultScreen" sender:self];
-        
     }
-
 }
 
 - (void)upload {
@@ -157,21 +188,13 @@
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     request.timeoutInterval = 20.0;
     
-    // Convert your data and set your request's HTTPBody property
-    NSMutableDictionary *uploadDic = [[NSMutableDictionary alloc] init];
     
-    [uploadDic setValue:@(self.signalQUalityValue) forKey:@"velocityProfileError"];
-    [uploadDic setValue:@(self.windSpeedValue) forKey:@"velocity"];
-    [uploadDic setValue:@(self.windspeedStandard) forKey:@"velocityTarget"];
-    [uploadDic setValue:@(self.windDirectionValue) forKey:@"direction"];
-    [uploadDic setValue:@(self.windAngleCounter) forKey:@"measurementPoints"];
     
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:uploadDic
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self.qcSession asDic]
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
                                                          error:&error];
     request.HTTPBody = jsonData;
-    
     
     if (! jsonData) {
         NSLog(@"Got an error: %@", error);
@@ -179,43 +202,30 @@
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSLog(@"%@", jsonString);
     }
-    
-    
-    
-    
-//    // Create the request.
-//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://google.com"]];
-    
-    // Create url connection and fire request
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
 }
 
 
+- (void)sleipnirAvailabliltyChanged: (BOOL) available {
+    self.labelHeadsetCheck.text = available ? self.checked : self.unChecked;
+}
+
 - (void) newSpeed:(NSNumber *)speed {
-    
     if (!self.measureWindspeed) {
         return;
     }
     
     self.windspeedSum += speed.doubleValue;
     self.windspeedCounter++;
+    self.qcSession.velocity = self.windspeedSum / (float) self.windspeedCounter;
     
-    self.windSpeedValue = self.windspeedSum / (float) self.windspeedCounter;
-
-    
-    
-    [self sleipnirAvailabliltyChanged: YES];
-    self.labelWindSpeed.text = [NSString stringWithFormat:@"%0.2f", self.windSpeedValue];
-    
-    self.windSpeed = fabs(self.windSpeedValue - self.windspeedStandard) < WINDSPEED_MAX_DEVIATION ? YES : NO;
-    self.labelWindSpeed.textColor = self.windSpeed ? [UIColor blackColor] : [UIColor redColor];
+    self.labelHeadsetCheck.text = self.checked;
+    self.labelWindSpeed.text = [NSString stringWithFormat:@"%0.2f", self.qcSession.velocity];
+    self.labelWindSpeed.textColor = [self.qcSession velocityPassed] ? [UIColor blackColor] : [UIColor redColor];
     
 }
 
 - (void) newWindAngleLocal:(NSNumber *)angle {
-    
-    
     if (self.windAngleCounter == 0) {
         double timeInterval = MEASURE_TIME/ (double) PROGRESS_BAR_STEPS;
         
@@ -227,22 +237,20 @@
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureWindspeedStart) userInfo:nil repeats:NO];
     }
     
-    self.labelWindDirection.text = [NSString stringWithFormat:@"%0.1f", angle.floatValue];
-    
-    self.windDirectionValue = angle.doubleValue;
-    
-    self.windDirection = fabs(angle.floatValue - ANGLE_STARNDARD) < ANGLE_MAX_DEVIATION ? YES : NO;
-    self.labelWindDirection.textColor = self.windDirection ? [UIColor blackColor] : [UIColor redColor];
-    
+    self.qcSession.windDirection = angle.floatValue;
+    self.labelWindDirection.text = [NSString stringWithFormat:@"%0.1f", self.qcSession.windDirection];
+    self.labelWindDirection.textColor = [self.qcSession windDirectinoPassed] ? [UIColor blackColor] : [UIColor redColor];
     self.windAngleCounter++;
 }
 
 - (void)newVelocityProfileError:(NSNumber *)profileError {
-    self.signalQuality = profileError.intValue <= SIGNAL_ERROR_MAX ? true : false;
-    
-    self.labelSignalQuality.text = [NSString stringWithFormat:@"%i", profileError.intValue];
-    self.labelSignalQuality.textColor = self.signalQuality ? [UIColor blackColor] : [UIColor redColor];
-    self.signalQUalityValue = profileError.doubleValue;
+    self.qcSession.velocityProfileError = profileError.floatValue;
+    self.labelSignalQuality.text = [NSString stringWithFormat:@"%0.0f", self.qcSession.velocityProfileError];
+    self.labelSignalQuality.textColor = [self.qcSession velocityProfileErrorPassed] ? [UIColor blackColor] : [UIColor redColor];
+}
+
+- (void)newTickDetectionErrorCount:(NSNumber *)tickDetectionErrorCount {
+    self.qcSession.signalLossCount += 1;
 }
 
 - (void) measureWindspeedStart {
@@ -253,64 +261,34 @@
     [self reset];
 }
 
+- (void)newAngularVelocities:(NSArray *)angularVelocities {
+    self.qcSession.velocityProfile = angularVelocities;
+}
+
 - (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.vaavudElectronics addListener:self];
     [self.vaavudElectronics addAnalysisListener:self];
     [self reset];
     
-    
-    NSNumber *windspeedStandardDatabase = @([[NSUserDefaults standardUserDefaults] floatForKey:@"MEAN_WIND_SPEED"]);
-    
-    if (windspeedStandardDatabase == nil) {
-        self.windspeedStandard = WINDSPEED_STANDARD;
-    } else {
-        self.windspeedStandard = windspeedStandardDatabase.doubleValue;
-    }
-    
-    [super viewDidAppear:animated];
-    
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
     [self.vaavudElectronics removeListener:self];
     [self.vaavudElectronics removeAnalysisListener:self];
     self.progressBarStepCount = 0;
     [self.progressBarTimer invalidate];
-    
-    [super viewDidDisappear:animated];
 }
 
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if ([segue.identifier isEqualToString:@"testResultScreen"]) {
          vaavudProductionTestResultViewController *destViewController = segue.destinationViewController;
-         
-         
-         destViewController.testSucessful = NO;
-         destViewController.signalQuality = self.signalQUalityValue;
-         
-         if (self.windAngleCounter < 24) {
-             destViewController.errorMessage = @"Signal Error";
-             return;
-         }
-         
-         if (!self.windSpeed) {
-             destViewController.errorMessage = [NSString stringWithFormat:@"Error, Speed: %.2f m/s", self.windSpeedValue];
-             return;
-         }
-         
-         if (!self.windDirection) {
-             destViewController.errorMessage = [NSString stringWithFormat:@"Error: Direction %.1f deg", self.windDirectionValue];
-             return;
-         }
-         
-         if (!self.signalQuality) {
-             destViewController.errorMessage = [NSString stringWithFormat:@"Error: S-Quality %.0f", self.signalQUalityValue];
-             return;
-         }
-     
-         destViewController.testSucessful = YES;
-         destViewController.errorMessage = @"Sucessful";
+         destViewController.signalQuality = self.qcSession.velocityProfileError;
+         destViewController.testSucessful = self.qcSession.qcPassed;
+         destViewController.errorMessage = self.qcSession.errorMessage;
      }
  }
 
