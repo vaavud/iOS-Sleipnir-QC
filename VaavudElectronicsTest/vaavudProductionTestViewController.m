@@ -24,17 +24,9 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
 @property (nonatomic) float velocityTarget;
 @property (nonatomic) float velocityProfileError;
 @property (nonatomic, strong) NSArray *velocityProfile;
-- (QCProductionSession *) initWith:(float)velocityTarget;
-- (NSDictionary *)asDic;
-- (BOOL)velocityPassed;
-- (BOOL)windDirectinoPassed;
-- (BOOL)velocityProfileErrorPassed;
-- (NSString *)errorMessage;
-- (BOOL)qcPassed;
 @end
 
 @implementation QCProductionSession
-
 - (QCProductionSession *) initWith:(float)velocityTarget {
     self = [super init];
     if (self) {
@@ -93,7 +85,6 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
 - (BOOL)qcPassed {
     return [self signalLossCountPassed] && [self velocityPassed] && [self windDirectinoPassed] && [self velocityProfileErrorPassed];
 }
-
 @end
 
 
@@ -101,7 +92,6 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
 @interface vaavudProductionTestViewController () <VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate, NSURLConnectionDelegate>
 
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
-
 @property (strong, nonatomic) QCProductionSession *qcSession;
 
 @property (nonatomic) BOOL measureWindspeed;
