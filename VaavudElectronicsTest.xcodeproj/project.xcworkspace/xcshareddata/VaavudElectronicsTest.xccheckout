@@ -7,7 +7,7 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>20DB2DEA-6B60-4973-99DE-A8119BCFC666</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>VaavudElectronicsTest</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4525B4F055BA80E56DE13620FF9BBB0D6C4E8A4D</key>
@@ -18,7 +18,7 @@
 		<string>github.com:vaavud/iOSElectronicWindMeter.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>VaavudElectronicsTest.xcodeproj/project.xcworkspace</string>
+	<string>VaavudElectronicsTest.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4525B4F055BA80E56DE13620FF9BBB0D6C4E8A4D</key>

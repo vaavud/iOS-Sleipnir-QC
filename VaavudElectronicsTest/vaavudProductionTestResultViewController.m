@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelTestResultIcon;
 @property VEVaavudElectronicSDK *vaavudElectronics;
 @property (weak, nonatomic) IBOutlet UILabel *labelTestResultErrorMessage;
-@property (weak, nonatomic) IBOutlet UILabel *labelTestResultSignalQuality;
 
 @end
 
@@ -29,17 +28,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.unChecked = @"☑️";
+    self.unChecked = @"❌";
     self.checked = @"✅";
     
     self.labelTestResultIcon.text = self.testSucessful ? self.checked : self.unChecked ;
-    self.labelTestResultSignalQuality.text = [NSString stringWithFormat:@"S-Quality: %.0f", self.signalQuality];
     self.labelTestResultErrorMessage.text = self.errorMessage;
     
-    
     self.vaavudElectronics = [VEVaavudElectronicSDK sharedVaavudElectronic];
-    
-    
     // Do any additional setup after loading the view.
 }
 

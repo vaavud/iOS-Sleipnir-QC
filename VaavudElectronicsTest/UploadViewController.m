@@ -8,9 +8,10 @@
 
 #import "UploadViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
+#import <MediaPlayer/MediaPlayer.h>
 
-#define RECORDING_TIME 5.2
-#define PROGRESS_BAR_STEPS 20
+#define RECORDING_TIME 10
+#define PROGRESS_BAR_STEPS 100
 
 @interface UploadViewController () <DBRestClientDelegate, UITextFieldDelegate, VaavudElectronicAnalysisDelegate, VaavudElectronicWindDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -94,31 +95,30 @@
 }
 
 
-- (IBAction)toggleRecording:(id)sender {
+- (IBAction)toggleRecording:(UISwitch*)sender {
     
     if([self.activityIndicator isAnimating]) {
-        if ([sender isOn]) {
+        if (sender.isOn) {
             [sender setOn:NO];
         }
     }
     
-    if ([sender isOn])
-    {
-//        [self.vaavudElectronic stop];
+    if (sender.isOn)
+        {
+//        [self.vaavudElectronic setActiveVolume:0.5]; // for volume control
         [self.vaavudElectronic startRecording];
-//        [self.vaavudElectronic start];
         
         double timeInterval = RECORDING_TIME/ (double) PROGRESS_BAR_STEPS;
         
         self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(endRecordingByTimer) userInfo:nil repeats:YES];
-        [self.progressBarTimer setTolerance:0.1];
+        [self.progressBarTimer setTolerance:0.01];
         [self.progressBarTimer fire];
-      
-    }
+        
+        }
     else
-    {
+        {
         [self.vaavudElectronic endRecording];
-    }
+        }
     
 }
 
@@ -126,6 +126,7 @@
     
     if ( self.progressBarStepCount < PROGRESS_BAR_STEPS) {
         [self.recordingProgressBar setProgress: self.progressBarStepCount / (float) PROGRESS_BAR_STEPS];
+//        [self.vaavudElectronic setActiveVolume:[self.vaavudElectronic getActiveVolume]-0.001]; for volume control
         self.progressBarStepCount++;
     }
     else {
@@ -160,6 +161,11 @@
     [self.restClient uploadFile:filename_angularVelocites toPath:[self folderDropbox] withParentRev:nil fromPath:[[self.vaavudElectronic summeryAngularVelocitiesPath] path]];
     [self.activityIndicator startAnimating];
 
+    NSString *filename_Volume = [[self mainFileNameDropbox] stringByAppendingString: @"_volume.txt"];
+    
+    [self.restClient uploadFile:filename_Volume toPath:[self folderDropbox] withParentRev:nil fromPath:[[self.vaavudElectronic summaryVolumePath] path]];
+    [self.activityIndicator startAnimating];
+    
     
 }
 
@@ -168,7 +174,7 @@
 }
 
 - (void) newWindAngleLocal:(NSNumber*) angle {
-    self.labelDirection.text = [NSString stringWithFormat:@"%d", angle.integerValue];
+    self.labelDirection.text = [NSString stringWithFormat:@"%ld", (long)angle.integerValue];
 }
 
 

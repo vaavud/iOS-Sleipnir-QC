@@ -110,11 +110,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioProcessingRaw.m"
-            timestampString = "449080287.438892"
+            timestampString = "453933527.189889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "-detectTick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -126,11 +126,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../VaavudElectronicSDK/VaavudElectronicSDK/VEAudioIO.m"
-            timestampString = "450190781.039944"
+            timestampString = "453911076.150942"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "466"
+            endingLineNumber = "466"
             landmarkName = "-checkStartStop"
             landmarkType = "5">
          </BreakpointContent>

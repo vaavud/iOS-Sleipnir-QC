@@ -11,11 +11,12 @@
 
 const int PROGRESS_BAR_STEPS = 20;
 const float MEASURE_TIME = 5.0;
-const float ANGLE_MAX_DEVIATION = 25.0;
-const float ANGLE_STANDARD = 90;
-const float WINDSPEED_MAX_DEVIATION = 0.25;
+const float ANGLE_STANDARD = 110; // 20150507ProductionQC
+const float ANGLE_MAX_DEVIATION = 20.0;
+const float WINDSPEED_MAX_DEVIATION = 0.20;
 const float SIGNAL_ERROR_MAX = 15.0;
 const int SIGNAL_LOSS_COUNT_MAX = 2;
+const double timeInterval = MEASURE_TIME/ (double) PROGRESS_BAR_STEPS;
 
 @interface QCProductionSession : NSObject
 @property (nonatomic) float windDirection;
@@ -51,7 +52,7 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
 }
 
 - (BOOL)signalLossCountPassed {
-    return self.signalLossCount < SIGNAL_LOSS_COUNT_MAX ? YES : NO;
+    return self.signalLossCount <= SIGNAL_LOSS_COUNT_MAX ? YES : NO;
 }
 
 - (BOOL)velocityPassed {
@@ -94,12 +95,11 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
 @property (strong, nonatomic) VEVaavudElectronicSDK *vaavudElectronics;
 @property (strong, nonatomic) QCProductionSession *qcSession;
 
-@property (nonatomic) BOOL measureWindspeed;
-@property (nonatomic) double windspeedSum;
-@property (nonatomic) int windspeedCounter;
+@property (nonatomic) BOOL measureSpeed;
+@property (nonatomic) double speedSum;
+@property (nonatomic) int speedSumCounter;
+@property (nonatomic) int speedCounter;
 @property NSMutableData *responseData;
-
-@property UInt32 windAngleCounter;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelHeadsetCheck;
 @property (weak, nonatomic) IBOutlet UILabel *labelWindDirection;
@@ -114,6 +114,8 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
 
 @property (strong, nonatomic) NSString *unChecked;
 @property (strong, nonatomic) NSString *checked;
+
+@property (strong, nonatomic) NSMutableArray *velocities;
 
 @end
 
@@ -141,17 +143,86 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
     self.labelSignalQuality.text = @"-";
     
     [self.recordingProgressBar setProgress: 0.0];
-    self.windAngleCounter = 0;
-    self.windspeedSum = 0;
-    self.windspeedCounter = 0;
+    self.progressBarStepCount = 0;
     
+    self.speedSum = 0;
+    self.speedSumCounter = 0;
+    self.speedCounter = 0;
+    self.measureSpeed = NO;
+    
+    self.velocities = [[NSMutableArray alloc] initWithCapacity:100];
     self.qcSession = [[QCProductionSession alloc] initWith:[[NSUserDefaults standardUserDefaults] floatForKey:@"MEAN_WIND_SPEED"]];
 }
 
+- (void)sleipnirAvailabliltyChanged: (BOOL) available {
+    self.labelHeadsetCheck.text = available ? self.checked : self.unChecked;
+}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)newSpeed:(NSNumber *)speed {
+    
+    [self findStart:speed];
+    
+    self.labelHeadsetCheck.text = self.checked;
+    self.labelWindSpeed.text = [NSString stringWithFormat:@"%0.2f", self.qcSession.velocity];
+    self.labelWindSpeed.textColor = [self.qcSession velocityPassed] ? [UIColor blackColor] : [UIColor redColor];
+    
+    if (self.measureSpeed) {
+        self.speedSum += speed.doubleValue;
+        self.speedSumCounter++;
+        self.qcSession.velocity = self.speedSum / (float) self.speedSumCounter;
+    }
+}
+
+- (void)findStart:(NSNumber *)speed {
+    if (speed.floatValue == 0.0) {
+        return;
+    }
+    
+    [self.velocities addObject:speed];
+    self.speedCounter += 1;
+    
+    if (self.speedCounter > 2 && self.measureSpeed == NO) {
+        float diff = speed.floatValue - ((NSNumber *) self.velocities[self.speedCounter-2]).floatValue;
+        if (fabsf(diff) < speed.floatValue*0.01){
+            self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
+            [self.progressBarTimer setTolerance:0.1];
+            [self.progressBarTimer fire];
+            self.measureSpeed = YES;
+        }
+    }
+}
+
+- (void)newWindAngleLocal:(NSNumber *)angle {
+    self.qcSession.windDirection = angle.floatValue;
+    self.labelWindDirection.text = [NSString stringWithFormat:@"%0.1f", self.qcSession.windDirection];
+    self.labelWindDirection.textColor = [self.qcSession windDirectinoPassed] ? [UIColor blackColor] : [UIColor redColor];
+}
+
+- (void)newVelocityProfileError:(NSNumber *)profileError {
+    self.qcSession.velocityProfileError = profileError.floatValue;
+    self.labelSignalQuality.text = [NSString stringWithFormat:@"%0.0f", self.qcSession.velocityProfileError];
+    self.labelSignalQuality.textColor = [self.qcSession velocityProfileErrorPassed] ? [UIColor blackColor] : [UIColor redColor];
+}
+
+- (void)newTickDetectionErrorCount:(NSNumber *)tickDetectionErrorCount {
+    self.qcSession.signalLossCount += 1;
+}
+
+- (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
+    [self reset];
+}
+
+- (void)newAngularVelocities:(NSArray *)angularVelocities {
+    self.qcSession.velocityProfile = angularVelocities;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"testResultScreen"]) {
+        vaavudProductionTestResultViewController *destViewController = segue.destinationViewController;
+        destViewController.signalQuality = self.qcSession.velocityProfileError;
+        destViewController.testSucessful = self.qcSession.qcPassed;
+        destViewController.errorMessage = self.qcSession.errorMessage;
+    }
 }
 
 - (void)updateProgress {
@@ -161,10 +232,22 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
     }
     else {
         [self.recordingProgressBar setProgress: 1.0];
-        self.progressBarStepCount = 0;
         [self.progressBarTimer invalidate];
-        [self upload];
-        [self performSegueWithIdentifier:@"testResultScreen" sender:self];
+        [self testComplete];
+    }
+}
+
+- (void)testComplete {
+    [self updateTargetVelocity];
+    [self upload];
+    [self performSegueWithIdentifier:@"testResultScreen" sender:self];
+}
+
+- (void)updateTargetVelocity {
+    if ([self.qcSession velocityPassed]) {
+        float currentTarget =[[NSUserDefaults standardUserDefaults] floatForKey:@"MEAN_WIND_SPEED"];
+        float newTarget = 0.9*currentTarget + 0.1*self.qcSession.velocity;
+        [[NSUserDefaults standardUserDefaults] setFloat:newTarget forKey:@"MEAN_WIND_SPEED"];
     }
 }
 
@@ -177,8 +260,6 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
     // This is how we set header fields
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     request.timeoutInterval = 20.0;
-    
-    
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self.qcSession asDic]
@@ -196,63 +277,37 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
 }
 
 
-- (void)sleipnirAvailabliltyChanged: (BOOL) available {
-    self.labelHeadsetCheck.text = available ? self.checked : self.unChecked;
-}
-
-- (void) newSpeed:(NSNumber *)speed {
-    if (!self.measureWindspeed) {
-        return;
-    }
+#pragma mark NSURLConnection Delegate Methods
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
     
-    self.windspeedSum += speed.doubleValue;
-    self.windspeedCounter++;
-    self.qcSession.velocity = self.windspeedSum / (float) self.windspeedCounter;
-    
-    self.labelHeadsetCheck.text = self.checked;
-    self.labelWindSpeed.text = [NSString stringWithFormat:@"%0.2f", self.qcSession.velocity];
-    self.labelWindSpeed.textColor = [self.qcSession velocityPassed] ? [UIColor blackColor] : [UIColor redColor];
-    
+    NSLog(@"Response Status code: %i", (int)response.statusCode);
+    self.responseData = [[NSMutableData alloc] init];
 }
 
-- (void) newWindAngleLocal:(NSNumber *)angle {
-    if (self.windAngleCounter == 0) {
-        double timeInterval = MEASURE_TIME/ (double) PROGRESS_BAR_STEPS;
-        
-        [self.progressBarTimer invalidate];
-        self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
-        [self.progressBarTimer setTolerance:0.1];
-        [self.progressBarTimer fire];
-        
-        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureWindspeedStart) userInfo:nil repeats:NO];
-    }
-    
-    self.qcSession.windDirection = angle.floatValue;
-    self.labelWindDirection.text = [NSString stringWithFormat:@"%0.1f", self.qcSession.windDirection];
-    self.labelWindDirection.textColor = [self.qcSession windDirectinoPassed] ? [UIColor blackColor] : [UIColor redColor];
-    self.windAngleCounter++;
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the new data to the instance variable you declared
+    [self.responseData appendData:data];
 }
 
-- (void)newVelocityProfileError:(NSNumber *)profileError {
-    self.qcSession.velocityProfileError = profileError.floatValue;
-    self.labelSignalQuality.text = [NSString stringWithFormat:@"%0.0f", self.qcSession.velocityProfileError];
-    self.labelSignalQuality.textColor = [self.qcSession velocityProfileErrorPassed] ? [UIColor blackColor] : [UIColor redColor];
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
 }
 
-- (void)newTickDetectionErrorCount:(NSNumber *)tickDetectionErrorCount {
-    self.qcSession.signalLossCount += 1;
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    //     NSLog(@"connectionDidFinishLoading");
 }
 
-- (void) measureWindspeedStart {
-    self.measureWindspeed = YES;
-}
-
-- (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
-    [self reset];
-}
-
-- (void)newAngularVelocities:(NSArray *)angularVelocities {
-    self.qcSession.velocityProfile = angularVelocities;
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    // The request has failed for some reason!
+    // Check the error var
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -272,52 +327,10 @@ const int SIGNAL_LOSS_COUNT_MAX = 2;
     [self.progressBarTimer invalidate];
 }
 
-
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if ([segue.identifier isEqualToString:@"testResultScreen"]) {
-         vaavudProductionTestResultViewController *destViewController = segue.destinationViewController;
-         destViewController.signalQuality = self.qcSession.velocityProfileError;
-         destViewController.testSucessful = self.qcSession.qcPassed;
-         destViewController.errorMessage = self.qcSession.errorMessage;
-     }
- }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 
-#pragma mark NSURLConnection Delegate Methods
-
-
-
- - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
-     // A response has been received, this is where we initialize the instance var you created
-     // so that we can append data to it in the didReceiveData method
-     // Furthermore, this method is called each time there is a redirect so reinitializing it
-     // also serves to clear it
-     
-     NSLog(@"Response Status code: %i", (int)response.statusCode);
-     self.responseData = [[NSMutableData alloc] init];
- }
- 
- - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-     // Append the new data to the instance variable you declared
-     [self.responseData appendData:data];
- }
- 
- - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
- willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-     // Return nil to indicate not necessary to store a cached response for this connection
-     return nil;
- }
- 
- - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-     // The request is complete and data has been received
-     // You can parse the stuff in your instance variable now
-//     NSLog(@"connectionDidFinishLoading");
- }
- 
- - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-     // The request has failed for some reason!
-     // Check the error var
- }
-     
-     
 @end
