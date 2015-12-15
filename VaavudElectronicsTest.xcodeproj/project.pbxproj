@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FDD95D51C1B6AE700CDDC77 /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FDD95D21C1B6AE700CDDC77 /* libTestFairy.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		9FDD95D61C1B6AE700CDDC77 /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FDD95D41C1B6AE700CDDC77 /* upload-dsym.sh */; };
+		9FDD96981C1B6EC700CDDC77 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FDD96971C1B6EC700CDDC77 /* DropboxSDK.framework */; };
 		D70334CE199372EB000FF779 /* HeadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D70334CD199372EB000FF779 /* HeadingViewController.m */; };
 		D70629BC19B4640200E6879A /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70629B719B463AF00E6879A /* libVaavudElectronicSDK.a */; };
 		D7094197197EAC04008925F0 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7094196197EAC04008925F0 /* UploadViewController.m */; };
@@ -23,7 +26,6 @@
 		D70B9ABD193F298400D6FA0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9A9F193F298400D6FA0B /* UIKit.framework */; };
 		D70B9AC5193F298400D6FA0B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D70B9AC3193F298400D6FA0B /* InfoPlist.strings */; };
 		D70B9AC7193F298400D6FA0B /* VaavudElectronicsTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D70B9AC6193F298400D6FA0B /* VaavudElectronicsTestTests.m */; };
-		D70B9AFF193F32F500D6FA0B /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */; };
 		D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B00193F331A00D6FA0B /* Security.framework */; };
 		D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70B9B02193F332700D6FA0B /* QuartzCore.framework */; };
 		D70C8DAB1A101C1E001E8E40 /* vaavudProductionTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D70C8DAA1A101C1E001E8E40 /* vaavudProductionTestViewController.m */; };
@@ -39,8 +41,6 @@
 		D73F153C1AC98A9000938A3D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73F153B1AC98A9000938A3D /* CoreMotion.framework */; };
 		D73F153E1AC98AA900938A3D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73F153D1AC98AA900938A3D /* SystemConfiguration.framework */; };
 		D73F15401AC98AB600938A3D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D73F153F1AC98AB600938A3D /* OpenGLES.framework */; };
-		D73F15461AC99EB600938A3D /* libTestFairy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D73F15431AC99EB600938A3D /* libTestFairy.a */; };
-		D73F15471AC99EB600938A3D /* upload-dsym.sh in Resources */ = {isa = PBXBuildFile; fileRef = D73F15451AC99EB600938A3D /* upload-dsym.sh */; };
 		D78B776F1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78B776E1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m */; };
 		D79DCCCE19DD6F3700CA7B36 /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = D79DCCB419DD6F3600CA7B36 /* AEFloatConverter.m */; };
 		D79DCCCF19DD6F3700CA7B36 /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D79DCCB619DD6F3600CA7B36 /* EZAudio.m */; };
@@ -112,6 +112,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9FDD95D21C1B6AE700CDDC77 /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFairy.a; sourceTree = "<group>"; };
+		9FDD95D31C1B6AE700CDDC77 /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFairy.h; sourceTree = "<group>"; };
+		9FDD95D41C1B6AE700CDDC77 /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "upload-dsym.sh"; sourceTree = "<group>"; };
+		9FDD96971C1B6EC700CDDC77 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		D70334CC199372EB000FF779 /* HeadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadingViewController.h; sourceTree = "<group>"; };
 		D70334CD199372EB000FF779 /* HeadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadingViewController.m; sourceTree = "<group>"; };
 		D70629B019B463AF00E6879A /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
@@ -134,7 +138,6 @@
 		D70B9AC2193F298400D6FA0B /* VaavudElectronicsTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VaavudElectronicsTestTests-Info.plist"; sourceTree = "<group>"; };
 		D70B9AC4193F298400D6FA0B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D70B9AC6193F298400D6FA0B /* VaavudElectronicsTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VaavudElectronicsTestTests.m; sourceTree = "<group>"; };
-		D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		D70B9B00193F331A00D6FA0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D70B9B02193F332700D6FA0B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D70B9B0619448EB000D6FA0B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
@@ -157,9 +160,6 @@
 		D73F153B1AC98A9000938A3D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D73F153D1AC98AA900938A3D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D73F153F1AC98AB600938A3D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		D73F15431AC99EB600938A3D /* libTestFairy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFairy.a; sourceTree = "<group>"; };
-		D73F15441AC99EB600938A3D /* TestFairy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFairy.h; sourceTree = "<group>"; };
-		D73F15451AC99EB600938A3D /* upload-dsym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "upload-dsym.sh"; sourceTree = "<group>"; };
 		D78B776D1A39CD0400D15CCC /* vaavudProductionTestResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudProductionTestResultViewController.h; sourceTree = "<group>"; };
 		D78B776E1A39CD0400D15CCC /* vaavudProductionTestResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudProductionTestResultViewController.m; sourceTree = "<group>"; };
 		D79DCCB319DD6F3600CA7B36 /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
@@ -210,6 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FDD96981C1B6EC700CDDC77 /* DropboxSDK.framework in Frameworks */,
 				D73F15401AC98AB600938A3D /* OpenGLES.framework in Frameworks */,
 				D73F153E1AC98AA900938A3D /* SystemConfiguration.framework in Frameworks */,
 				D7D1098C19A4DC8F006A8277 /* AVFoundation.framework in Frameworks */,
@@ -222,11 +223,10 @@
 				D73E98CD1976754B0011D516 /* CoreLocation.framework in Frameworks */,
 				D70B9B03193F332700D6FA0B /* QuartzCore.framework in Frameworks */,
 				D70B9B01193F331A00D6FA0B /* Security.framework in Frameworks */,
-				D70B9AFF193F32F500D6FA0B /* DropboxSDK.framework in Frameworks */,
 				D70B9A9E193F298400D6FA0B /* CoreGraphics.framework in Frameworks */,
 				D70B9AA0193F298400D6FA0B /* UIKit.framework in Frameworks */,
 				D70B9A9C193F298400D6FA0B /* Foundation.framework in Frameworks */,
-				D73F15461AC99EB600938A3D /* libTestFairy.a in Frameworks */,
+				9FDD95D51C1B6AE700CDDC77 /* libTestFairy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +243,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9FDD95D11C1B6AE700CDDC77 /* TestFairy */ = {
+			isa = PBXGroup;
+			children = (
+				9FDD95D21C1B6AE700CDDC77 /* libTestFairy.a */,
+				9FDD95D31C1B6AE700CDDC77 /* TestFairy.h */,
+				9FDD95D41C1B6AE700CDDC77 /* upload-dsym.sh */,
+			);
+			path = TestFairy;
+			sourceTree = "<group>";
+		};
 		D70629B119B463AF00E6879A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,7 +285,8 @@
 		D70B9A9A193F298400D6FA0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D73F15421AC99EB600938A3D /* TestFairy */,
+				9FDD96971C1B6EC700CDDC77 /* DropboxSDK.framework */,
+				9FDD95D11C1B6AE700CDDC77 /* TestFairy */,
 				D73F153F1AC98AB600938A3D /* OpenGLES.framework */,
 				D73F153D1AC98AA900938A3D /* SystemConfiguration.framework */,
 				D73F153B1AC98A9000938A3D /* CoreMotion.framework */,
@@ -290,7 +301,6 @@
 				D70B9B0619448EB000D6FA0B /* AudioUnit.framework */,
 				D70B9B02193F332700D6FA0B /* QuartzCore.framework */,
 				D70B9B00193F331A00D6FA0B /* Security.framework */,
-				D70B9AFE193F32F500D6FA0B /* DropboxSDK.framework */,
 				D70B9A9B193F298400D6FA0B /* Foundation.framework */,
 				D70B9A9D193F298400D6FA0B /* CoreGraphics.framework */,
 				D70B9A9F193F298400D6FA0B /* UIKit.framework */,
@@ -377,16 +387,6 @@
 				D73E993C197E5B2C0011D516 /* libCorePlot-CocoaTouch.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		D73F15421AC99EB600938A3D /* TestFairy */ = {
-			isa = PBXGroup;
-			children = (
-				D73F15431AC99EB600938A3D /* libTestFairy.a */,
-				D73F15441AC99EB600938A3D /* TestFairy.h */,
-				D73F15451AC99EB600938A3D /* upload-dsym.sh */,
-			);
-			path = TestFairy;
 			sourceTree = "<group>";
 		};
 		D74C247E1990C6030098A036 /* iPad */ = {
@@ -509,7 +509,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = vaavud;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Vaavud;
 				TargetAttributes = {
 					D70B9A97193F298400D6FA0B = {
@@ -582,7 +582,7 @@
 				D79DCCDA19DD6F3700CA7B36 /* CHANGELOG in Resources */,
 				D70B9AA6193F298400D6FA0B /* InfoPlist.strings in Resources */,
 				D70B9AAF193F298400D6FA0B /* Main.storyboard in Resources */,
-				D73F15471AC99EB600938A3D /* upload-dsym.sh in Resources */,
+				9FDD95D61C1B6AE700CDDC77 /* upload-dsym.sh in Resources */,
 				D79DCCDB19DD6F3700CA7B36 /* VERSION in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -725,6 +725,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -763,6 +765,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -796,13 +799,14 @@
 					"../core-plot/framework/**",
 				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TestFairySDK-1",
 					"$(PROJECT_DIR)/TestFairy",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaavud.elec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -829,13 +833,14 @@
 					"../core-plot/framework/**",
 				);
 				INFOPLIST_FILE = "VaavudElectronicsTest/VaavudElectronicsTest-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TestFairySDK-1",
 					"$(PROJECT_DIR)/TestFairy",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaavud.elec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -859,6 +864,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "VaavudElectronicsTestTests/VaavudElectronicsTestTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaavud.elec.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -877,6 +883,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudElectronicsTest/VaavudElectronicsTest-Prefix.pch";
 				INFOPLIST_FILE = "VaavudElectronicsTestTests/VaavudElectronicsTestTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vaavud.elec.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
